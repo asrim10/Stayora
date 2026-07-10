@@ -2,12 +2,18 @@ import { Router } from "express";
 import { AuthController } from "../controllers/auth.controller";
 import { authorizedMiddleware } from "../middlewares/authorized.middleware";
 import { uploads } from "../middlewares/upload.middleware";
+import {
+  loginLimiter,
+  registerLimiter,
+  passwordResetRequestLimiter,
+  passwordResetLimiter,
+} from "../middlewares/rateLimiter.middleware";
 
 let authController = new AuthController();
 const router = Router();
 
-router.post("/register", authController.register);
-router.post("/login", authController.login);
+router.post("/register", registerLimiter, authController.register);
+router.post("/login", loginLimiter, authController.login);
 router.patch("/users/:id", authController.updateProfile);
 router.delete("/users/:id", authController.delete);
 router.get("/whoami", authorizedMiddleware, authController.getProfile);
@@ -18,7 +24,15 @@ router.put(
   uploads.single("image"), // "image" - field name from frontend/client
   authController.updateProfile,
 );
-router.post("/request-password-reset", authController.requestPasswordReset);
-router.post("/reset-password/:token", authController.resetPassword);
+router.post(
+  "/request-password-reset",
+  passwordResetRequestLimiter,
+  authController.requestPasswordReset,
+);
+router.post(
+  "/reset-password/:token",
+  passwordResetLimiter,
+  authController.resetPassword,
+);
 
 export default router;

@@ -11,6 +11,7 @@ import { LoginData, RegisterData } from "@/app/(auth)/schema";
 import { setAuthToken, setUserData, clearAuthCookies } from "../cookie";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+
 export const handleRegister = async (data: RegisterData) => {
   try {
     const response = await register(data);
@@ -98,6 +99,7 @@ export async function handleUpdateProfile(profileData: FormData) {
     return { success: false, message: error.message };
   }
 }
+
 export const handleRequestPasswordReset = async (email: string) => {
   try {
     const response = await requestPasswordReset(email);
