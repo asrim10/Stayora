@@ -1,0 +1,5 @@
+# Coursework planning files (not part of the source code)
+CW2_*.md
+
+# Security audit (generated report)
+stayora-backend/SECURITY_AUDIT.md

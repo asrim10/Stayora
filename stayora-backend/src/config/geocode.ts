@@ -8,7 +8,7 @@ export async function geocodeAddress(
     `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`,
     {
       headers: {
-        "User-Agent": "HotelSpot/1.0", // Nominatim requires this
+        "User-Agent": "Stayora/1.0", // Nominatim requires this
       },
     },
   );

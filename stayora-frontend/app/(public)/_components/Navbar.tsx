@@ -30,7 +30,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             <Image
               src="/images/logo.png"
-              alt="Hotelspot Logo"
+              alt="Stayora Logo"
               width={40}
               height={40}
               className="object-contain"
@@ -39,7 +39,7 @@ export default function Navbar() {
 
           {/* Center Logo Text */}
           <div className="text-white font-serif text-2xl tracking-widest">
-            Hotelspot
+            Stayora
           </div>
 
           {/* Right */}

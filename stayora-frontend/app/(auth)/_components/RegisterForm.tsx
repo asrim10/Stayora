@@ -61,9 +61,9 @@ export default function RegisterForm() {
               strokeLinejoin="round"
             />
           </svg>
-          Hotelspot
+          Stayora
         </div>
-        <h1 className="text-3xl font-serif mt-4">Welcome to Hotel_Spot</h1>
+        <h1 className="text-3xl font-serif mt-4">Welcome to Stayora</h1>
         <p className="text-sm text-gray-700 mt-2">Create your account</p>
       </div>
 

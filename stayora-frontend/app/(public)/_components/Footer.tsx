@@ -23,11 +23,11 @@ export default function Footer() {
           <div className="text-center">
             <div className="w-16 h-16 mx-auto mb-3 rounded-full border-2 border-yellow-500 flex items-center justify-center bg-yellow-500/10">
               <span className="text-yellow-500 text-2xl font-serif font-bold">
-                H
+                S
               </span>
             </div>
             <h3 className="text-white text-xl font-serif tracking-wider">
-              HOTELSPOT
+              STAYORA
             </h3>
           </div>
         </div>
@@ -194,7 +194,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/50 text-sm">
-            Copyright © 2024 Hotelspot. All rights reserved.
+            Copyright © 2024 Stayora. All rights reserved.
           </p>
 
           <div className="flex items-center gap-6 text-white/50 text-sm">

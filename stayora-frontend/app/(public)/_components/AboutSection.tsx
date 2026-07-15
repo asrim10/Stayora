@@ -23,14 +23,14 @@ export default function AboutSection() {
           <div className="mb-6">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full border border-yellow-500 flex items-center justify-center font-semibold">
-                H
+                S
               </div>
 
               <div>
                 <h2 className="text-4xl font-serif text-white">
                   About{" "}
                   <span className="text-yellow-500 font-semibold">
-                    Hotelspot
+                    Stayora
                   </span>
                 </h2>
 
@@ -41,7 +41,7 @@ export default function AboutSection() {
 
           {/* Paragraph */}
           <p className="text-white/70 leading-relaxed text-sm">
-            Hotelspot is passionate about creating unforgettable experiences and
+            Stayora is passionate about creating unforgettable experiences and
             understands that little things make a huge difference for our
             guests. We deliver premium comfort, luxury service, and world-class
             hospitality.
@@ -76,7 +76,7 @@ export default function AboutSection() {
           <div className="relative w-[320px] h-[520px] rounded-[200px] overflow-hidden border-4 border-yellow-500/50">
             <Image
               src="/images/about.jpg"
-              alt="Hotelspot About"
+              alt="Stayora About"
               fill
               className="object-cover"
             />
@@ -94,7 +94,7 @@ export default function AboutSection() {
                 dy="-10"
                 className="text-[13px] fill-white/70 tracking-[0.3em] uppercase font-light"
               >
-                <textPath href="#circlePath">Welcome to Hotelspot</textPath>
+                <textPath href="#circlePath">Welcome to Stayora</textPath>
               </text>
             </svg>
           </div>

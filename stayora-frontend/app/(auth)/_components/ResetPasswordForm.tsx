@@ -64,7 +64,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
               strokeLinejoin="round"
             />
           </svg>
-          Hotelspot
+          Stayora
         </div>
         <h2 className="text-3xl font-serif mt-4">Reset your password</h2>
       </div>

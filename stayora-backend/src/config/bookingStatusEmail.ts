@@ -94,7 +94,7 @@ export const bookingStatusEmail = (
           </div>
 
           <p style="color: #6b7280; font-size: 14px;">If you have any questions, feel free to reply to this email.</p>
-          <p style="color: #6b7280; font-size: 14px; margin-bottom: 0;">— Hotel Spot Team</p>
+          <p style="color: #6b7280; font-size: 14px; margin-bottom: 0;">— Stayora Team</p>
         </div>
       </div>
     `,

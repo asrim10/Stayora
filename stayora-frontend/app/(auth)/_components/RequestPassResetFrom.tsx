@@ -60,7 +60,7 @@ export default function RequestPasswordResetForm() {
               strokeLinejoin="round"
             />
           </svg>
-          Hotelspot
+          Stayora
         </div>
         <h2 className="text-3xl font-serif mt-4 mb-4 text-gray-800 dark:text-white">
           Check Your Email
@@ -92,7 +92,7 @@ export default function RequestPasswordResetForm() {
               strokeLinejoin="round"
             />
           </svg>
-          Hotelspot
+          Stayora
         </div>
         <h2 className="text-3xl font-serif mt-4 text-gray-800 dark:text-white">
           Reset Password

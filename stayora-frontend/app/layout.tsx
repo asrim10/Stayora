@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "hotel_spot",
+  title: "Stayora",
   description: "Book your dream hotel.",
   icons: "/images/logo.png",
 };

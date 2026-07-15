@@ -252,7 +252,7 @@ export default function HotelBookingPage() {
           <ChevronLeft size={14} /> Back
         </button>
         <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase m-0">
-          Hotelspot
+          Stayora
         </p>
         <Heart
           size={16}

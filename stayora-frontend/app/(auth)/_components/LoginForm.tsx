@@ -69,7 +69,7 @@ export default function LoginForm() {
               strokeLinejoin="round"
             />
           </svg>
-          Hotelspot
+          Stayora
         </div>
         <h2 className="text-3xl font-serif mt-4">Sign in to your account</h2>
       </div>

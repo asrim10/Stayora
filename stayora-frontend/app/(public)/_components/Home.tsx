@@ -18,11 +18,11 @@ export default function Home() {
       <div className="relative z-10 flex flex-col items-center justify-center text-center min-h-screen px-4">
         <div className="flex flex-col items-center mb-6">
           <div className="w-14 h-14 rounded-full border border-yellow-500 flex items-center justify-center text-white font-bold text-xl">
-            H
+            S
           </div>
 
           <p className="text-white font-semibold tracking-wide mt-2">
-            HOTEL SPOT
+            STAYORA
           </p>
         </div>
 
