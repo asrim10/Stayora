@@ -84,12 +84,11 @@ export class UserService {
       lockUntil: null as any,
     });
 
-    //generate jwt
+    //generate jwt — never include sensitive fields like password
     const payload = {
       id: user._id,
       email: user.email,
-      username: user.email,
-      password: user.password,
+      username: user.username,
       fullName: user.fullName,
       role: user.role,
     };

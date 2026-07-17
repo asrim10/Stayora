@@ -2,6 +2,8 @@
 
 import { cookies } from "next/headers";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 interface UserData {
   _id: string;
   email: string;
@@ -16,6 +18,11 @@ export const setAuthToken = async (token: string) => {
   cookieStore.set({
     name: "auth_token",
     value: token,
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   });
 };
 export const getAuthToken = async () => {
@@ -27,6 +34,11 @@ export const setUserData = async (userData: UserData) => {
   cookieStore.set({
     name: "user_data",
     value: JSON.stringify(userData),
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   });
 };
 export const getUserData = async (): Promise<UserData | null> => {
