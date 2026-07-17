@@ -102,6 +102,8 @@ describe("UserService", () => {
   it("5. loginUser throws 401 on invalid password", async () => {
     repo.getUserByEmail.mockResolvedValue(fakeUser as any);
     (bcryptjs.compare as jest.Mock).mockResolvedValue(false);
+    // Prevent the real updateUser from hitting the DB with fake _id
+    repo.updateUser.mockResolvedValue(fakeUser as any);
 
     await expect(
       service.loginUser({ email: "test@example.com", password: "wrong" }),
@@ -109,10 +111,22 @@ describe("UserService", () => {
   });
 
   // 6. loginUser: returns token and user on success
+  // The password field must NOT be present in the JWT payload for security.
   it("6. loginUser returns token and user on success", async () => {
     repo.getUserByEmail.mockResolvedValue(fakeUser as any);
     (bcryptjs.compare as jest.Mock).mockResolvedValue(true);
-    (jwt.sign as jest.Mock).mockReturnValue("mock_token");
+
+    // Capture the payload passed to jwt.sign so we can verify it
+    let capturedPayload: any = null;
+    (jwt.sign as jest.Mock).mockImplementation(
+      (payload: any, _secret: string, _opts: any) => {
+        capturedPayload = payload;
+        return "mock_token";
+      },
+    );
+
+    // Prevent the real updateUser from hitting the DB with fake _id
+    repo.updateUser.mockResolvedValue(fakeUser as any);
 
     const result = await service.loginUser({
       email: "test@example.com",
@@ -120,6 +134,12 @@ describe("UserService", () => {
     });
 
     expect(result).toEqual({ token: "mock_token", user: fakeUser });
+
+    // 🛡️ Security assertions: JWT must NOT include the password hash
+    expect(capturedPayload).not.toHaveProperty("password");
+    expect(capturedPayload).toHaveProperty("username", fakeUser.username);
+    expect(capturedPayload).toHaveProperty("email", fakeUser.email);
+    expect(capturedPayload).toHaveProperty("role", fakeUser.role);
   });
 
   // 7. getUserById: throws 404 if user not found
