@@ -49,10 +49,11 @@ export const updateProfile = async (profileData: any) => {
   }
 };
 
-export const requestPasswordReset = async (email: string) => {
+export const requestPasswordReset = async (email: string, captchaToken?: string) => {
   try {
     const response = await axios.post(API.AUTH.REQUEST_RESET_PASSWORD, {
       email,
+      captchaToken,
     });
     return response.data;
   } catch (error: Error | any) {

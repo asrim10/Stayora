@@ -6,6 +6,7 @@ import { requestPasswordReset } from "@/lib/api/auth";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import z from "zod";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 export const RequestPasswordResetSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -17,6 +18,8 @@ export type RequestPasswordResetDTO = z.infer<
 
 export default function RequestPasswordResetForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string>("");
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
   const {
     register,
     handleSubmit,
@@ -26,8 +29,12 @@ export default function RequestPasswordResetForm() {
   });
 
   const onSubmit = async (data: RequestPasswordResetDTO) => {
+    if (turnstileSiteKey && !captchaToken) {
+      toast.error("Please complete the CAPTCHA verification");
+      return;
+    }
     try {
-      const response = await requestPasswordReset(data.email);
+      const response = await requestPasswordReset(data.email, captchaToken);
       if (response.success) {
         toast.success("Password reset link sent to your email.");
         setIsSubmitted(true);
@@ -123,9 +130,24 @@ export default function RequestPasswordResetForm() {
           )}
         </div>
 
+        {turnstileSiteKey && (
+          <div className="flex justify-center">
+            <Turnstile
+              siteKey={turnstileSiteKey}
+              onSuccess={(token) => setCaptchaToken(token)}
+              onError={() => toast.error("CAPTCHA verification failed. Please refresh and try again.")}
+              onExpire={() => {
+                setCaptchaToken("");
+                toast.error("CAPTCHA expired, please verify again.");
+              }}
+              options={{ theme: "light" }}
+            />
+          </div>
+        )}
+
         <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitting || (!!turnstileSiteKey && !captchaToken)}
           className="h-10 w-full rounded-md bg-black text-white text-sm font-semibold hover:opacity-95 disabled:opacity-60"
         >
           {isSubmitting ? "Sending..." : "Send Reset Link"}

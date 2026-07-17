@@ -3,6 +3,7 @@ import z from "zod";
 export const loginSchema = z.object({
   email: z.email({ message: "Enter a valid email" }),
   password: z.string().min(6, { message: "Minimum 6 characters" }),
+  captchaToken: z.string().optional(),
 });
 
 export type LoginData = z.infer<typeof loginSchema>;
@@ -14,6 +15,7 @@ export const registerSchema = z
     email: z.email({ message: "Enter a valid email" }),
     password: z.string().min(6, { message: "Minimum 6 characters" }),
     confirmPassword: z.string().min(6, { message: "Minimum 6 characters" }),
+    captchaToken: z.string().optional(),
   })
   .refine((v) => v.password === v.confirmPassword, {
     path: ["confirmPassword"],

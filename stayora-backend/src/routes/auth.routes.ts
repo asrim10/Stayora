@@ -8,12 +8,13 @@ import {
   passwordResetRequestLimiter,
   passwordResetLimiter,
 } from "../middlewares/rateLimiter.middleware";
+import { captchaMiddleware } from "../middlewares/captcha.middleware";
 
 let authController = new AuthController();
 const router = Router();
 
-router.post("/register", registerLimiter, authController.register);
-router.post("/login", loginLimiter, authController.login);
+router.post("/register", registerLimiter, captchaMiddleware, authController.register);
+router.post("/login", loginLimiter, captchaMiddleware, authController.login);
 router.patch("/users/:id", authController.updateProfile);
 router.delete("/users/:id", authController.delete);
 router.get("/whoami", authorizedMiddleware, authController.getProfile);
@@ -27,6 +28,7 @@ router.put(
 router.post(
   "/request-password-reset",
   passwordResetRequestLimiter,
+  captchaMiddleware,
   authController.requestPasswordReset,
 );
 router.post(

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useTransition, useState } from "react";
 import { handleRegister } from "@/lib/actions/auth-action";
 import { Eye, EyeOff } from "lucide-react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -22,12 +23,18 @@ export default function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string>("");
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   const submit = async (values: RegisterData) => {
+    if (turnstileSiteKey && !captchaToken) {
+      setError("Please complete the CAPTCHA verification");
+      return;
+    }
     setError(null);
     setTransition(async () => {
       try {
-        const response = await handleRegister(values);
+        const response = await handleRegister({ ...values, captchaToken });
         if (!response.success) {
           throw new Error(response.message);
         }
@@ -179,9 +186,24 @@ export default function RegisterForm() {
           )}
         </div>
 
+        {turnstileSiteKey && (
+          <div className="flex justify-center">
+            <Turnstile
+              siteKey={turnstileSiteKey}
+              onSuccess={(token) => setCaptchaToken(token)}
+              onError={() => setError("CAPTCHA verification failed. Please refresh and try again.")}
+              onExpire={() => {
+                setCaptchaToken("");
+                setError("CAPTCHA expired, please verify again.");
+              }}
+              options={{ theme: "light" }}
+            />
+          </div>
+        )}
+
         <button
           type="submit"
-          disabled={isSubmitting || pending}
+          disabled={isSubmitting || pending || (!!turnstileSiteKey && !captchaToken)}
           className="h-10 w-full rounded-md bg-black text-white text-sm font-semibold hover:opacity-95 disabled:opacity-60"
         >
           {isSubmitting || pending ? "Creating account..." : "Sign Up"}

@@ -9,11 +9,14 @@ import { FcGoogle } from "react-icons/fc";
 import { handleLogin } from "@/lib/actions/auth-action";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 export default function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string>("");
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
   const {
     register,
     handleSubmit,
@@ -26,10 +29,14 @@ export default function LoginForm() {
   const [pending, setTransition] = useTransition();
 
   const submit = async (values: LoginData) => {
+    if (turnstileSiteKey && !captchaToken) {
+      setError("Please complete the CAPTCHA verification");
+      return;
+    }
     setError(null);
     setTransition(async () => {
       try {
-        const response = await handleLogin(values);
+        const response = await handleLogin({ ...values, captchaToken });
         if (!response.success) {
           throw new Error(response.message);
         }
@@ -130,9 +137,24 @@ export default function LoginForm() {
           Forgot password?
         </Link>
 
+        {turnstileSiteKey && (
+          <div className="flex justify-center">
+            <Turnstile
+              siteKey={turnstileSiteKey}
+              onSuccess={(token) => setCaptchaToken(token)}
+              onError={() => setError("CAPTCHA verification failed. Please refresh and try again.")}
+              onExpire={() => {
+                setCaptchaToken("");
+                setError("CAPTCHA expired, please verify again.");
+              }}
+              options={{ theme: "light" }}
+            />
+          </div>
+        )}
+
         <button
           type="submit"
-          disabled={isSubmitting || pending}
+          disabled={isSubmitting || pending || (!!turnstileSiteKey && !captchaToken)}
           className="h-10 w-full rounded-md bg-black text-white text-sm font-semibold hover:opacity-95 disabled:opacity-60"
         >
           {isSubmitting || pending ? "Signing in..." : "Login"}

@@ -10,10 +10,10 @@
     "test": "jest --runInBand --verbose --detectOpenHandles",
     "test:coverage": "jest --runInBand --coverage",
     "test:watch": "jest --watch"
-
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@marsidev/react-turnstile": "^1.5.3",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-dialog": "^1.1.15",
     "axios": "^1.13.2",
