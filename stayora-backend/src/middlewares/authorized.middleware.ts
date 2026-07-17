@@ -19,11 +19,27 @@ export const authorizedMiddleware = async (
   next: NextFunction,
 ) => {
   try {
+    // 1. Try Authorization header first (Bearer token)
+    // 2. Fall back to httpOnly auth_token cookie (set by backend on login)
+    let token: string | undefined;
+
     const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer "))
-      throw new HttpError(401, "Unauthorized JWT invalid");
-    // JWT token should start with "Bearer <token>"
-    const token = authHeader.split(" ")[1]; // 0 -> Bearer, 1 -> token
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.split(" ")[1]; // 0 -> Bearer, 1 -> token
+    }
+
+    if (!token) {
+      // Parse the auth_token cookie manually (no cookie-parser dependency)
+      const rawCookie = req.headers.cookie;
+      if (rawCookie) {
+        const match = rawCookie
+          .split("; ")
+          .find((c) => c.startsWith("auth_token="))
+          ?.split("=")[1];
+        if (match) token = decodeURIComponent(match);
+      }
+    }
+
     if (!token) throw new HttpError(401, "Unauthorized JWT missing");
     const decodedToken = jwt.verify(token, JWT_SECRET) as Record<string, any>;
     if (!decodedToken || !decodedToken.id) {

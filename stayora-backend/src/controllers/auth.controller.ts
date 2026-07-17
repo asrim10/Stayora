@@ -3,7 +3,23 @@ import { CreateUserDTO, LoginUserDTO, UpdateUserDTO } from "../dtos/user.dto";
 import { Request, Response } from "express";
 import z, { success } from "zod";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 let userService = new UserService();
+
+/**
+ * Set the JWT as an httpOnly, secure, sameSite cookie so it's not accessible
+ * from client-side JavaScript, mitigating XSS token theft.
+ */
+const setAuthCookie = (res: Response, token: string) => {
+  res.cookie("auth_token", token, {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days (matches JWT expiry)
+  });
+};
 
 export class AuthController {
   async register(req: Request, res: Response) {
@@ -38,6 +54,8 @@ export class AuthController {
       }
       const loginData: LoginUserDTO = parsedData.data;
       const { token, user } = await userService.loginUser(loginData);
+      // Set httpOnly cookie for automatic cookie-based auth
+      setAuthCookie(res, token);
       return res.status(200).json({
         success: true,
         message: "Login Successful",
