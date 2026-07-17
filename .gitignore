@@ -1,5 +1,6 @@
 # Coursework planning files (not part of the source code)
 CW2_*.md
 
-# Security audit (generated report)
+# Security documentation (generated reports)
+SECURITY.md
 stayora-backend/SECURITY_AUDIT.md
