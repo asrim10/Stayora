@@ -16,6 +16,7 @@ export default function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string>("");
+  const [turnstileKey, setTurnstileKey] = useState(0);
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
   const {
     register,
@@ -53,6 +54,10 @@ export default function LoginForm() {
         }
       } catch (err: Error | any) {
         setError(err.message || "Login failed");
+      } finally {
+        // Reset Turnstile — token is one-time use
+        setCaptchaToken("");
+        setTurnstileKey((k) => k + 1);
       }
     });
   };
@@ -140,11 +145,17 @@ export default function LoginForm() {
         {turnstileSiteKey && (
           <div className="flex justify-center">
             <Turnstile
+              key={turnstileKey}
               siteKey={turnstileSiteKey}
               onSuccess={(token) => setCaptchaToken(token)}
-              onError={() => setError("CAPTCHA verification failed. Please refresh and try again.")}
+              onError={() => {
+                setCaptchaToken("");
+                setTurnstileKey((k) => k + 1);
+                setError("CAPTCHA verification failed. Please refresh and try again.");
+              }}
               onExpire={() => {
                 setCaptchaToken("");
+                setTurnstileKey((k) => k + 1);
                 setError("CAPTCHA expired, please verify again.");
               }}
               options={{ theme: "light" }}

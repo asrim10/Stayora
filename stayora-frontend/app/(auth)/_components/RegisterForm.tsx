@@ -24,6 +24,7 @@ export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string>("");
+  const [turnstileKey, setTurnstileKey] = useState(0);
   const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   const submit = async (values: RegisterData) => {
@@ -45,6 +46,10 @@ export default function RegisterForm() {
         }
       } catch (err: Error | any) {
         setError(err.message || "Registration failed");
+      } finally {
+        // Reset Turnstile — token is one-time use
+        setCaptchaToken("");
+        setTurnstileKey((k) => k + 1);
       }
     });
   };
@@ -189,11 +194,17 @@ export default function RegisterForm() {
         {turnstileSiteKey && (
           <div className="flex justify-center">
             <Turnstile
+              key={turnstileKey}
               siteKey={turnstileSiteKey}
               onSuccess={(token) => setCaptchaToken(token)}
-              onError={() => setError("CAPTCHA verification failed. Please refresh and try again.")}
+              onError={() => {
+                setCaptchaToken("");
+                setTurnstileKey((k) => k + 1);
+                setError("CAPTCHA verification failed. Please refresh and try again.");
+              }}
               onExpire={() => {
                 setCaptchaToken("");
+                setTurnstileKey((k) => k + 1);
                 setError("CAPTCHA expired, please verify again.");
               }}
               options={{ theme: "light" }}
