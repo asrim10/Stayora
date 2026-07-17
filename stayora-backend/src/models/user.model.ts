@@ -13,6 +13,8 @@ const UserSchema: Schema = new Schema<UserType>(
       default: "user",
     },
     imageUrl: { type: String, required: false },
+    loginAttempts: { type: Number, default: 0 },
+    lockUntil: { type: Date, default: null },
   },
   {
     timestamps: true,

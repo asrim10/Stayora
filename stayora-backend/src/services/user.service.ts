@@ -32,10 +32,58 @@ export class UserService {
     if (!user) {
       throw new HttpError(404, "User not found");
     }
+
+    // Check if account is locked
+    if (user.lockUntil && user.lockUntil > new Date()) {
+      const remainingMinutes = Math.ceil(
+        (user.lockUntil.getTime() - Date.now()) / 60000,
+      );
+      throw new HttpError(
+        423,
+        `Account locked due to too many failed attempts. Try again in ${remainingMinutes} minute(s).`,
+      );
+    }
+
+    // If lock has expired, reset attempt counter
+    if (user.lockUntil && user.lockUntil <= new Date()) {
+      await userRepository.updateUser(user._id.toString(), {
+        loginAttempts: 0,
+        lockUntil: null as any,
+      });
+      user.loginAttempts = 0;
+      user.lockUntil = undefined;
+    }
+
     const validPassword = await bcryptjs.compare(data.password, user.password);
     if (!validPassword) {
+      // Increment failed attempts
+      const attempts = (user.loginAttempts || 0) + 1;
+      const maxAttempts = 15;
+
+      if (attempts >= maxAttempts) {
+        // Lock the account for 30 minutes
+        await userRepository.updateUser(user._id.toString(), {
+          loginAttempts: attempts,
+          lockUntil: new Date(Date.now() + 30 * 60 * 1000),
+        });
+        throw new HttpError(
+          423,
+          "Account locked after 15 failed attempts. Try again in 30 minutes.",
+        );
+      }
+
+      await userRepository.updateUser(user._id.toString(), {
+        loginAttempts: attempts,
+      });
       throw new HttpError(401, "Invalid credentials");
     }
+
+    // Successful login — reset attempts and unlock
+    await userRepository.updateUser(user._id.toString(), {
+      loginAttempts: 0,
+      lockUntil: null as any,
+    });
+
     //generate jwt
     const payload = {
       id: user._id,
