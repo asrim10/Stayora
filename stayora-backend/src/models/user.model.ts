@@ -15,6 +15,8 @@ const UserSchema: Schema = new Schema<UserType>(
     imageUrl: { type: String, required: false },
     loginAttempts: { type: Number, default: 0 },
     lockUntil: { type: Date, default: null },
+    passwordResetAttempts: { type: Number, default: 0 },
+    resetLockUntil: { type: Date, default: null },
   },
   {
     timestamps: true,

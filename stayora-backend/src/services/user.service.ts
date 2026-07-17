@@ -154,6 +154,48 @@ export class UserService {
     if (!user) {
       throw new HttpError(404, "User not found");
     }
+
+    // Check if password reset is locked
+    if (user.resetLockUntil && user.resetLockUntil > new Date()) {
+      const remainingMinutes = Math.ceil(
+        (user.resetLockUntil.getTime() - Date.now()) / 60000,
+      );
+      throw new HttpError(
+        423,
+        `Too many password reset requests. Try again in ${remainingMinutes} minute(s).`,
+      );
+    }
+
+    // If lock has expired, reset attempt counter
+    if (user.resetLockUntil && user.resetLockUntil <= new Date()) {
+      await userRepository.updateUser(user._id.toString(), {
+        passwordResetAttempts: 0,
+        resetLockUntil: null as any,
+      });
+      user.passwordResetAttempts = 0;
+      user.resetLockUntil = undefined;
+    }
+
+    // Increment reset attempts
+    const attempts = (user.passwordResetAttempts || 0) + 1;
+    const maxAttempts = 5;
+
+    if (attempts >= maxAttempts) {
+      // Lock password reset for 30 minutes
+      await userRepository.updateUser(user._id.toString(), {
+        passwordResetAttempts: attempts,
+        resetLockUntil: new Date(Date.now() + 30 * 60 * 1000),
+      });
+      throw new HttpError(
+        423,
+        "Too many password reset requests. Try again in 30 minutes.",
+      );
+    }
+
+    await userRepository.updateUser(user._id.toString(), {
+      passwordResetAttempts: attempts,
+    });
+
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" }); // 1 hour expiry
     const resetLink = `${CLIENT_URL}/reset-password?token=${token}`;
     const html = `<p>Click <a href="${resetLink}">here</a> to reset your password. This link will expire in 1 hour.</p>`;
