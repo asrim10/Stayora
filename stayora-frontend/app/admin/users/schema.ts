@@ -11,8 +11,22 @@ const ACCEPTED_IMAGE_TYPES = [
 export const UserSchema = z
   .object({
     email: z.string().email({ message: "Enter a valid email" }), // Fixed this line
-    password: z.string().min(6, { message: "Minimum 6 characters" }),
-    confirmPassword: z.string().min(6, { message: "Minimum 6 characters" }),
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" })
+      .regex(/[A-Z]/, {
+        message: "Password must contain an uppercase letter",
+      })
+      .regex(/[0-9]/, { message: "Password must contain a number" }),
+    confirmPassword: z
+      .string()
+      .min(8, { message: "Confirm password must be at least 8 characters" })
+      .regex(/[A-Z]/, {
+        message: "Confirm password must contain an uppercase letter",
+      })
+      .regex(/[0-9]/, {
+        message: "Confirm password must contain a number",
+      }),
     fullName: z.string().optional(),
     username: z
       .string()
