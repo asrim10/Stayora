@@ -1,6 +1,6 @@
-import { tr } from "zod/v4/locales";
 import { UserModel, IUser } from "../models/user.model";
 import { QueryFilter } from "mongoose";
+import { escapeRegex } from "../utils/escape";
 
 export interface IUserRepository {
   createUser(userData: Partial<IUser>): Promise<IUser>;
@@ -43,10 +43,10 @@ export class UserRepository implements IUserRepository {
     const filter: QueryFilter<IUser> = {};
     if (search) {
       filter.$or = [
-        { username: { $regex: search, $options: "i" } },
-        { email: { $regex: search, $options: "i" } },
-        { firstName: { $regex: search, $options: "i" } },
-        { lastName: { $regex: search, $options: "i" } },
+        { username: { $regex: escapeRegex(search), $options: "i" } },
+        { email: { $regex: escapeRegex(search), $options: "i" } },
+        { firstName: { $regex: escapeRegex(search), $options: "i" } },
+        { lastName: { $regex: escapeRegex(search), $options: "i" } },
       ];
     }
     const [users, total] = await Promise.all([

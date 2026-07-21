@@ -1,5 +1,6 @@
 import { QueryFilter } from "mongoose";
 import { HotelModel, IHotel } from "../models/hotel.model";
+import { escapeRegex } from "../utils/escape";
 
 export interface IHotelRepository {
   create(hotelData: any): Promise<IHotel>;
@@ -25,10 +26,10 @@ export class HotelRepository implements IHotelRepository {
     const query: QueryFilter<IHotel> = {};
     if (search) {
       query.$or = [
-        { hotelName: { $regex: search, $options: "i" } },
-        { city: { $regex: search, $options: "i" } },
-        { country: { $regex: search, $options: "i" } },
-        { address: { $regex: search, $options: "i" } },
+        { hotelName: { $regex: escapeRegex(search), $options: "i" } },
+        { city: { $regex: escapeRegex(search), $options: "i" } },
+        { country: { $regex: escapeRegex(search), $options: "i" } },
+        { address: { $regex: escapeRegex(search), $options: "i" } },
       ];
     }
     const total = await HotelModel.countDocuments(query);

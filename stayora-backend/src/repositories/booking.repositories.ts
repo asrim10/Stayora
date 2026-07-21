@@ -1,5 +1,6 @@
 import { QueryFilter } from "mongoose";
 import { BookingModel, IBooking } from "../models/booking.model";
+import { escapeRegex } from "../utils/escape";
 
 export interface IBookingRepository {
   create(bookingData: any): Promise<IBooking>;
@@ -27,10 +28,10 @@ export class BookingRepository implements IBookingRepository {
 
     if (search) {
       query.$or = [
-        { fullName: { $regex: search, $options: "i" } },
-        { email: { $regex: search, $options: "i" } },
-        { status: { $regex: search, $options: "i" } },
-        { paymentStatus: { $regex: search, $options: "i" } },
+        { fullName: { $regex: escapeRegex(search), $options: "i" } },
+        { email: { $regex: escapeRegex(search), $options: "i" } },
+        { status: { $regex: escapeRegex(search), $options: "i" } },
+        { paymentStatus: { $regex: escapeRegex(search), $options: "i" } },
       ];
     }
 

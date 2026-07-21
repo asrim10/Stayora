@@ -1,5 +1,6 @@
 import { QueryFilter } from "mongoose";
 import { ReviewModel, IReview } from "../models/review.model";
+import { escapeRegex } from "../utils/escape";
 
 export interface IReviewRepository {
   create(reviewData: any): Promise<IReview>;
@@ -34,9 +35,9 @@ export class ReviewRepository implements IReviewRepository {
 
     if (search) {
       query.$or = [
-        { fullName: { $regex: search, $options: "i" } },
-        { email: { $regex: search, $options: "i" } },
-        { comment: { $regex: search, $options: "i" } },
+        { fullName: { $regex: escapeRegex(search), $options: "i" } },
+        { email: { $regex: escapeRegex(search), $options: "i" } },
+        { comment: { $regex: escapeRegex(search), $options: "i" } },
       ];
     }
 
