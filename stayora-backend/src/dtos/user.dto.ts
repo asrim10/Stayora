@@ -34,3 +34,17 @@ export type LoginUserDTO = z.infer<typeof LoginUserDTO>;
 
 export const UpdateUserDTO = UserSchema.partial();
 export type UpdateUserDTO = z.infer<typeof UpdateUserDTO>;
+
+// DTO for users updating their own profile.
+// Excludes `role` and internal/system fields that should not be self-settable.
+// Admins can still update role via the admin panel using `UpdateUserDTO`.
+export const UpdateOwnProfileDTO = UserSchema.omit({
+  role: true,
+  loginAttempts: true,
+  lockUntil: true,
+  passwordResetAttempts: true,
+  resetLockUntil: true,
+  mfaSecret: true,
+  mfaEnabled: true,
+}).partial();
+export type UpdateOwnProfileDTO = z.infer<typeof UpdateOwnProfileDTO>;

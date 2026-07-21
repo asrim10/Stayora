@@ -1,5 +1,5 @@
 import { UserService } from "../services/user.service";
-import { CreateUserDTO, LoginUserDTO, UpdateUserDTO } from "../dtos/user.dto";
+import { CreateUserDTO, LoginUserDTO, UpdateOwnProfileDTO } from "../dtos/user.dto";
 import { Request, Response } from "express";
 import z, { success } from "zod";
 
@@ -110,7 +110,7 @@ export class AuthController {
           .status(400)
           .json({ success: false, message: "User Id Not found" });
       }
-      const parsedData = UpdateUserDTO.safeParse(req.body);
+      const parsedData = UpdateOwnProfileDTO.safeParse(req.body);
       if (!parsedData.success) {
         return res
           .status(400)
