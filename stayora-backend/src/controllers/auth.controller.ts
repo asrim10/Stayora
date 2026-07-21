@@ -53,7 +53,19 @@ export class AuthController {
         });
       }
       const loginData: LoginUserDTO = parsedData.data;
-      const { token, user } = await userService.loginUser(loginData);
+      const { token, user, mfaRequired } = await userService.loginUser(loginData);
+
+      // If MFA is required, return temp token — don't set auth cookie yet
+      if (mfaRequired) {
+        return res.status(200).json({
+          success: true,
+          message: "MFA verification required",
+          mfaRequired: true,
+          tempToken: token,
+          data: { email: user.email },
+        });
+      }
+
       // Set httpOnly cookie for automatic cookie-based auth
       setAuthCookie(res, token);
       return res.status(200).json({

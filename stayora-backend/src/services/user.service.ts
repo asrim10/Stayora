@@ -84,6 +84,17 @@ export class UserService {
       lockUntil: null as any,
     });
 
+    // If MFA is enabled, issue a short-lived temp token instead of the real JWT
+    if (user.mfaEnabled) {
+      const tempPayload = {
+        id: user._id,
+        email: user.email,
+        mfaPending: true,
+      };
+      const tempToken = jwt.sign(tempPayload, JWT_SECRET, { expiresIn: "5m" });
+      return { token: tempToken, user, mfaRequired: true };
+    }
+
     //generate jwt — never include sensitive fields like password
     const payload = {
       id: user._id,
@@ -93,7 +104,7 @@ export class UserService {
       role: user.role,
     };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "30d" }); // 30days
-    return { token, user };
+    return { token, user, mfaRequired: false };
   }
 
   async getUserById(userId: string) {

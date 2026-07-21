@@ -15,6 +15,7 @@ import notificationRoutes from "./routes/notification.routes";
 
 import publicReviewRoutes from "./routes/public/review.routes";
 
+import mfaRoutes from "./routes/mfa.routes";
 import adminUserRoutes from "./routes/admin/user.routes";
 import adminHotelRoutes from "./routes/admin/hotel.routes";
 import adminBookingRoutes from "./routes/admin/booking.routes";
@@ -44,6 +45,7 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use(bodyParser.json());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/auth/mfa", mfaRoutes);
 app.use("/api/hotels", hotelRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/fav", favouriteRoutes);
