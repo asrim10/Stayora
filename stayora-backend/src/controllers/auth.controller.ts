@@ -159,11 +159,13 @@ export class AuthController {
           .status(400)
           .json({ success: false, message: "Email is required" });
       }
-      const user = await userService.sendResetPasswordEmail(email);
+
+      await userService.sendResetPasswordEmail(email);
+
+      // Always return 200 — don't reveal whether the email exists (prevents enumeration)
       return res.status(200).json({
         success: true,
-        data: user,
-        message: "Password reset email sent",
+        message: "If the account exists, a password reset email has been sent",
       });
     } catch (error: Error | any) {
       return res.status(error.statusCode ?? 500).json({

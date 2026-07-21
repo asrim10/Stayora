@@ -162,7 +162,8 @@ export class UserService {
     }
     const user = await userRepository.getUserByEmail(email);
     if (!user) {
-      throw new HttpError(404, "User not found");
+      // Return silently — don't reveal whether the email exists (prevents enumeration)
+      return;
     }
 
     // Check if password reset is locked
