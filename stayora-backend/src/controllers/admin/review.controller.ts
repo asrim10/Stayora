@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import z from "zod";
 import { AdminReviewService } from "../../services/admin/review.service";
 import { UpdateReviewDTO } from "../../dtos/review.dto";
 import { HttpError } from "../../errors/http-error";
@@ -90,11 +91,17 @@ export class AdminReviewController {
   async updateReview(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const updateData: UpdateReviewDTO = req.body;
+      const parsedData = UpdateReviewDTO.safeParse(req.body);
+      if (!parsedData.success) {
+        return res.status(400).json({
+          success: false,
+          message: z.prettifyError(parsedData.error),
+        });
+      }
 
       const updatedReview = await adminReviewService.updateReview(
         id,
-        updateData,
+        parsedData.data,
       );
 
       res.status(200).json({

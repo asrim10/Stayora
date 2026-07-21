@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
+import z from "zod";
 import { ReviewService } from "../services/review.service";
 import { CreateReviewDTO, UpdateReviewDTO } from "../dtos/review.dto";
 
@@ -146,7 +147,6 @@ export class ReviewController {
   async updateReview(req: Request, res: Response, next: NextFunction) {
     try {
       const reviewId = req.params.id;
-      const data: UpdateReviewDTO = req.body;
 
       if (!mongoose.Types.ObjectId.isValid(reviewId)) {
         return res.status(400).json({
@@ -155,7 +155,15 @@ export class ReviewController {
         });
       }
 
-      const updatedReview = await reviewService.updateReview(reviewId, data);
+      const parsedData = UpdateReviewDTO.safeParse(req.body);
+      if (!parsedData.success) {
+        return res.status(400).json({
+          success: false,
+          message: z.prettifyError(parsedData.error),
+        });
+      }
+
+      const updatedReview = await reviewService.updateReview(reviewId, parsedData.data);
 
       return res.status(200).json({
         success: true,

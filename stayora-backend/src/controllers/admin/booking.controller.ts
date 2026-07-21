@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
+import z from "zod";
 import { AdminBookingService } from "../../services/admin/booking.service";
-import { UpdateBookingDTO } from "../../dtos/booking.dto";
+import { CreateBookingDTO, UpdateBookingDTO } from "../../dtos/booking.dto";
 import { HttpError } from "../../errors/http-error";
 
 const adminBookingService = new AdminBookingService();
@@ -75,7 +76,18 @@ export class AdminBookingController {
 
   async createBooking(req: Request, res: Response) {
     try {
-      const bookingData = req.body;
+      const parsedData = CreateBookingDTO.safeParse(req.body);
+      if (!parsedData.success) {
+        return res.status(400).json({
+          success: false,
+          message: z.prettifyError(parsedData.error),
+        });
+      }
+
+      const bookingData = {
+        ...parsedData.data,
+        userId: req.body.userId,
+      };
       const newBooking = await adminBookingService.createBooking(bookingData);
 
       res.status(201).json({
@@ -94,11 +106,17 @@ export class AdminBookingController {
   async updateBooking(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const updateData: UpdateBookingDTO = req.body;
+      const parsedData = UpdateBookingDTO.safeParse(req.body);
+      if (!parsedData.success) {
+        return res.status(400).json({
+          success: false,
+          message: z.prettifyError(parsedData.error),
+        });
+      }
 
       const updatedBooking = await adminBookingService.updateBooking(
         id,
-        updateData,
+        parsedData.data,
       );
 
       res.status(200).json({
