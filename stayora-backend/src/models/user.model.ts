@@ -17,6 +17,8 @@ const UserSchema: Schema = new Schema<UserType>(
     lockUntil: { type: Date, default: null },
     passwordResetAttempts: { type: Number, default: 0 },
     resetLockUntil: { type: Date, default: null },
+    mfaSecret: { type: String, default: null },
+    mfaEnabled: { type: Boolean, default: false },
   },
   {
     timestamps: true,

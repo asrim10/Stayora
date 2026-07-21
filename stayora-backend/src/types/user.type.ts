@@ -11,6 +11,8 @@ export const UserSchema = z.object({
   lockUntil: z.date().optional(),
   passwordResetAttempts: z.number().optional(),
   resetLockUntil: z.date().optional(),
+  mfaSecret: z.string().optional(),
+  mfaEnabled: z.boolean().optional().default(false),
 });
 
 export type UserType = z.infer<typeof UserSchema>;
