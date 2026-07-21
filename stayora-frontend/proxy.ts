@@ -6,6 +6,7 @@ const publicRoutes = [
   "/register",
   "/forget-password",
   "/reset-password",
+  "/mfa",
 ];
 const adminRoutes = ["/admin"];
 const userRoutes = ["/user"];

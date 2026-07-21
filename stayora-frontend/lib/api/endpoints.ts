@@ -7,6 +7,13 @@ export const API = {
     REQUEST_RESET_PASSWORD: "/api/auth/request-password-reset",
     RESET_PASSWORD: (token: string) => `/api/auth/reset-password/${token}`,
   },
+  MFA: {
+    SETUP: "/api/auth/mfa/setup",
+    VERIFY: "/api/auth/mfa/verify",
+    DISABLE: "/api/auth/mfa/disable",
+    CHALLENGE: "/api/auth/mfa/challenge",
+    STATUS: "/api/auth/mfa/status",
+  },
   HOTELS: {
     GET_ALL: "/api/hotels/",
     GET_ONE: (hotelId: string) => `/api/hotels/${hotelId}`,

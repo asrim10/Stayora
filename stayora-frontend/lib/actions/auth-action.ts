@@ -8,7 +8,7 @@ import {
   whoAmI,
 } from "@/lib/api/auth";
 import { LoginData, RegisterData } from "@/app/(auth)/schema";
-import { setAuthToken, setUserData, clearAuthCookies } from "../cookie";
+import { setAuthToken, setUserData, clearAuthCookies, setTempMfaToken } from "../cookie";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
@@ -38,6 +38,18 @@ export const handleLogin = async (data: LoginData) => {
   try {
     const response = await login(data);
     if (response.success) {
+      // If MFA is required, store the temp token and return mfaRequired flag
+      if (response.mfaRequired) {
+        await setTempMfaToken(response.tempToken);
+        return {
+          success: true,
+          message: "MFA verification required",
+          mfaRequired: true,
+          tempToken: response.tempToken,
+          data: response.data,
+        };
+      }
+
       await setAuthToken(response.token);
       await setUserData(response.data);
       return {

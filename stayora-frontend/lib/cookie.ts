@@ -47,8 +47,32 @@ export const getUserData = async (): Promise<UserData | null> => {
   return userData ? JSON.parse(userData) : null;
 };
 
+export const setTempMfaToken = async (token: string) => {
+  const cookieStore = await cookies();
+  cookieStore.set({
+    name: "mfa_temp_token",
+    value: token,
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 5 * 60, // 5 minutes (matches JWT expiry)
+  });
+};
+
+export const getTempMfaToken = async () => {
+  const cookieStore = await cookies();
+  return cookieStore.get("mfa_temp_token")?.value || null;
+};
+
+export const clearTempMfaToken = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete("mfa_temp_token");
+};
+
 export const clearAuthCookies = async () => {
   const cookieStore = await cookies();
   cookieStore.delete("auth_token");
   cookieStore.delete("user_data");
+  cookieStore.delete("mfa_temp_token");
 };
