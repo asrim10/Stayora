@@ -13,8 +13,24 @@ export const registerSchema = z
     username: z.string().min(2, { message: "Enter a username" }),
     fullName: z.string().min(2, { message: "Enter your name" }),
     email: z.email({ message: "Enter a valid email" }),
-    password: z.string().min(6, { message: "Minimum 6 characters" }),
-    confirmPassword: z.string().min(6, { message: "Minimum 6 characters" }),
+    password: z
+      .string()
+      .min(8, { message: "Minimum 8 characters" })
+      .regex(/[A-Z]/, {
+        message: "Must contain an uppercase letter",
+      })
+      .regex(/[0-9]/, {
+        message: "Must contain a number",
+      }),
+    confirmPassword: z
+      .string()
+      .min(8, { message: "Minimum 8 characters" })
+      .regex(/[A-Z]/, {
+        message: "Must contain an uppercase letter",
+      })
+      .regex(/[0-9]/, {
+        message: "Must contain a number",
+      }),
     captchaToken: z.string().optional(),
   })
   .refine((v) => v.password === v.confirmPassword, {
@@ -31,8 +47,24 @@ export type ForgetPasswordData = z.infer<typeof forgetPasswordSchema>;
 
 export const resetPasswordSchema = z
   .object({
-    newPassword: z.string().min(6, { message: "Minimum 6 characters" }),
-    confirmNewPassword: z.string().min(6, { message: "Minimum 6 characters" }),
+    newPassword: z
+      .string()
+      .min(8, { message: "Minimum 8 characters" })
+      .regex(/[A-Z]/, {
+        message: "Must contain an uppercase letter",
+      })
+      .regex(/[0-9]/, {
+        message: "Must contain a number",
+      }),
+    confirmNewPassword: z
+      .string()
+      .min(8, { message: "Minimum 8 characters" })
+      .regex(/[A-Z]/, {
+        message: "Must contain an uppercase letter",
+      })
+      .regex(/[0-9]/, {
+        message: "Must contain a number",
+      }),
   })
   .refine((v) => v.newPassword === v.confirmNewPassword, {
     path: ["confirmNewPassword"],

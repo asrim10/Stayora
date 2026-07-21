@@ -9,10 +9,16 @@ import { useRouter } from "next/navigation";
 
 export const ResetPasswordSchema = z
   .object({
-    password: z.string().min(6, "Password must be at least 6 characters long"),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Password must contain an uppercase letter")
+      .regex(/[0-9]/, "Password must contain a number"),
     confirmPassword: z
       .string()
-      .min(6, "Confirm Password must be at least 6 characters long"),
+      .min(8, "Confirm password must be at least 8 characters")
+      .regex(/[A-Z]/, "Confirm password must contain an uppercase letter")
+      .regex(/[0-9]/, "Confirm password must contain a number"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
