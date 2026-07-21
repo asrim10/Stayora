@@ -7,10 +7,8 @@ const isProduction = process.env.NODE_ENV === "production";
 
 let userService = new UserService();
 
-/**
- * Set the JWT as an httpOnly, secure, sameSite cookie so it's not accessible
- * from client-side JavaScript, mitigating XSS token theft.
- */
+// Set the JWT as an httpOnly, secure, sameSite cookie so it's not accessible
+// from client-side JavaScript, mitigating XSS token theft.
 const setAuthCookie = (res: Response, token: string) => {
   res.cookie("auth_token", token, {
     httpOnly: true,

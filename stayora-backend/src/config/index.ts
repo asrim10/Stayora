@@ -16,3 +16,13 @@ if (!process.env.JWT_SECRET) {
   process.exit(1);
 }
 export const JWT_SECRET: string = process.env.JWT_SECRET;
+
+// MFA encryption key — used to encrypt TOTP secrets at rest (AES-256-GCM)
+// Skip validation in test environment so tests can set it via setup file
+if (!process.env.MFA_ENCRYPTION_KEY && process.env.NODE_ENV !== "test") {
+  console.error(
+    "[FATAL] MFA_ENCRYPTION_KEY environment variable is not set. " +
+      "Generate one with: openssl rand -hex 32\n",
+  );
+  process.exit(1);
+}
