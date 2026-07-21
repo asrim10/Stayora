@@ -42,6 +42,11 @@ export default function LoginForm() {
           throw new Error(response.message);
         }
         if (response.success) {
+          // If MFA is required, redirect to the challenge page
+          if (response.mfaRequired) {
+            return router.replace("/mfa/challenge");
+          }
+
           if (response.data?.role == "admin") {
             return router.replace("/admin");
           }

@@ -12,6 +12,7 @@ import {
   Star,
   User,
   LogOut,
+  Shield,
 } from "lucide-react";
 import { handleGetUnreadCount } from "@/lib/actions/notification-action";
 
@@ -27,6 +28,11 @@ const menuItems = [
   },
   { label: "My Reviews", href: "/user/review/myreview", icon: Star },
   { label: "Profile", href: "/user/profile", icon: User },
+  {
+    label: "Security (2FA)",
+    href: "/user/mfa",
+    icon: Shield,
+  },
 ];
 
 export default function Sidebar() {

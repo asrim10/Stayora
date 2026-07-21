@@ -1,6 +1,7 @@
 import { handleWhoAmI } from "@/lib/actions/auth-action";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { Shield, ShieldOff } from "lucide-react";
 
 export default async function ProfilePage() {
   const result = await handleWhoAmI();
@@ -25,6 +26,10 @@ export default async function ProfilePage() {
     {
       label: "Account Type",
       value: user.role.charAt(0).toUpperCase() + user.role.slice(1),
+    },
+    {
+      label: "Two-Factor Auth",
+      value: user.mfaEnabled ? "✅ Enabled" : "Not enabled",
     },
     { label: "Account Created", value: formatDate(user.createdAt) },
     { label: "Last Updated", value: formatDate(user.updatedAt) },
@@ -154,8 +159,19 @@ export default async function ProfilePage() {
             ))}
           </div>
 
-          {/* Action */}
-          <div className="mt-12 flex justify-end">
+          {/* Actions */}
+          <div className="mt-12 flex items-center justify-between">
+            <Link
+              href="/user/mfa"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/12 bg-transparent text-sm text-[#6b6b8a] uppercase tracking-widest hover:border-white/25 hover:text-white/80 transition-all"
+            >
+              {user.mfaEnabled ? (
+                <Shield size={16} className="text-green-400" />
+              ) : (
+                <ShieldOff size={16} />
+              )}
+              Manage 2FA
+            </Link>
             <Link
               href="/user/profile/edit"
               className="px-5 py-2.5 rounded-lg border border-white/12 bg-transparent text-sm text-[#6b6b8a] uppercase tracking-widest hover:border-white/25 hover:text-white/80 transition-all"
