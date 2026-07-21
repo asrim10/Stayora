@@ -15,8 +15,8 @@ const router = Router();
 
 router.post("/register", registerLimiter, captchaMiddleware, authController.register);
 router.post("/login", loginLimiter, captchaMiddleware, authController.login);
-router.patch("/users/:id", authController.updateProfile);
-router.delete("/users/:id", authController.delete);
+router.patch("/users/:id", authorizedMiddleware, authController.updateProfile);
+router.delete("/users/:id", authorizedMiddleware, authController.delete);
 router.get("/whoami", authorizedMiddleware, authController.getProfile);
 
 router.put(
