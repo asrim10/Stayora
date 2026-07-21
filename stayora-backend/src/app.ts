@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
+import helmet from "helmet";
 import { HttpError } from "./errors/http-error";
 import path from "path";
 
@@ -38,6 +39,7 @@ const corsOptions = {
   credentials: true,
 };
 
+app.use(helmet());
 app.use(cors(corsOptions));
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
