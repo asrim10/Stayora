@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { handleUpdateUser } from "@/lib/actions/admin/user-action";
 import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
+import UserAvatar from "@/app/_components/UserAvatar";
 
 const inputCls =
   "w-full bg-[#111] border border-[#2a2a2a] text-white text-sm px-5 py-3.5 outline-none focus:border-[#c9a96e] transition-colors placeholder:text-[#3a3a3a]";
@@ -79,11 +80,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
     });
   };
 
-  const avatarSrc =
-    previewImage ||
-    (user.imageUrl
-      ? process.env.NEXT_PUBLIC_API_BASE_URL + user.imageUrl
-      : null);
+  const avatarSrc = previewImage || null;
 
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
@@ -138,9 +135,11 @@ export default function UpdateUserForm({ user }: { user: any }) {
                   )}
                 </>
               ) : (
-                <p className="text-[#2a2a2a] text-[9px] tracking-widest uppercase text-center m-0">
-                  None
-                </p>
+                <UserAvatar
+                  imageUrl={user.imageUrl}
+                  username={user.fullName}
+                  size={80}
+                />
               )}
             </div>
             <div>

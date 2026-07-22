@@ -1,7 +1,9 @@
 import { handleWhoAmI } from "@/lib/actions/auth-action";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Shield, ShieldOff } from "lucide-react";
+import { Shield, ShieldOff, KeyRound } from "lucide-react";
+import UserAvatar from "@/app/_components/UserAvatar";
+import SetPasswordForm from "./SetPasswordForm";
 
 export default async function ProfilePage() {
   const result = await handleWhoAmI();
@@ -10,14 +12,15 @@ export default async function ProfilePage() {
 
   const user = result.data;
 
+  // Check if user has a password (OAuth users don't)
+  const hasPassword = user.authProvider === "local";
+
   const formatDate = (d: string) =>
     new Date(d).toLocaleDateString("en-US", {
       month: "long",
       day: "numeric",
       year: "numeric",
     });
-
-  const initials = user.username?.charAt(0).toUpperCase();
 
   const rows = [
     { label: "Full Name", value: user.fullName || "Not set" },
@@ -26,6 +29,10 @@ export default async function ProfilePage() {
     {
       label: "Account Type",
       value: user.role.charAt(0).toUpperCase() + user.role.slice(1),
+    },
+    {
+      label: "Login Method",
+      value: hasPassword ? "Email & Password" : "Google OAuth",
     },
     {
       label: "Two-Factor Auth",
@@ -78,24 +85,12 @@ export default async function ProfilePage() {
           {/* Avatar + name */}
           <div className="flex items-end gap-6">
             {/* Avatar */}
-            <div className="w-18 h-18rounded-full overflow-hidden border-2 border-[#2a2a2a] shrink-0">
-              {user.imageUrl ? (
-                <img
-                  src={process.env.NEXT_PUBLIC_API_BASE_URL + user.imageUrl}
-                  alt={user.username}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div
-                  className="w-full h-full flex items-center justify-center text-[#0a0a0a] text-[26px] font-bold"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #c9a96e 0%, #8b6914 100%)",
-                  }}
-                >
-                  {initials}
-                </div>
-              )}
+            <div className="w-18 h-18 rounded-full overflow-hidden border-2 border-[#2a2a2a] shrink-0">
+              <UserAvatar
+                imageUrl={user.imageUrl}
+                username={user.username}
+                size={72}
+              />
             </div>
 
             {/* Name + stats */}
@@ -158,6 +153,25 @@ export default async function ProfilePage() {
               </div>
             ))}
           </div>
+
+          {/* Set Password for OAuth users */}
+          {!hasPassword && (
+            <div className="mb-12">
+              <div className="mb-6">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-1.5">
+                  Security
+                </p>
+                <h2
+                  className="text-[32px] font-bold text-white"
+                  style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                >
+                  Set Password
+                </h2>
+                <div className="mt-4 h-px bg-white/6" />
+              </div>
+              <SetPasswordForm />
+            </div>
+          )}
 
           {/* Actions */}
           <div className="mt-12 flex items-center justify-between">

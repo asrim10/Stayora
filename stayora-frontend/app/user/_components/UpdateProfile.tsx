@@ -8,6 +8,7 @@ import { UpdateUserData, updateUserSchema } from "../schema";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
 import Link from "next/link";
+import UserAvatar from "@/app/_components/UserAvatar";
 
 export default function UpdateUserForm({ user }: { user: any }) {
   const router = useRouter();
@@ -74,12 +75,9 @@ export default function UpdateUserForm({ user }: { user: any }) {
     }
   };
 
-  const initials = user?.username?.charAt(0).toUpperCase() || "U";
   const currentImage = previewImage
     ? previewImage
-    : user?.imageUrl
-      ? process.env.NEXT_PUBLIC_API_BASE_URL + user.imageUrl
-      : null;
+    : null;
 
   return (
     <>
@@ -118,15 +116,11 @@ export default function UpdateUserForm({ user }: { user: any }) {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div
-                    className="w-full h-full flex items-center justify-center text-[#0a0a0a] text-[26px] font-bold"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, #c9a96e 0%, #8b6914 100%)",
-                    }}
-                  >
-                    {initials}
-                  </div>
+                  <UserAvatar
+                    imageUrl={user?.imageUrl}
+                    username={user?.username}
+                    size={72}
+                  />
                 )}
               </div>
               {previewImage && (

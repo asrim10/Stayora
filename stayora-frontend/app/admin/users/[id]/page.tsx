@@ -1,5 +1,6 @@
 import { handleGetOneUser } from "@/lib/actions/admin/user-action";
 import Link from "next/link";
+import UserAvatar from "@/app/_components/UserAvatar";
 
 export default async function Page({
   params,
@@ -14,9 +15,6 @@ export default async function Page({
   }
 
   const user = response.data;
-  const avatarSrc = user.imageUrl
-    ? process.env.NEXT_PUBLIC_API_BASE_URL + user.imageUrl
-    : null;
 
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
@@ -50,21 +48,12 @@ export default async function Page({
 
       <div className="px-12 py-12">
         <div className="flex items-center gap-8 pb-10 border-b border-[#1a1a1a] mb-2">
-          <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-[#1a1a1a] shrink-0 bg-[#111] flex items-center justify-center">
-            {avatarSrc ? (
-              <img
-                src={avatarSrc}
-                alt={user.fullName}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span
-                className="text-[#c9a96e] text-2xl font-bold"
-                style={{ fontFamily: "'Georgia', serif" }}
-              >
-                {user.fullName?.[0]?.toUpperCase() || "?"}
-              </span>
-            )}
+          <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-[#1a1a1a] shrink-0 bg-[#111]">
+            <UserAvatar
+              imageUrl={user.imageUrl}
+              username={user.fullName}
+              size={80}
+            />
           </div>
           <div>
             <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-1">

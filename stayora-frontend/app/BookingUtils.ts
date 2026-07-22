@@ -31,6 +31,16 @@ export const getImageUrl = (
   return `${baseUrl}/${imageUrl}`;
 };
 
+// Get a user's profile image URL.
+// Handles both full URLs (Google OAuth profile pics) and relative paths (uploaded avatars).
+export const getUserImageUrl = (imageUrl?: string | null): string | null => {
+  if (!imageUrl) return null;
+  if (imageUrl.startsWith("http") || imageUrl.startsWith("https"))
+    return imageUrl;
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+  return `${baseUrl}${imageUrl}`;
+};
+
 export const parseDate = (dateInput: any) => {
   if (!dateInput) return null;
   try {

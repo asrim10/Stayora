@@ -15,6 +15,7 @@ import {
   Shield,
 } from "lucide-react";
 import { handleGetUnreadCount } from "@/lib/actions/notification-action";
+import UserAvatar from "@/app/_components/UserAvatar";
 
 const menuItems = [
   { label: "Home", href: "/user/dashboard", icon: Home },
@@ -38,7 +39,6 @@ const menuItems = [
 export default function Sidebar() {
   const { user, logout } = useAuth();
   const pathname = usePathname();
-  const initials = user?.username?.charAt(0).toUpperCase() || "U";
   const [unreadCount, setUnreadCount] = useState(0); // 👈 new
 
   // 👇 poll unread count every 30 seconds
@@ -63,22 +63,11 @@ export default function Sidebar() {
       {/* USER CARD */}
       <div className="px-6 pt-8 pb-6 border-b border-[#1a1a1a]">
         <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#2a2a2a] mb-4">
-          {user?.imageUrl ? (
-            <img
-              src={process.env.NEXT_PUBLIC_API_BASE_URL + user.imageUrl}
-              alt={user.username || "User"}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div
-              className="w-full h-full flex items-center justify-center text-[#0a0a0a] text-xl font-bold"
-              style={{
-                background: "linear-gradient(135deg, #c9a96e 0%, #8b6914 100%)",
-              }}
-            >
-              {initials}
-            </div>
-          )}
+          <UserAvatar
+            imageUrl={user?.imageUrl}
+            username={user?.username}
+            size={64}
+          />
         </div>
         <p className="text-white text-[15px] font-bold m-0 mb-0.5 tracking-[0.02em]">
           {user?.fullName || user?.username || "Guest User"}

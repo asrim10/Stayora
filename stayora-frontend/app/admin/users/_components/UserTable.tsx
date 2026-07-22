@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { handleDeleteUser } from "@/lib/actions/admin/user-action";
 import { Search, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import UserAvatar from "@/app/_components/UserAvatar";
 
 function ConfirmModal({
   onClose,
@@ -164,21 +165,11 @@ const UserTable = ({
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-full overflow-hidden border border-[#2a2a2a] shrink-0">
-                      {user.imageUrl ? (
-                        <img
-                          src={
-                            process.env.NEXT_PUBLIC_API_BASE_URL + user.imageUrl
-                          }
-                          alt={user.fullName}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-[#c9a96e22] to-[#c9a96e44]">
-                          <span className="text-[#c9a96e] text-sm font-bold">
-                            {user.fullName?.[0]?.toUpperCase() || "?"}
-                          </span>
-                        </div>
-                      )}
+                      <UserAvatar
+                        imageUrl={user.imageUrl}
+                        username={user.fullName}
+                        size={36}
+                      />
                     </div>
                     <div>
                       <p className="text-white text-sm font-semibold mb-0.5">
