@@ -23,6 +23,7 @@ import {
 import { TopHotels } from "./_components/dashboard/TopHotels";
 import { RecentBookings } from "./_components/dashboard/RecentBookings";
 import { RecentReviews } from "./_components/dashboard/RecentReviews";
+import OAuthToast from "@/app/_components/OAuthToast";
 
 export default async function AdminDashboardPage() {
   // ── Parallel data fetching ──────────────────────────────────────────────────
@@ -102,6 +103,7 @@ export default async function AdminDashboardPage() {
         .fade-up { animation: fadeUp 0.5s ease both; }
       `}</style>
 
+      <OAuthToast />
       <div
         className="w-full min-h-screen bg-[#0a0a0a] text-white px-8 py-10"
         style={{ fontFamily: "'DM Sans', sans-serif" }}

@@ -10,6 +10,7 @@ import PopularHotelCard from "../_components/PopularHotelCard";
 import { handleGetAllHotels } from "@/lib/actions/hotel-action";
 import { toast } from "react-toastify";
 import { handleGetMyFavourites } from "@/lib/actions/favourite-action";
+import OAuthToast from "@/app/_components/OAuthToast";
 
 interface Hotel {
   _id: string;
@@ -121,8 +122,10 @@ export default function DashboardPage() {
     .slice(0, 6);
 
   return (
-    <div className="flex-1 bg-[#0a0a0a] overflow-y-auto min-h-screen text-white">
-      <div className="flex gap-0">
+    <>
+      <OAuthToast />
+      <div className="flex-1 bg-[#0a0a0a] overflow-y-auto min-h-screen text-white">
+        <div className="flex gap-0">
         {/* ── MAIN CONTENT ── */}
         <div className="flex-1 px-12 py-12 min-w-0">
           {/* Header */}
@@ -321,5 +324,6 @@ export default function DashboardPage() {
         )}
       </div>
     </div>
+    </>
   );
 }

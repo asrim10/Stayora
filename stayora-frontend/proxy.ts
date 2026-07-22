@@ -36,6 +36,20 @@ export async function proxy(request: NextRequest) {
   }
 
   if (isPublicRoute && token) {
+    // Redirect authenticated users to their dashboard
+    // Pass ?from=oauth if the redirect originated from the OAuth callback
+    const fromOAuth = pathname === "/login" && request.nextUrl.searchParams.has("oauth");
+
+    if (user?.role === "admin") {
+      const url = new URL("/admin", request.url);
+      if (fromOAuth) url.searchParams.set("from", "oauth");
+      return NextResponse.redirect(url);
+    }
+    if (user?.role === "user") {
+      const url = new URL("/user/dashboard", request.url);
+      if (fromOAuth) url.searchParams.set("from", "oauth");
+      return NextResponse.redirect(url);
+    }
     return NextResponse.redirect(new URL("/", request.url));
   }
 
