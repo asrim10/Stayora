@@ -1,23 +1,15 @@
 import { UserService } from "../services/user.service";
-import { CreateUserDTO, LoginUserDTO, UpdateOwnProfileDTO } from "../dtos/user.dto";
+import {
+  CreateUserDTO,
+  LoginUserDTO,
+  UpdateOwnProfileDTO,
+  SetPasswordDTO,
+} from "../dtos/user.dto";
 import { Request, Response } from "express";
-import z, { success } from "zod";
-
-const isProduction = process.env.NODE_ENV === "production";
+import z from "zod";
+import { setAuthCookie } from "../utils/auth-cookie";
 
 let userService = new UserService();
-
-// Set the JWT as an httpOnly, secure, sameSite cookie so it's not accessible
-// from client-side JavaScript, mitigating XSS token theft.
-const setAuthCookie = (res: Response, token: string) => {
-  res.cookie("auth_token", token, {
-    httpOnly: true,
-    secure: isProduction,
-    sameSite: "lax",
-    path: "/",
-    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days (matches JWT expiry)
-  });
-};
 
 export class AuthController {
   async register(req: Request, res: Response) {
@@ -182,6 +174,38 @@ export class AuthController {
       return res.status(200).json({
         success: true,
         message: "Password has been reset successfully.",
+      });
+    } catch (error: Error | any) {
+      return res.status(error.statusCode ?? 500).json({
+        success: false,
+        message: error.message || "Internal Server Error",
+      });
+    }
+  }
+
+  async setPassword(req: Request, res: Response) {
+    try {
+      const userId = req.user?._id;
+      if (!userId) {
+        return res
+          .status(400)
+          .json({ success: false, message: "User Id Not found" });
+      }
+      const parsedData = SetPasswordDTO.safeParse(req.body);
+      if (!parsedData.success) {
+        return res
+          .status(400)
+          .json({ success: false, message: z.prettifyError(parsedData.error) });
+      }
+      const updatedUser = await userService.setPassword(
+        userId,
+        parsedData.data.newPassword,
+      );
+      return res.status(200).json({
+        success: true,
+        data: updatedUser,
+        message:
+          "Password set successfully. You can now log in with email and password.",
       });
     } catch (error: Error | any) {
       return res.status(error.statusCode ?? 500).json({

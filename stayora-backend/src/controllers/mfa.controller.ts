@@ -32,7 +32,11 @@ export class MfaController {
         return res.status(400).json({ success: false, message: "User email not found" });
       }
 
-      const result = await generateMfaSetup(userId.toString(), userEmail);
+      const result = await generateMfaSetup(
+        userId.toString(),
+        userEmail,
+        parsed.data.password,
+      );
       return res.status(200).json({
         success: true,
         message: "MFA setup initialized. Scan the QR code with your authenticator app.",

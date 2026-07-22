@@ -12,7 +12,29 @@ const ISSUER = "Stayora";
 
 // Generate a TOTP secret and otpauth URL for QR code scanning.
 // The secret is encrypted with AES-256-GCM before being stored in the database.
-export async function generateMfaSetup(userId: string, email: string) {
+// Requires the user's password for verification before generating.
+export async function generateMfaSetup(userId: string, email: string, password?: string) {
+  const user = await userRepository.getUserByID(userId);
+  if (!user) throw new HttpError(404, "User not found");
+
+  // OAuth users (no password) cannot set up MFA
+  if (!user.password) {
+    throw new HttpError(
+      400,
+      "Cannot set up MFA on a Google-linked account. " +
+        "Please set a password in your profile settings first.",
+    );
+  }
+
+  // Verify password before generating the secret
+  if (!password) {
+    throw new HttpError(400, "Password is required to set up MFA");
+  }
+  const validPassword = await bcryptjs.compare(password, user.password);
+  if (!validPassword) throw new HttpError(401, "Invalid password");
+
+  if (user.mfaEnabled) throw new HttpError(400, "MFA is already enabled");
+
   const secret = generateSecret();
   const otpauthUrl = generateURI({
     algorithm: "sha1",
@@ -48,6 +70,9 @@ export async function enableMfa(userId: string, token: string, password: string)
   if (!user) throw new HttpError(404, "User not found");
 
   // Verify password
+  if (!user.password) {
+    throw new HttpError(400, "Cannot enable MFA on an OAuth-linked account");
+  }
   const validPassword = await bcryptjs.compare(password, user.password);
   if (!validPassword) throw new HttpError(401, "Invalid password");
 
@@ -69,6 +94,9 @@ export async function disableMfa(userId: string, password: string, token: string
   const user = await userRepository.getUserByID(userId);
   if (!user) throw new HttpError(404, "User not found");
 
+  if (!user.password) {
+    throw new HttpError(400, "Cannot disable MFA on an OAuth-linked account");
+  }
   const validPassword = await bcryptjs.compare(password, user.password);
   if (!validPassword) throw new HttpError(401, "Invalid password");
 

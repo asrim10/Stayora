@@ -54,6 +54,14 @@ export class UserService {
       user.lockUntil = undefined;
     }
 
+    // If user registered via OAuth (no password), they cannot use email/password login
+    if (!user.password) {
+      throw new HttpError(
+        401,
+        "This account uses Google sign-in. Please sign in with Google.",
+      );
+    }
+
     const validPassword = await bcryptjs.compare(data.password, user.password);
     if (!validPassword) {
       // Increment failed attempts
@@ -231,5 +239,28 @@ export class UserService {
     } catch (error) {
       throw new HttpError(400, "Invalid or expired token");
     }
+  }
+
+  // For OAuth users to set a password for the first time
+  async setPassword(userId: string, newPassword: string) {
+    const user = await userRepository.getUserByID(userId);
+    if (!user) {
+      throw new HttpError(404, "User not found");
+    }
+
+    // Only allow if user doesn't already have a password (OAuth-only account)
+    if (user.password) {
+      throw new HttpError(
+        400,
+        "You already have a password set. Use the password reset option instead.",
+      );
+    }
+
+    const hashedPassword = await bcryptjs.hash(newPassword, 10);
+    const updatedUser = await userRepository.updateUser(userId, {
+      password: hashedPassword,
+      authProvider: "local",
+    });
+    return updatedUser;
   }
 }

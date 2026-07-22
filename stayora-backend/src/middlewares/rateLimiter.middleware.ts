@@ -50,3 +50,16 @@ export const passwordResetLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+
+// Moderate limiter for Google OAuth – prevent abuse of the OAuth flow
+export const googleOAuthLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // 10 attempts per window per IP
+  message: {
+    success: false,
+    message:
+      "Too many OAuth attempts. Please try again after 15 minutes.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
