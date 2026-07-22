@@ -4,11 +4,17 @@ import { UserSchema } from "../types/user.type";
 export const CreateUserDTO = UserSchema.pick({
   username: true,
   email: true,
-  password: true,
   fullName: true,
   imageUrl: true,
 })
   .extend({
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" })
+      .regex(/[A-Z]/, {
+        message: "Password must contain at least one uppercase letter",
+      })
+      .regex(/[0-9]/, { message: "Password must contain at least one number" }),
     confirmPassword: z
       .string()
       .min(8, { message: "Password must be at least 8 characters" })
@@ -38,6 +44,33 @@ export type UpdateUserDTO = z.infer<typeof UpdateUserDTO>;
 // DTO for users updating their own profile.
 // Excludes `role` and internal/system fields that should not be self-settable.
 // Admins can still update role via the admin panel using `UpdateUserDTO`.
+// DTO for setting a new password (for OAuth users who don't have one yet)
+export const SetPasswordDTO = z
+  .object({
+    newPassword: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" })
+      .regex(/[A-Z]/, {
+        message: "Password must contain at least one uppercase letter",
+      })
+      .regex(/[0-9]/, { message: "Password must contain at least one number" }),
+    confirmPassword: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" })
+      .regex(/[A-Z]/, {
+        message: "Password must contain at least one uppercase letter",
+      })
+      .regex(/[0-9]/, {
+        message: "Password must contain at least one number",
+      }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export type SetPasswordDTO = z.infer<typeof SetPasswordDTO>;
+
 export const UpdateOwnProfileDTO = UserSchema.omit({
   role: true,
   loginAttempts: true,
@@ -46,5 +79,7 @@ export const UpdateOwnProfileDTO = UserSchema.omit({
   resetLockUntil: true,
   mfaSecret: true,
   mfaEnabled: true,
+  googleId: true,
+  authProvider: true,
 }).partial();
 export type UpdateOwnProfileDTO = z.infer<typeof UpdateOwnProfileDTO>;

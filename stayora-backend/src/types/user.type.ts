@@ -9,7 +9,8 @@ export const UserSchema = z.object({
     .regex(/[A-Z]/, {
       message: "Password must contain at least one uppercase letter",
     })
-    .regex(/[0-9]/, { message: "Password must contain at least one number" }),
+    .regex(/[0-9]/, { message: "Password must contain at least one number" })
+    .optional(),
   fullName: z.string().optional(),
   role: z.enum(["user", "admin"]).default("user"),
   imageUrl: z.string().optional(),
@@ -19,6 +20,8 @@ export const UserSchema = z.object({
   resetLockUntil: z.date().optional(),
   mfaSecret: z.string().optional(),
   mfaEnabled: z.boolean().optional().default(false),
+  googleId: z.string().optional(),
+  authProvider: z.enum(["local", "google"]).default("local"),
 });
 
 export type UserType = z.infer<typeof UserSchema>;

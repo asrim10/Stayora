@@ -4,3 +4,10 @@ CW2_*.md
 # Security documentation (generated reports)
 SECURITY.md
 stayora-backend/SECURITY_AUDIT.md
+
+# Coursework report files
+SAMPLE_REPORT.md
+SAMPLE_REPORT.docx
+sample_report.docx
+stayora-frontend/public/images/stayora-architecture.png
+stayora-frontend/public/images/stayora-architecture.svg

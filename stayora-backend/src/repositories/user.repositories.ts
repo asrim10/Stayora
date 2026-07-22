@@ -6,6 +6,7 @@ export interface IUserRepository {
   createUser(userData: Partial<IUser>): Promise<IUser>;
   getUserByEmail(email: string): Promise<IUser | null>;
   getUserByUsername(username: string): Promise<IUser | null>;
+  getUserByGoogleId(googleId: string): Promise<IUser | null>;
   //Additional
   getUserByID(id: string): Promise<IUser | null>;
   getAllUsers(
@@ -28,6 +29,11 @@ export class UserRepository implements IUserRepository {
   }
   async getUserByUsername(username: string): Promise<IUser | null> {
     const user = await UserModel.findOne({ username: username });
+    return user;
+  }
+
+  async getUserByGoogleId(googleId: string): Promise<IUser | null> {
+    const user = await UserModel.findOne({ googleId });
     return user;
   }
 
