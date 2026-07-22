@@ -1,9 +1,8 @@
 import { OAuth2Client } from "google-auth-library";
-import { GOOGLE_CLIENT_ID } from "../config";
+import { GOOGLE_CLIENT_ID, JWT_KEYS, CURRENT_KID } from "../config";
 import { UserRepository } from "../repositories/user.repositories";
 import { HttpError } from "../errors/http-error";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../config";
 
 const userRepository = new UserRepository();
 const oAuth2Client = new OAuth2Client(GOOGLE_CLIENT_ID);
@@ -85,7 +84,7 @@ export class GoogleOAuthService {
       fullName: user.fullName,
       role: user.role,
     };
-    return jwt.sign(payload, JWT_SECRET, { expiresIn: "30d" });
+    return jwt.sign(payload, JWT_KEYS[CURRENT_KID], { algorithm: "HS256", expiresIn: "30d", header: { alg: "HS256", kid: CURRENT_KID } });
   }
 
   /**

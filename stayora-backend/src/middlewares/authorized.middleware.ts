@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { JWT_SECRET } from "../config";
+import { JWT_SECRET, JWT_KEYS, CURRENT_KID } from "../config";
 import jwt from "jsonwebtoken";
 import { IUser } from "../models/user.model";
 import { UserRepository } from "../repositories/user.repositories";
@@ -41,7 +41,8 @@ export const authorizedMiddleware = async (
     }
 
     if (!token) throw new HttpError(401, "Unauthorized JWT missing");
-    const decodedToken = jwt.verify(token, JWT_SECRET) as Record<string, any>;
+    const kid = (jwt.decode(token, { complete: true }) as any)?.header?.kid || CURRENT_KID;
+    const decodedToken = jwt.verify(token, JWT_KEYS[kid] || JWT_SECRET, { algorithms: ["HS256"] }) as Record<string, any>;
     if (!decodedToken || !decodedToken.id) {
       throw new HttpError(401, "Unauthorized JWT unverified");
     } // make function async

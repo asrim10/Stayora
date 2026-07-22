@@ -3,7 +3,7 @@ import { UserRepository } from "../repositories/user.repositories";
 import { HttpError } from "../errors/http-error";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../config";
+import { JWT_SECRET, JWT_KEYS, CURRENT_KID } from "../config";
 import { encrypt, decrypt } from "../utils/crypto";
 
 const userRepository = new UserRepository();
@@ -120,7 +120,8 @@ export async function disableMfa(userId: string, password: string, token: string
 export async function completeMfaChallenge(tempToken: string, token: string) {
   let decoded: any;
   try {
-    decoded = jwt.verify(tempToken, JWT_SECRET);
+    const kid = (jwt.decode(tempToken, { complete: true }) as any)?.header?.kid || CURRENT_KID;
+    decoded = jwt.verify(tempToken, JWT_KEYS[kid] || JWT_SECRET, { algorithms: ["HS256"] });
   } catch {
     throw new HttpError(401, "Invalid or expired temporary token. Please login again.");
   }
@@ -150,7 +151,7 @@ export async function completeMfaChallenge(tempToken: string, token: string) {
     fullName: user.fullName,
     role: user.role,
   };
-  const realToken = jwt.sign(payload, JWT_SECRET, { expiresIn: "30d" });
+  const realToken = jwt.sign(payload, JWT_KEYS[CURRENT_KID], { algorithm: "HS256", expiresIn: "30d", header: { alg: "HS256", kid: CURRENT_KID } });
 
   return { token: realToken, user };
 }

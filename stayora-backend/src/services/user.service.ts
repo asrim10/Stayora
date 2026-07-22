@@ -3,7 +3,7 @@ import { UserRepository } from "../repositories/user.repositories";
 import bcryptjs from "bcryptjs";
 let userRepository = new UserRepository();
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../config";
+import { JWT_SECRET, JWT_KEYS, CURRENT_KID } from "../config";
 import { CreateUserDTO, LoginUserDTO, UpdateUserDTO } from "../dtos/user.dto";
 import { sendEmail } from "../config/email";
 const CLIENT_URL = process.env.CLIENT_URL as string;
@@ -99,7 +99,7 @@ export class UserService {
         email: user.email,
         mfaPending: true,
       };
-      const tempToken = jwt.sign(tempPayload, JWT_SECRET, { expiresIn: "5m" });
+      const tempToken = jwt.sign(tempPayload, JWT_KEYS[CURRENT_KID], { algorithm: "HS256", expiresIn: "5m", header: { alg: "HS256", kid: CURRENT_KID } });
       return { token: tempToken, user, mfaRequired: true };
     }
 
@@ -111,7 +111,7 @@ export class UserService {
       fullName: user.fullName,
       role: user.role,
     };
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "30d" }); // 30days
+    const token = jwt.sign(payload, JWT_KEYS[CURRENT_KID], { algorithm: "HS256", expiresIn: "30d", header: { alg: "HS256", kid: CURRENT_KID } }); // 30days
     return { token, user, mfaRequired: false };
   }
 
@@ -215,7 +215,7 @@ export class UserService {
       passwordResetAttempts: attempts,
     });
 
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" }); // 1 hour expiry
+    const token = jwt.sign({ id: user._id }, JWT_KEYS[CURRENT_KID], { algorithm: "HS256", expiresIn: "1h", header: { alg: "HS256", kid: CURRENT_KID } }); // 1 hour expiry
     const resetLink = `${CLIENT_URL}/reset-password?token=${token}`;
     const html = `<p>Click <a href="${resetLink}">here</a> to reset your password. This link will expire in 1 hour.</p>`;
     await sendEmail(user.email, "Password Reset", html);
@@ -227,7 +227,8 @@ export class UserService {
       if (!token || !newPassword) {
         throw new HttpError(400, "Token and new password are required");
       }
-      const decoded: any = jwt.verify(token, JWT_SECRET);
+      const kid = (jwt.decode(token, { complete: true }) as any)?.header?.kid || CURRENT_KID;
+      const decoded: any = jwt.verify(token, JWT_KEYS[kid] || JWT_SECRET, { algorithms: ["HS256"] });
       const userId = decoded.id;
       const user = await userRepository.getUserByID(userId);
       if (!user) {

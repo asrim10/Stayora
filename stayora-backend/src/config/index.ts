@@ -17,6 +17,14 @@ if (!process.env.JWT_SECRET) {
 }
 export const JWT_SECRET: string = process.env.JWT_SECRET;
 
+// JWT key map with kid (Key ID) for future key rotation support.
+// Add new keys here during rotation. Old kid values can be kept until all
+// tokens with that kid have expired.
+export const JWT_KEYS: Record<string, string> = {
+  "v1": process.env.JWT_SECRET!,
+};
+export const CURRENT_KID = "v1";
+
 // MFA encryption key — used to encrypt TOTP secrets at rest (AES-256-GCM)
 // Skip validation in test environment so tests can set it via setup file
 if (!process.env.MFA_ENCRYPTION_KEY && process.env.NODE_ENV !== "test") {
