@@ -6,6 +6,10 @@ export const API = {
     UPDATEPROFILE: "/api/auth/update-profile",
     REQUEST_RESET_PASSWORD: "/api/auth/request-password-reset",
     RESET_PASSWORD: (token: string) => `/api/auth/reset-password/${token}`,
+    GOOGLE: "/api/auth/google",
+    GOOGLE_TOKEN: "/api/auth/google/token",
+    GOOGLE_CALLBACK: "/api/auth/google/callback",
+    SET_PASSWORD: "/api/auth/set-password",
   },
   MFA: {
     SETUP: "/api/auth/mfa/setup",

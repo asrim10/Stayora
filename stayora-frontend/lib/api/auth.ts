@@ -77,3 +77,28 @@ export const resetPassword = async (token: string, newPassword: string) => {
     );
   }
 };
+
+export const googleLogin = async (idToken: string) => {
+  try {
+    const response = await axios.post(API.AUTH.GOOGLE_TOKEN, { idToken });
+    return response.data;
+  } catch (error: Error | any) {
+    throw new Error(
+      error.response?.data?.message || error.message || "Google login failed",
+    );
+  }
+};
+
+export const setPassword = async (newPassword: string, confirmPassword: string) => {
+  try {
+    const response = await axios.post(API.AUTH.SET_PASSWORD, {
+      newPassword,
+      confirmPassword,
+    });
+    return response.data;
+  } catch (error: Error | any) {
+    throw new Error(
+      error.response?.data?.message || error.message || "Set password failed",
+    );
+  }
+};

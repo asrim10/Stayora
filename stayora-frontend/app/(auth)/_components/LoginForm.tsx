@@ -11,6 +11,8 @@ import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import { Turnstile } from "@marsidev/react-turnstile";
 
+const GOOGLE_AUTH_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5050"}/api/auth/google`;
+
 export default function LoginForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
@@ -65,6 +67,13 @@ export default function LoginForm() {
         setTurnstileKey((k) => k + 1);
       }
     });
+  };
+
+  const handleGoogleLogin = () => {
+    // Direct the user to the backend's Google OAuth endpoint.
+    // The backend will redirect to Google, then back to our callback,
+    // set the httpOnly cookie, and redirect to the frontend.
+    window.location.href = GOOGLE_AUTH_URL;
   };
 
   return (
@@ -176,9 +185,27 @@ export default function LoginForm() {
           {isSubmitting || pending ? "Signing in..." : "Login"}
         </button>
 
-        <div className="flex items-center gap-4 mt-4">
-          <div className="flex-1 h-px bg-gray-300" />
+        {/* Google OAuth Divider */}
+        <div className="relative my-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-white dark:bg-black/40 px-2 text-gray-500">
+              Or continue with
+            </span>
+          </div>
         </div>
+
+        {/* Google Sign-In Button */}
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          className="h-10 w-full rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+        >
+          <FcGoogle className="text-lg" />
+          Sign in with Google
+        </button>
       </form>
     </div>
   );

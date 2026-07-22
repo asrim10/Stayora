@@ -6,6 +6,8 @@ import {
   resetPassword,
   updateProfile,
   whoAmI,
+  googleLogin,
+  setPassword,
 } from "@/lib/api/auth";
 import { LoginData, RegisterData } from "@/app/(auth)/schema";
 import { setAuthToken, setUserData, clearAuthCookies, setTempMfaToken } from "../cookie";
@@ -153,6 +155,58 @@ export const handleResetPassword = async (
     return {
       success: false,
       message: error.message || "Reset password action failed",
+    };
+  }
+};
+
+export const handleGoogleLogin = async (idToken: string) => {
+  try {
+    const response = await googleLogin(idToken);
+    if (response.success) {
+      // The httpOnly cookie is set by the backend, but we still need
+      // to store user data and token in cookies for the frontend
+      await setAuthToken(response.token);
+      await setUserData(response.data);
+      return {
+        success: true,
+        message: "Google login successful",
+        data: response.data,
+      };
+    }
+    return {
+      success: false,
+      message: response.message || "Google login failed",
+    };
+  } catch (error: Error | any) {
+    return {
+      success: false,
+      message: error.message || "Google login action failed",
+    };
+  }
+};
+
+export const handleSetPassword = async (
+  newPassword: string,
+  confirmPassword: string,
+) => {
+  try {
+    const response = await setPassword(newPassword, confirmPassword);
+    if (response.success) {
+      await setUserData(response.data);
+      revalidatePath("/user/profile");
+      return {
+        success: true,
+        message: "Password set successfully!",
+      };
+    }
+    return {
+      success: false,
+      message: response.message || "Set password failed",
+    };
+  } catch (error: Error | any) {
+    return {
+      success: false,
+      message: error.message || "Set password action failed",
     };
   }
 };

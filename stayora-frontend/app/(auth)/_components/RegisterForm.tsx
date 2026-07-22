@@ -5,9 +5,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterData, registerSchema } from "../schema";
 import { useRouter } from "next/navigation";
 import { useTransition, useState } from "react";
+import { FcGoogle } from "react-icons/fc";
 import { handleRegister } from "@/lib/actions/auth-action";
 import { Eye, EyeOff } from "lucide-react";
 import { Turnstile } from "@marsidev/react-turnstile";
+
+const GOOGLE_AUTH_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5050"}/api/auth/google`;
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -220,9 +223,26 @@ export default function RegisterForm() {
           {isSubmitting || pending ? "Creating account..." : "Sign Up"}
         </button>
 
-        <div className="flex items-center gap-4 mt-4">
-          <div className="flex-1 h-px bg-gray-300" />
+        {/* Google OAuth Sign-Up */}
+        <div className="relative my-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-white dark:bg-black/40 px-2 text-gray-500">
+              Or sign up with
+            </span>
+          </div>
         </div>
+
+        <button
+          type="button"
+          onClick={() => { window.location.href = GOOGLE_AUTH_URL; }}
+          className="h-10 w-full rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+        >
+          <FcGoogle className="text-lg" />
+          Sign up with Google
+        </button>
       </form>
     </div>
   );
