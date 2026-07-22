@@ -225,11 +225,11 @@ export default function RegisterForm() {
 
         {/* Google OAuth Sign-Up */}
         <div className="relative my-6">
-          <div className="absolute inset-0 flex items-center">
+          <div className="absolute inset-0 flex items-center" aria-hidden="true">
             <div className="w-full border-t border-gray-300" />
           </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white dark:bg-black/40 px-2 text-gray-500">
+          <div className="relative flex justify-center">
+            <span className="relative bg-white dark:bg-background px-4 py-1 text-xs uppercase text-gray-500">
               Or sign up with
             </span>
           </div>
