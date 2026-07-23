@@ -40,9 +40,14 @@ export class ReviewService {
     return await reviewRepository.getByUserId(userId);
   }
 
-  async updateReview(id: string, updateData: UpdateReviewDTO) {
+  async updateReview(id: string, updateData: UpdateReviewDTO, userId?: string) {
     const review = await reviewRepository.getById(id);
     if (!review) throw new HttpError(404, "Review not found");
+
+    // If a userId is provided, verify ownership
+    if (userId && review.userId?.toString() !== userId) {
+      throw new HttpError(403, "Forbidden: you do not own this review");
+    }
 
     // getById populates hotelId, so extract the raw _id safely
     const hotelId = (review.hotelId as any)?._id
@@ -54,9 +59,14 @@ export class ReviewService {
     return updatedReview;
   }
 
-  async deleteReview(id: string) {
+  async deleteReview(id: string, userId?: string) {
     const review = await reviewRepository.getById(id);
     if (!review) throw new HttpError(404, "Review not found");
+
+    // If a userId is provided, verify ownership
+    if (userId && review.userId?.toString() !== userId) {
+      throw new HttpError(403, "Forbidden: you do not own this review");
+    }
 
     const hotelId = (review.hotelId as any)?._id
       ? (review.hotelId as any)._id.toString()

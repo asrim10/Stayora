@@ -127,9 +127,16 @@ export class AuthController {
 
   async delete(req: Request, res: Response) {
     try {
-      const userId = req.params.id;
+      // Use the authenticated user's ID — never trust req.params.id for self-deletion
+      const userId = req.user?._id;
+      if (!userId) {
+        return res.status(401).json({
+          success: false,
+          message: "Unauthorized user not found",
+        });
+      }
 
-      const result = await userService.deleteUser(userId);
+      const result = await userService.deleteUser(userId.toString());
 
       return res.status(200).json({
         success: true,

@@ -15,11 +15,16 @@ export class BookingService {
     return bookings;
   }
 
-  async getBookingById(id: string) {
+  async getBookingById(id: string, userId?: string) {
     const booking = await bookingRepository.getById(id);
 
     if (!booking) {
       throw new HttpError(404, "Booking not found");
+    }
+
+    // If a userId is provided, verify ownership
+    if (userId && booking.userId?.toString() !== userId) {
+      throw new HttpError(403, "Forbidden: you do not own this booking");
     }
 
     return booking;
@@ -30,22 +35,32 @@ export class BookingService {
     return bookings;
   }
 
-  async updateBooking(id: string, updateData: UpdateBookingDTO) {
+  async updateBooking(id: string, updateData: UpdateBookingDTO, userId?: string) {
     const booking = await bookingRepository.getById(id);
 
     if (!booking) {
       throw new HttpError(404, "Booking not found");
     }
 
+    // If a userId is provided, verify ownership
+    if (userId && booking.userId?.toString() !== userId) {
+      throw new HttpError(403, "Forbidden: you do not own this booking");
+    }
+
     const updatedBooking = await bookingRepository.update(id, updateData);
     return updatedBooking;
   }
 
-  async deleteBooking(id: string) {
+  async deleteBooking(id: string, userId?: string) {
     const booking = await bookingRepository.getById(id);
 
     if (!booking) {
       throw new HttpError(404, "Booking not found");
+    }
+
+    // If a userId is provided, verify ownership
+    if (userId && booking.userId?.toString() !== userId) {
+      throw new HttpError(403, "Forbidden: you do not own this booking");
     }
 
     const deleted = await bookingRepository.delete(id);

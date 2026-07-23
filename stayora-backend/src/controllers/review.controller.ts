@@ -147,6 +147,7 @@ export class ReviewController {
   async updateReview(req: Request, res: Response, next: NextFunction) {
     try {
       const reviewId = req.params.id;
+      const userId = (req as any).user?.id || (req as any).user?._id;
 
       if (!mongoose.Types.ObjectId.isValid(reviewId)) {
         return res.status(400).json({
@@ -163,7 +164,7 @@ export class ReviewController {
         });
       }
 
-      const updatedReview = await reviewService.updateReview(reviewId, parsedData.data);
+      const updatedReview = await reviewService.updateReview(reviewId, parsedData.data, userId);
 
       return res.status(200).json({
         success: true,
@@ -181,6 +182,7 @@ export class ReviewController {
   async deleteReview(req: Request, res: Response, next: NextFunction) {
     try {
       const reviewId = req.params.id;
+      const userId = (req as any).user?.id || (req as any).user?._id;
 
       if (!mongoose.Types.ObjectId.isValid(reviewId)) {
         return res.status(400).json({
@@ -189,7 +191,7 @@ export class ReviewController {
         });
       }
 
-      const deleted = await reviewService.deleteReview(reviewId);
+      const deleted = await reviewService.deleteReview(reviewId, userId);
 
       return res.status(200).json({
         success: true,

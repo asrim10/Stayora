@@ -49,6 +49,7 @@ export class FavouriteController {
   async removeFavourite(req: Request, res: Response) {
     try {
       const favouriteId = req.params.id;
+      const userId = req.user?._id?.toString();
 
       if (!mongoose.Types.ObjectId.isValid(favouriteId)) {
         return res.status(400).json({
@@ -57,7 +58,7 @@ export class FavouriteController {
         });
       }
 
-      const deleted = await favouriteService.removeFavourite(favouriteId);
+      const deleted = await favouriteService.removeFavourite(favouriteId, userId);
 
       return res.status(200).json({
         success: true,
@@ -101,6 +102,7 @@ export class FavouriteController {
   async getFavouriteById(req: Request, res: Response) {
     try {
       const favouriteId = req.params.id;
+      const userId = req.user?._id?.toString();
 
       if (!mongoose.Types.ObjectId.isValid(favouriteId)) {
         return res.status(400).json({
@@ -109,7 +111,7 @@ export class FavouriteController {
         });
       }
 
-      const favourite = await favouriteService.getFavouriteById(favouriteId);
+      const favourite = await favouriteService.getFavouriteById(favouriteId, userId);
 
       return res.status(200).json({
         success: true,

@@ -31,11 +31,16 @@ export class NotificationService {
     return count;
   }
 
-  async markAsRead(id: string) {
+  async markAsRead(id: string, userId?: string) {
     const notification = await notificationRepository.getById(id);
 
     if (!notification) {
       throw new HttpError(404, "Notification not found");
+    }
+
+    // If a userId is provided, verify ownership
+    if (userId && notification.userId?.toString() !== userId) {
+      throw new HttpError(403, "Forbidden: you do not own this notification");
     }
 
     const updated = await notificationRepository.markAsRead(id);
@@ -46,11 +51,16 @@ export class NotificationService {
     await notificationRepository.markAllAsRead(userId);
   }
 
-  async deleteNotification(id: string) {
+  async deleteNotification(id: string, userId?: string) {
     const notification = await notificationRepository.getById(id);
 
     if (!notification) {
       throw new HttpError(404, "Notification not found");
+    }
+
+    // If a userId is provided, verify ownership
+    if (userId && notification.userId?.toString() !== userId) {
+      throw new HttpError(403, "Forbidden: you do not own this notification");
     }
 
     const deleted = await notificationRepository.delete(id);

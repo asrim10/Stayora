@@ -62,6 +62,7 @@ export class NotificationController {
   async markAsRead(req: Request, res: Response) {
     try {
       const { id } = req.params;
+      const userId = req.user?._id?.toString();
 
       if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
@@ -70,7 +71,7 @@ export class NotificationController {
         });
       }
 
-      const updated = await notificationService.markAsRead(id);
+      const updated = await notificationService.markAsRead(id, userId);
 
       return res.status(200).json({
         success: true,
@@ -113,6 +114,7 @@ export class NotificationController {
   async deleteNotification(req: Request, res: Response) {
     try {
       const { id } = req.params;
+      const userId = req.user?._id?.toString();
 
       if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
@@ -121,7 +123,7 @@ export class NotificationController {
         });
       }
 
-      const deleted = await notificationService.deleteNotification(id);
+      const deleted = await notificationService.deleteNotification(id, userId);
 
       return res.status(200).json({
         success: true,

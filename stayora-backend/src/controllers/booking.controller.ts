@@ -79,6 +79,7 @@ export class BookingController {
   async getBookingById(req: Request, res: Response) {
     try {
       const bookingId = req.params.id;
+      const userId = req.user?._id?.toString();
 
       if (!mongoose.Types.ObjectId.isValid(bookingId)) {
         return res.status(400).json({
@@ -87,7 +88,7 @@ export class BookingController {
         });
       }
 
-      const booking = await bookingService.getBookingById(bookingId);
+      const booking = await bookingService.getBookingById(bookingId, userId);
 
       return res.status(200).json({
         success: true,
@@ -105,6 +106,7 @@ export class BookingController {
   async updateBooking(req: Request, res: Response) {
     try {
       const bookingId = req.params.id;
+      const userId = req.user?._id?.toString();
 
       if (!mongoose.Types.ObjectId.isValid(bookingId)) {
         return res.status(400).json({
@@ -125,6 +127,7 @@ export class BookingController {
       const updatedBooking = await bookingService.updateBooking(
         bookingId,
         parsedData.data,
+        userId,
       );
 
       return res.status(200).json({
@@ -143,6 +146,7 @@ export class BookingController {
   async deleteBooking(req: Request, res: Response) {
     try {
       const bookingId = req.params.id;
+      const userId = req.user?._id?.toString();
 
       if (!mongoose.Types.ObjectId.isValid(bookingId)) {
         return res.status(400).json({
@@ -151,7 +155,7 @@ export class BookingController {
         });
       }
 
-      const deleted = await bookingService.deleteBooking(bookingId);
+      const deleted = await bookingService.deleteBooking(bookingId, userId);
 
       return res.status(200).json({
         success: true,

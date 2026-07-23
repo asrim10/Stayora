@@ -17,22 +17,32 @@ export class FavouriteService {
     return newFavourite;
   }
 
-  async removeFavourite(favouriteId: string) {
+  async removeFavourite(favouriteId: string, userId?: string) {
     const favourite = await favouriteRepository.getById(favouriteId);
 
     if (!favourite) {
       throw new HttpError(404, "Favourite not found");
     }
 
+    // If a userId is provided, verify ownership
+    if (userId && favourite.userId?.toString() !== userId) {
+      throw new HttpError(403, "Forbidden: you do not own this favourite");
+    }
+
     const deleted = await favouriteRepository.remove(favouriteId);
     return deleted;
   }
 
-  async getFavouriteById(favouriteId: string) {
+  async getFavouriteById(favouriteId: string, userId?: string) {
     const favourite = await favouriteRepository.getById(favouriteId);
 
     if (!favourite) {
       throw new HttpError(404, "Favourite not found");
+    }
+
+    // If a userId is provided, verify ownership
+    if (userId && favourite.userId?.toString() !== userId) {
+      throw new HttpError(403, "Forbidden: you do not own this favourite");
     }
 
     return favourite;
