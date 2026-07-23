@@ -12,7 +12,8 @@ export class PaymentController {
         return res.status(400).json({ errors: parsed.error.flatten() });
       }
 
-      const data = await paymentService.initiatePayment(parsed.data);
+      const userId = req.user?._id?.toString();
+      const data = await paymentService.initiatePayment(parsed.data, userId);
       return res.status(200).json({ success: true, ...data });
     } catch (error) {
       next(error);
@@ -26,7 +27,8 @@ export class PaymentController {
         return res.status(400).json({ errors: parsed.error.flatten() });
       }
 
-      const data = await paymentService.verifyPayment(parsed.data.pidx);
+      const userId = req.user?._id?.toString();
+      const data = await paymentService.verifyPayment(parsed.data.pidx, userId);
       return res.status(data.success ? 200 : 400).json(data);
     } catch (error) {
       next(error);

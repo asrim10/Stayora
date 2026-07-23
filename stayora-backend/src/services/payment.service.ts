@@ -1,15 +1,27 @@
 import axios from "axios";
 import { InitiatePaymentDtoType } from "../dtos/payment.dto";
 import { PaymentRepository } from "../repositories/payment.repositories";
+import { BookingRepository } from "../repositories/booking.repositories";
+import { HttpError } from "../errors/http-error";
 
 const KHALTI_SECRET_KEY = process.env.KHALTI_SECRET_KEY!;
 const KHALTI_BASE_URL = "https://dev.khalti.com/api/v2";
 
 const paymentRepo = new PaymentRepository();
+const bookingRepo = new BookingRepository();
 
 export class PaymentService {
-  async initiatePayment(payload: InitiatePaymentDtoType) {
+  async initiatePayment(payload: InitiatePaymentDtoType, userId?: string) {
     const { bookingId, totalPrice, fullName, email } = payload;
+
+    // Verify booking exists and belongs to the authenticated user
+    const booking = await bookingRepo.getById(bookingId);
+    if (!booking) {
+      throw new HttpError(404, "Booking not found");
+    }
+    if (userId && booking.userId?.toString() !== userId) {
+      throw new HttpError(403, "Forbidden: you do not own this booking");
+    }
 
     const response = await axios.post(
       `${KHALTI_BASE_URL}/epayment/initiate/`,
@@ -37,7 +49,16 @@ export class PaymentService {
     return { pidx, payment_url };
   }
 
-  async verifyPayment(pidx: string) {
+  async verifyPayment(pidx: string, userId?: string) {
+    // Verify the booking associated with this pidx belongs to the authenticated user
+    const existingBooking = await paymentRepo.getByPidx(pidx);
+    if (!existingBooking) {
+      throw new HttpError(404, "Payment record not found");
+    }
+    if (userId && existingBooking.userId?.toString() !== userId) {
+      throw new HttpError(403, "Forbidden: you do not own this booking");
+    }
+
     const response = await axios.post(
       `${KHALTI_BASE_URL}/epayment/lookup/`,
       { pidx },
