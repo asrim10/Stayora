@@ -43,10 +43,7 @@ export function FavoriteEmptyState({ isFiltered }: FavoriteEmptyStateProps) {
           <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-2">
             Your Collection
           </p>
-          <h2
-            className="text-white text-3xl font-bold uppercase m-0"
-            style={{ fontFamily: "'Georgia', serif" }}
-          >
+          <h2 className="text-white text-3xl font-bold uppercase m-0 font-heading">
             No Favorites Yet
           </h2>
         </div>

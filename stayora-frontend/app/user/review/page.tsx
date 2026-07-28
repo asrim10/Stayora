@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
 import { handleGetReviewsByHotel } from "@/lib/actions/review-action";
@@ -39,7 +39,7 @@ const DOTS = [
   { top: "65%", right: "10%" },
 ];
 
-export default function HotelReviewsPage() {
+function HotelReviewsContent() {
   const searchParams = useSearchParams();
   const { user } = useAuth();
   const [hotelId, setHotelId] = useState<string | null>(null);
@@ -86,9 +86,7 @@ export default function HotelReviewsPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <p
-          className="text-[#4b5563] text-sm tracking-widest"
-          style={{ fontFamily: "Georgia, serif" }}
+        <p className="text-[#4b5563] text-sm tracking-widest font-heading"
         >
           Loading...
         </p>
@@ -100,10 +98,7 @@ export default function HotelReviewsPage() {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center text-white">
         <div className="text-center">
-          <h2
-            className="text-[#c9a96e] mb-4"
-            style={{ fontFamily: "Georgia, serif" }}
-          >
+          <h2 className="text-[#c9a96e] mb-4 font-heading">
             No Hotel Selected
           </h2>
           <p className="text-[#aaa]">Please select a hotel to view reviews.</p>
@@ -116,10 +111,7 @@ export default function HotelReviewsPage() {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center text-white">
         <div className="text-center">
-          <h2
-            className="text-[#c9a96e] mb-4"
-            style={{ fontFamily: "Georgia, serif" }}
-          >
+          <h2 className="text-[#c9a96e] mb-4 font-heading">
             Hotel Not Found
           </h2>
           <p className="text-[#aaa]">
@@ -131,9 +123,7 @@ export default function HotelReviewsPage() {
   }
 
   return (
-    <div
-      className="min-h-screen bg-[#0a0a0a] text-white"
-      style={{ fontFamily: "'Georgia', serif" }}
+    <div className="min-h-screen bg-[#0a0a0a] text-white font-heading"
     >
       {/* HERO */}
       <div
@@ -304,5 +294,17 @@ export default function HotelReviewsPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function HotelReviewsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <div className="w-12 h-12 border-2 border-[#c9a96e] border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <HotelReviewsContent />
+    </Suspense>
   );
 }

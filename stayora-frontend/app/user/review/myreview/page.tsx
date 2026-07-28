@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -51,7 +51,7 @@ const EMPTY_COLS = [
   },
 ];
 
-export default function MyReviewsPage() {
+function MyReviewsContent() {
   const searchParams = useSearchParams();
   const hotelId = searchParams.get("hotelId") || "";
   const { user } = useAuth();
@@ -106,9 +106,7 @@ export default function MyReviewsPage() {
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-        <p
-          className="text-[#c9a96e] text-lg"
-          style={{ fontFamily: "Georgia, serif" }}
+        <p className="text-[#c9a96e] text-lg font-heading"
         >
           You must be logged in to view your reviews.
         </p>
@@ -119,7 +117,7 @@ export default function MyReviewsPage() {
   if (tab === "write" && !hotelId) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
-        <div className="text-center" style={{ fontFamily: "Georgia, serif" }}>
+        <div className="text-center font-heading">
           <h2 className="text-[#c9a96e] mb-4">No Hotel Selected</h2>
           <p className="text-[#aaa]">
             Please select a hotel to write a review.
@@ -130,9 +128,7 @@ export default function MyReviewsPage() {
   }
 
   return (
-    <div
-      className="min-h-screen bg-[#0a0a0a] text-white"
-      style={{ fontFamily: "'Georgia', serif" }}
+    <div className="min-h-screen bg-[#0a0a0a] text-white font-heading"
     >
       {/* HERO */}
       <div
@@ -339,5 +335,17 @@ export default function MyReviewsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function MyReviewsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <div className="w-12 h-12 border-2 border-[#c9a96e] border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <MyReviewsContent />
+    </Suspense>
   );
 }

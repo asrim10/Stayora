@@ -47,10 +47,7 @@ function DeleteModal({
         <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
           Confirm Action
         </p>
-        <h2
-          className="text-white text-2xl font-bold uppercase mb-5 m-0"
-          style={{ fontFamily: "'Georgia', serif" }}
-        >
+        <h2 className="text-white text-2xl font-bold uppercase mb-5 m-0 font-heading">
           Delete Review
         </h2>
         <p className="text-[#9ca3af] text-sm leading-relaxed mb-8">
@@ -175,9 +172,7 @@ export function ReviewCard({
                 {location}
               </p>
             )}
-            <h3
-              className="text-white text-lg font-bold uppercase m-0"
-              style={{ fontFamily: "'Georgia', serif" }}
+            <h3 className="text-white text-lg font-bold uppercase m-0 font-heading"
             >
               {hotel}
             </h3>

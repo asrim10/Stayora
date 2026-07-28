@@ -61,9 +61,7 @@ export function FavoriteListCard({
           </div>
         )}
         <div className="absolute bottom-3 left-3">
-          <span
-            className="bg-[#0a0a0a]/90 border border-[#2a2a2a] text-[#c9a96e] text-xs font-bold px-2.5 py-1"
-            style={{ fontFamily: "'Georgia', serif" }}
+          <span className="bg-[#0a0a0a]/90 border border-[#2a2a2a] text-[#c9a96e] text-xs font-bold px-2.5 py-1 font-heading"
           >
             Rs. {hotel.price.toLocaleString()}
             <span className="text-[#4b5563] font-normal text-[10px]">
@@ -79,9 +77,7 @@ export function FavoriteListCard({
           <p className="text-[#c9a96e] text-[9px] tracking-[0.18em] uppercase mb-1.5">
             {location}
           </p>
-          <h3
-            className="text-white text-lg font-bold uppercase mb-3 leading-tight"
-            style={{ fontFamily: "'Georgia', serif" }}
+          <h3 className="text-white text-lg font-bold uppercase mb-3 leading-tight font-heading"
           >
             {hotel.hotelName}
           </h3>

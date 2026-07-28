@@ -63,9 +63,7 @@ export default function InboxPage() {
   const unread = notifications.filter((n) => !n.isRead).length;
 
   return (
-    <div
-      className="min-h-screen bg-[#0a0a0a] text-white"
-      style={{ fontFamily: "'Georgia', serif" }}
+    <div className="min-h-screen bg-[#0a0a0a] text-white font-heading"
     >
       {/* HEADER */}
       <div className="border-b border-[#1a1a1a] px-12 py-10">

@@ -67,9 +67,7 @@ export function ReviewModal({
         <p className="text-[#c9a96e] text-[11px] tracking-[0.2em] uppercase mb-2">
           Guest Review
         </p>
-        <h2
-          className="text-white text-[22px] font-bold uppercase mb-2"
-          style={{ fontFamily: "'Georgia', serif" }}
+        <h2 className="text-white text-[22px] font-bold uppercase mb-2 font-heading"
         >
           Rate Your Stay
         </h2>
