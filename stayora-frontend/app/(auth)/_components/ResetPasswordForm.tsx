@@ -53,58 +53,36 @@ export default function ResetPasswordForm({ token }: { token: string }) {
 
   return (
     <div>
-      <div className="text-center mb-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 text-white text-sm font-medium">
-          <svg
-            width="18"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M3 11L12 3L21 11V20H3V11Z"
-              stroke="white"
-              strokeWidth="1.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          Stayora
-        </div>
-        <h2 className="text-3xl font-serif mt-4">Reset your password</h2>
-      </div>
-
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-1">
-          <label className="text-sm font-medium" htmlFor="password">
+          <label className="text-sm text-white/60" htmlFor="password">
             New Password
           </label>
           <input
             type="password"
             id="password"
             {...register("password")}
-            className="h-10 w-full rounded-md border border-black/10 dark:border-white/15 bg-background px-3 text-sm outline-none focus:border-foreground/40"
+            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
             placeholder="Enter new password"
           />
           {errors.password && (
-            <p className="text-xs text-red-600">{errors.password.message}</p>
+            <p className="text-xs text-red-400">{errors.password.message}</p>
           )}
         </div>
 
         <div className="space-y-1">
-          <label className="text-sm font-medium" htmlFor="confirmPassword">
+          <label className="text-sm text-white/60" htmlFor="confirmPassword">
             Confirm New Password
           </label>
           <input
             type="password"
             id="confirmPassword"
             {...register("confirmPassword")}
-            className="h-10 w-full rounded-md border border-black/10 dark:border-white/15 bg-background px-3 text-sm outline-none focus:border-foreground/40"
+            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
             placeholder="Confirm new password"
           />
           {errors.confirmPassword && (
-            <p className="text-xs text-red-600">
+            <p className="text-xs text-red-400">
               {errors.confirmPassword.message}
             </p>
           )}
@@ -113,7 +91,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="h-10 w-full rounded-md bg-black text-white text-sm font-semibold hover:opacity-95 disabled:opacity-60"
+          className="h-10 w-full rounded-lg bg-[#c9a96e] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all cursor-pointer border-none"
         >
           {isSubmitting ? "Resetting..." : "Reset Password"}
         </button>
@@ -121,7 +99,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
         <div className="text-center text-sm mt-4">
           <Link
             href="/request-password-reset"
-            className="text-blue-600 hover:text-blue-700 font-medium transition"
+            className="text-[#c9a96e] hover:text-[#d4b87a] font-medium transition"
           >
             Request another reset email
           </Link>

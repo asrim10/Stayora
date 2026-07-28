@@ -78,28 +78,6 @@ export default function LoginForm() {
 
   return (
     <div>
-      <div className="text-center mb-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 text-white text-sm font-medium">
-          <svg
-            width="18"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M3 11L12 3L21 11V20H3V11Z"
-              stroke="white"
-              strokeWidth="1.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          Stayora
-        </div>
-        <h2 className="text-3xl font-serif mt-4">Sign in to your account</h2>
-      </div>
-
       <form onSubmit={handleSubmit(submit)} className="space-y-4">
         {error && (
           <div className="p-3 rounded-md bg-red-50 border border-red-200">
@@ -114,7 +92,7 @@ export default function LoginForm() {
             id="email"
             type="email"
             autoComplete="email"
-            className="h-10 w-full rounded-md border border-black/10 dark:border-white/15 bg-background px-3 text-sm outline-none focus:border-foreground/40"
+            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
             {...register("email")}
             placeholder="Enter your email"
           />
@@ -132,7 +110,7 @@ export default function LoginForm() {
               id="password"
               type={showPassword ? "text" : "password"}
               autoComplete="current-password"
-              className="h-10 w-full rounded-md border border-black/10 dark:border-white/15 bg-background px-3 pr-10 text-sm outline-none focus:border-foreground/40"
+              className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 pr-10 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
               {...register("password")}
               placeholder="Enter your password"
             />
@@ -151,7 +129,7 @@ export default function LoginForm() {
 
         <Link
           href="/request-password-reset"
-          className="text-sm text-blue-600 hover:text-blue-700 font-medium transition md:ml-auto block text-right"
+          className="text-sm text-[#c9a96e] hover:text-[#d4b87a] font-medium transition md:ml-auto block text-right"
         >
           Forgot password?
         </Link>
@@ -180,7 +158,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={isSubmitting || pending || (!!turnstileSiteKey && !captchaToken)}
-          className="h-10 w-full rounded-md bg-black text-white text-sm font-semibold hover:opacity-95 disabled:opacity-60"
+          className="h-10 w-full rounded-lg bg-[#c9a96e] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
         >
           {isSubmitting || pending ? "Signing in..." : "Login"}
         </button>
@@ -188,10 +166,10 @@ export default function LoginForm() {
         {/* Google OAuth Divider */}
         <div className="relative my-6">
           <div className="absolute inset-0 flex items-center" aria-hidden="true">
-            <div className="w-full border-t border-gray-300" />
+            <div className="w-full border-t border-white/10" />
           </div>
           <div className="relative flex justify-center">
-            <span className="relative bg-white dark:bg-background px-4 py-1 text-xs uppercase text-gray-500">
+            <span className="relative bg-[#0a0a0a]/40 px-4 py-1 text-xs uppercase text-white/40 backdrop-blur-sm">
               Or continue with
             </span>
           </div>
@@ -201,7 +179,7 @@ export default function LoginForm() {
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="h-10 w-full rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+          className="h-10 w-full rounded-lg border border-white/10 bg-white/5 text-sm font-medium text-white/70 hover:bg-white/10 transition-colors flex items-center justify-center gap-2"
         >
           <FcGoogle className="text-lg" />
           Sign in with Google
