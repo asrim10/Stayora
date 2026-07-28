@@ -98,16 +98,12 @@ export default async function AdminDashboardPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
         @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
         .fade-up { animation: fadeUp 0.5s ease both; }
       `}</style>
 
       <OAuthToast />
-      <div
-        className="w-full min-h-screen bg-[#0a0a0a] text-white px-8 py-10"
-        style={{ fontFamily: "'DM Sans', sans-serif" }}
-      >
+      <div className="w-full min-h-screen bg-[#0a0a0a] text-white px-8 py-10">
         <div className="max-w-370 mx-auto space-y-8">
           {/*  Header  */}
           <div className="fade-up flex items-end justify-between pb-6 border-b border-white/6">
@@ -115,10 +111,7 @@ export default async function AdminDashboardPage() {
               <p className="text-[11px] uppercase tracking-[0.18em] text-[#6b6b8a] mb-2">
                 Admin Panel
               </p>
-              <h1
-                className="text-[54px] font-bold leading-none uppercase text-white"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
+              <h1 className="text-[54px] font-bold leading-none uppercase text-white font-heading">
                 Dashboard
               </h1>
               <p className="mt-2 text-sm text-[#6b6b8a]">{today}</p>

@@ -2,6 +2,8 @@ import Link from "next/link";
 import { handleGetAllHotels } from "@/lib/actions/admin/hotel-action";
 import HotelCards from "./_components/HotelCard";
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
   const response = await handleGetAllHotels("1", "100");
 
@@ -10,17 +12,13 @@ export default async function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] font-[Rethink_Sans]">
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800&display=swap'); * { font-family: 'Rethink Sans', sans-serif; }`}</style>
+    <div className="min-h-screen bg-[#0a0a0a]">
       <div className="border-b border-[#1a1a1a] px-12 py-12 flex items-end justify-between">
         <div>
           <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
             Admin Panel
           </p>
-          <h1
-            className="text-white font-bold uppercase leading-tight m-0 text-5xl"
-            style={{ fontFamily: "'Georgia', serif" }}
-          >
+          <h1 className="text-white font-bold uppercase leading-tight m-0 text-5xl font-heading">
             Hotels
           </h1>
         </div>

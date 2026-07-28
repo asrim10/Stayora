@@ -79,24 +79,17 @@ export default function AdminReviewsPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
         @keyframes slideInToast { from { transform:translateX(20px); opacity:0; } to { transform:translateX(0); opacity:1; } }
       `}</style>
 
-      <div
-        className="min-h-screen bg-[#0a0a0a] text-white px-10 py-10"
-        style={{ fontFamily: "'DM Sans', sans-serif" }}
-      >
+      <div className="min-h-screen bg-[#0a0a0a] text-white px-10 py-10">
         <div className="max-w-350 mx-auto">
           <div className="mb-8">
             <p className="text-[11px] uppercase tracking-[0.18em] text-[#6b6b8a] mb-2">
               Admin Panel
             </p>
             <div className="flex items-center justify-between">
-              <h1
-                className="text-[56px] font-bold leading-none tracking-tight text-white uppercase"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
+              <h1 className="text-[56px] font-bold leading-none tracking-tight text-white uppercase font-heading">
                 Reviews
               </h1>
               {/* Average rating badge — top right like the REFRESH button */}
