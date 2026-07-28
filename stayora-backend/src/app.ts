@@ -42,6 +42,10 @@ const corsOptions = {
 app.use(helmet());
 app.use(cors(corsOptions));
 
+app.use("/uploads", (_, res, next) => {
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+  next();
+});
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 app.use(bodyParser.json());

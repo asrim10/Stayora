@@ -78,6 +78,7 @@ export default function AboutSection() {
               src="/images/about.jpg"
               alt="Stayora About"
               fill
+              sizes="320px"
               className="object-cover"
             />
           </div>
