@@ -2,6 +2,8 @@ import { handleWhoAmI } from "@/lib/actions/auth-action";
 import { notFound } from "next/navigation";
 import UpdateUserForm from "../../_components/UpdateProfile";
 
+export const dynamic = 'force-dynamic';
+
 export default async function EditProfilePage() {
   const result = await handleWhoAmI();
   if (!result.success) throw new Error("Error fetching user data");

@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
 import LoginForm from "../_components/LoginForm";
 
-export default function LoginPageContent() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isAuthenticated, user, checkAuth } = useAuth();
@@ -70,11 +70,19 @@ export default function LoginPageContent() {
           <p className="text-sm">{oauthMessage}</p>
         </div>
       )}
-      <div className="text-center">
-        <h1 className="text-2xl font-semibold">Welcome Back!!!</h1>
-        <p className="mt-1 text-sm text-foreground/70">Login to your account</p>
-      </div>
       <LoginForm />
     </div>
+  );
+}
+
+export default function LoginPageContent() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center py-10">
+        <div className="w-8 h-8 border-2 border-[#c9a96e] border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }

@@ -6,11 +6,8 @@ import LoginPageContent from "./LoginPageContent";
 export default function Page() {
   return (
     <Suspense fallback={
-      <div className="space-y-6 w-full">
-        <div className="text-center">
-          <h1 className="text-2xl font-semibold">Welcome Back!!!</h1>
-          <p className="mt-1 text-sm text-foreground/70">Loading...</p>
-        </div>
+      <div className="flex items-center justify-center py-10">
+        <div className="w-8 h-8 border-2 border-[#c9a96e] border-t-transparent rounded-full animate-spin" />
       </div>
     }>
       <LoginPageContent />
