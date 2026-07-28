@@ -34,10 +34,7 @@ function ConfirmModal({
         <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-2">
           Confirm Action
         </p>
-        <h3
-          className="text-white text-lg font-bold uppercase mb-4"
-          style={{ fontFamily: "'Georgia', serif" }}
-        >
+        <h3 className="text-white text-lg font-bold uppercase mb-4 font-heading">
           Delete User
         </h3>
         <p className="text-[#6b7280] text-sm leading-relaxed mb-8">

@@ -89,10 +89,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
           <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
             Admin Panel
           </p>
-          <h1
-            className="text-white text-4xl font-bold uppercase leading-tight"
-            style={{ fontFamily: "'Georgia', serif" }}
-          >
+          <h1 className="text-white text-4xl font-bold uppercase leading-tight font-heading">
             Edit User
           </h1>
         </div>

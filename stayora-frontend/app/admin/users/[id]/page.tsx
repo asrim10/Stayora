@@ -23,10 +23,7 @@ export default async function Page({
           <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
             Admin Panel
           </p>
-          <h1
-            className="text-white text-4xl font-bold uppercase leading-tight"
-            style={{ fontFamily: "'Georgia', serif" }}
-          >
+          <h1 className="text-white text-4xl font-bold uppercase leading-tight font-heading">
             User Details
           </h1>
         </div>
@@ -59,9 +56,7 @@ export default async function Page({
             <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-1">
               {user.role === "admin" ? "Administrator" : "Member"}
             </p>
-            <h2
-              className="text-white text-2xl font-bold"
-              style={{ fontFamily: "'Georgia', serif" }}
+            <h2 className="text-white text-2xl font-bold font-heading"
             >
               {user.fullName}
             </h2>

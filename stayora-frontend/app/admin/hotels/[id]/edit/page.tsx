@@ -119,17 +119,14 @@ export default function EditHotelPage() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800&display=swap');`}</style>
+
 
       <div className="border-b border-[#1a1a1a] px-12 py-12 flex items-end justify-between">
         <div>
           <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
             Admin Panel
           </p>
-          <h1
-            className="text-white text-4xl font-bold uppercase leading-tight m-0"
-            style={{ fontFamily: "'Georgia', serif" }}
-          >
+          <h1 className="text-white text-4xl font-bold uppercase leading-tight m-0 font-heading">
             Edit Hotel
           </h1>
         </div>

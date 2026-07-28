@@ -48,10 +48,7 @@ function ConfirmModal({
         <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-2">
           Confirm Action
         </p>
-        <h3
-          className="text-white text-lg font-bold uppercase mb-4 m-0"
-          style={{ fontFamily: "'Georgia', serif" }}
-        >
+        <h3 className="text-white text-lg font-bold uppercase mb-4 m-0 font-heading">
           Delete Hotel
         </h3>
         <p className="text-[#6b7280] text-sm leading-relaxed mb-8">
@@ -168,9 +165,7 @@ export default function HotelCards({ hotels }: { hotels: Hotel[] }) {
               <p className="text-[#c9a96e] text-[9px] tracking-[0.18em] uppercase mb-1.5">
                 {hotel.city}, {hotel.country}
               </p>
-              <h3
-                className="text-white text-[15px] font-bold mb-1.5 uppercase truncate leading-snug"
-                style={{ fontFamily: "'Georgia', serif" }}
+              <h3 className="text-white text-[15px] font-bold mb-1.5 uppercase truncate leading-snug font-heading"
               >
                 {hotel.hotelName}
               </h3>
@@ -186,9 +181,7 @@ export default function HotelCards({ hotels }: { hotels: Hotel[] }) {
               <div className="mt-auto pt-4 border-t border-[#1a1a1a]">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <span
-                      className="text-white text-[19px] font-bold"
-                      style={{ fontFamily: "'Georgia', serif" }}
+                    <span className="text-white text-[19px] font-bold font-heading"
                     >
                       Rs. {hotel.price.toLocaleString()}
                     </span>
