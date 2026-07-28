@@ -79,10 +79,7 @@ function CancelModal({
         <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
           Confirm Action
         </p>
-        <h2
-          className="text-white text-2xl font-bold uppercase mb-5 m-0"
-          style={{ fontFamily: "'Georgia', serif" }}
-        >
+        <h2 className="text-white text-2xl font-bold uppercase mb-5 m-0 font-heading">
           Cancel Booking
         </h2>
         <p className="text-[#9ca3af] text-sm leading-relaxed mb-8">
@@ -178,10 +175,7 @@ export default function BookingCard({
                   <p className="text-[#c9a96e] text-[9px] tracking-[0.18em] uppercase mb-1">
                     {getLocationString(hotelData)}
                   </p>
-                  <h3
-                    className="text-white text-xl font-bold uppercase leading-snug"
-                    style={{ fontFamily: "'Georgia', serif" }}
-                  >
+                  <h3 className="text-white text-xl font-bold uppercase leading-snug font-heading">
                     {hotelData?.hotelName || booking.hotelName || "Hotel"}
                   </h3>
                 </div>
@@ -229,10 +223,7 @@ export default function BookingCard({
                   {booking.nights || 1}{" "}
                   {(booking.nights || 1) === 1 ? "Night" : "Nights"}
                 </p>
-                <p
-                  className="text-white text-2xl font-bold"
-                  style={{ fontFamily: "'Georgia', serif" }}
-                >
+                <p className="text-white text-2xl font-bold font-heading">
                   Rs.{" "}
                   {(
                     booking.totalAmount ||

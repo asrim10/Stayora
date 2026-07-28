@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { getHotelById } from "../../../lib/api/hotel";
 import { createBooking } from "../../../lib/api/booking";
@@ -27,8 +27,7 @@ function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
         {eyebrow}
       </p>
       <h3
-        className="text-white text-2xl font-bold uppercase m-0"
-        style={{ fontFamily: "'Georgia', serif" }}
+        className="text-white text-2xl font-bold uppercase m-0 font-heading"
       >
         {title}
       </h3>
@@ -36,7 +35,7 @@ function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
   );
 }
 
-export default function HotelBookingPage() {
+function HotelBookingContent() {
   const searchParams = useSearchParams();
   const hotelId = searchParams?.get("hotelId") || "";
   const router = useRouter();
@@ -205,7 +204,6 @@ export default function HotelBookingPage() {
   return (
     <div
       className="min-h-screen bg-[#0a0a0a] text-white"
-      style={{ fontFamily: "'Georgia', serif" }}
     >
       <style>{`
         input[type="date"]::-webkit-calendar-picker-indicator {
@@ -288,7 +286,7 @@ export default function HotelBookingPage() {
                 {location}
               </p>
               <h1
-                className="text-white font-bold uppercase leading-tight m-0"
+                className="text-white font-bold uppercase leading-tight m-0 font-heading"
                 style={{ fontSize: "clamp(28px, 3vw, 48px)" }}
               >
                 {hotel.hotelName || hotel.name}
@@ -590,5 +588,17 @@ export default function HotelBookingPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function HotelBookingPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <div className="w-12 h-12 border-2 border-[#c9a96e] border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <HotelBookingContent />
+    </Suspense>
   );
 }

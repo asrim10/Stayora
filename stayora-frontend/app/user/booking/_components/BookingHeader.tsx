@@ -4,9 +4,7 @@ export default function BookingHeader() {
       <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
         My Account
       </p>
-      <h1
-        className="text-white text-5xl font-bold uppercase leading-tight m-0"
-        style={{ fontFamily: "'Georgia', serif" }}
+      <h1 className="text-white text-5xl font-bold uppercase leading-tight m-0 font-heading"
       >
         Booking History
       </h1>

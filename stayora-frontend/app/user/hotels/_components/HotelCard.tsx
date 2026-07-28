@@ -82,8 +82,7 @@ export default function HotelCard({
             {hotel.type || "Hotel"}
           </p>
           <h3
-            className="text-white text-lg font-bold uppercase leading-snug m-0 group-hover:text-[#c9a96e] transition-colors"
-            style={{ fontFamily: "'Georgia', serif" }}
+            className="text-white text-lg font-bold uppercase leading-snug m-0 group-hover:text-[#c9a96e] transition-colors font-heading"
           >
             {hotel.hotelName || hotel.name}
           </h3>
@@ -116,8 +115,7 @@ export default function HotelCard({
               Per night
             </p>
             <p
-              className="text-white text-xl font-bold m-0"
-              style={{ fontFamily: "'Georgia', serif" }}
+              className="text-white text-xl font-bold m-0 font-heading"
             >
               Rs.{" "}
               <span className="text-[#c9a96e]">

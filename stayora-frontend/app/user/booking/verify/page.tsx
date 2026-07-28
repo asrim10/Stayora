@@ -1,10 +1,10 @@
 // app/user/booking/verify/page.tsx
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { handleVerifyKhaltiPayment } from "@/lib/actions/payment-action";
 
-export default function VerifyPage() {
+function VerifyContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [status, setStatus] = useState<"loading" | "success" | "failed">(
@@ -52,9 +52,7 @@ export default function VerifyPage() {
   }, [searchParams, router]);
 
   return (
-    <div
-      className="min-h-screen bg-[#0a0a0a] flex items-center justify-center"
-      style={{ fontFamily: "'Georgia', serif" }}
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center font-heading"
     >
       {status === "loading" && (
         <div className="text-center space-y-4">
@@ -99,5 +97,17 @@ export default function VerifyPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function VerifyPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <div className="w-12 h-12 border-2 border-[#c9a96e] border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <VerifyContent />
+    </Suspense>
   );
 }

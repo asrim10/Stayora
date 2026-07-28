@@ -117,9 +117,7 @@ export default function BookingHistoryPage() {
             <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-3">
               No Results
             </p>
-            <h2
-              className="text-white text-3xl font-bold uppercase mb-3"
-              style={{ fontFamily: "'Georgia', serif" }}
+            <h2 className="text-white text-3xl font-bold uppercase mb-3 font-heading"
             >
               {searchQuery ? "No Bookings Found" : "No Bookings Yet"}
             </h2>

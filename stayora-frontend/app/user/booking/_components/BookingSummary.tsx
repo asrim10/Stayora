@@ -46,9 +46,7 @@ export default function BookingSummaryStats({
           <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-4">
             {s.label}
           </p>
-          <p
-            className="text-white text-[36px] font-bold leading-none m-0"
-            style={{ fontFamily: "'Georgia', serif" }}
+          <p className="text-white text-[36px] font-bold leading-none m-0 font-heading"
           >
             {s.value}
           </p>

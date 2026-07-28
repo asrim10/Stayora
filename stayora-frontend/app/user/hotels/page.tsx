@@ -91,8 +91,7 @@ export default function HotelsPage() {
 
   return (
     <div
-      className="min-h-screen bg-[#0a0a0a] text-white"
-      style={{ fontFamily: "'Georgia', serif" }}
+      className="min-h-screen bg-[#0a0a0a] text-white font-heading"
     >
       <HotelsHero total={hotels.length} />
 
