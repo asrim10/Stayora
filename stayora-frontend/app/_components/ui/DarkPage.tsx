@@ -182,7 +182,6 @@ export default function DarkPageLayout({
         background: "#0a0a0a",
         minHeight: "100vh",
         color: "#fff",
-        fontFamily: "'Georgia', serif",
       }}
     >
       {/*  HERO  */}
@@ -398,7 +397,6 @@ export const styles = {
     fontSize: 14,
     padding: "0.85rem 1.25rem",
     outline: "none",
-    fontFamily: "'Georgia', serif",
     boxSizing: "border-box" as const,
     transition: "border-color 0.2s",
   },
@@ -422,7 +420,6 @@ export const styles = {
     textTransform: "uppercase" as const,
     padding: "0.85rem 1.75rem",
     cursor: "pointer",
-    fontFamily: "'Georgia', serif",
   },
   errorText: {
     color: "#ef4444",

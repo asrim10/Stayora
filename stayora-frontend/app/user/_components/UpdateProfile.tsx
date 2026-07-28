@@ -81,12 +81,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
 
   return (
     <>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');`}</style>
-
-      <div
-        className="min-h-screen bg-[#0a0a0a] text-white"
-        style={{ fontFamily: "'DM Sans', sans-serif" }}
-      >
+      <div className="min-h-screen bg-[#0a0a0a] text-white">
         {/*  Hero  */}
         <div className="relative h-[38vh] min-h-65 border-b border-white/6 px-10 flex flex-col justify-end pb-10 overflow-hidden">
           <div className="absolute inset-0 bg-linear-to-b from-white/1 to-transparent pointer-events-none" />
@@ -142,10 +137,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
 
             {/* Title + file input */}
             <div className="flex-1 min-w-0">
-              <h1
-                className="text-[42px] font-bold leading-none text-white uppercase mb-4"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
+              <h1 className="text-[42px] font-bold leading-none text-white uppercase mb-4 font-heading">
                 Edit Profile
               </h1>
               {/* Profile picture upload in hero stats area */}
@@ -165,8 +157,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
                           handleImageChange(e.target.files?.[0], onChange)
                         }
                         accept=".jpg,.jpeg,.png,.webp"
-                        className="text-[13px] text-[#6b6b8a] file:mr-3 file:py-1.5 file:px-3 file:rounded file:border file:border-white/10 file:bg-white/4 file:text-xs file:text-[#6b6b8a] file:cursor-pointer file:uppercase file:tracking-wider hover:file:border-white/20 hover:file:text-white/60 file:transition-all"
-                        style={{ fontFamily: "'Georgia', serif" }}
+                        className="text-[13px] text-[#6b6b8a] file:mr-3 file:py-1.5 file:px-3 file:rounded file:border file:border-white/10 file:bg-white/4 file:text-xs file:text-[#6b6b8a] file:cursor-pointer file:uppercase file:tracking-wider hover:file:border-white/20 hover:file:text-white/60 file:transition-all font-heading"
                       />
                       {errors.image && (
                         <p className="mt-1 text-xs text-red-400">
@@ -187,11 +178,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
           <div className="mb-8">
             <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-1.5">
               Update Details
-            </p>
-            <h2
-              className="text-[32px] font-bold text-white"
-              style={{ fontFamily: "'Cormorant Garamond', serif" }}
-            >
+            </p>              <h2 className="text-[32px] font-bold text-white font-heading">
               Personal Info
             </h2>
             <div className="mt-4 h-px bg-white/6" />

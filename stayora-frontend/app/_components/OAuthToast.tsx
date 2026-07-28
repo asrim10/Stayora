@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 
-export default function OAuthToast() {
+function OAuthToastContent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -25,4 +25,12 @@ export default function OAuthToast() {
   }, [searchParams]);
 
   return null;
+}
+
+export default function OAuthToast() {
+  return (
+    <Suspense fallback={null}>
+      <OAuthToastContent />
+    </Suspense>
+  );
 }
