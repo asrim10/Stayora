@@ -84,9 +84,7 @@ export function BookingStats({ stats, isLoading }: BookingStatsProps) {
             </p>
             <Icon size={13} className={`${color} opacity-65`} />
           </div>
-          <p
-            className="text-white text-[34px] font-bold mb-4 leading-none m-0"
-            style={{ fontFamily: "'Georgia', serif" }}
+          <p className="text-white text-[34px] font-bold mb-4 leading-none m-0 font-heading"
           >
             {isLoading ? <span className="text-[#2a2a2a]">—</span> : stats[key]}
           </p>

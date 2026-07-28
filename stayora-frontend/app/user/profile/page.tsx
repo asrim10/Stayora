@@ -5,6 +5,8 @@ import { Shield, ShieldOff, KeyRound } from "lucide-react";
 import UserAvatar from "@/app/_components/UserAvatar";
 import SetPasswordForm from "./SetPasswordForm";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ProfilePage() {
   const result = await handleWhoAmI();
   if (!result.success) throw new Error("Error fetching user data");
@@ -50,12 +52,7 @@ export default async function ProfilePage() {
 
   return (
     <>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');`}</style>
-
-      <div
-        className="min-h-screen bg-[#0a0a0a] text-white"
-        style={{ fontFamily: "'DM Sans', sans-serif" }}
-      >
+      <div className="min-h-screen bg-[#0a0a0a] text-white">
         {/*  Hero  */}
         <div className="relative h-[38vh] min-h-65border-b border-white/6 px-10 flex flex-col justify-end pb-10 overflow-hidden">
           {/* Subtle background texture */}
@@ -70,10 +67,7 @@ export default async function ProfilePage() {
               <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-1.5">
                 Account Type
               </p>
-              <p
-                className="text-3xl font-bold uppercase text-white mb-1"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
+              <p className="text-3xl font-bold uppercase text-white mb-1 font-heading">
                 {user.role}
               </p>
               <p className="text-xs text-[#6b6b8a]">
@@ -95,10 +89,7 @@ export default async function ProfilePage() {
 
             {/* Name + stats */}
             <div className="flex-1 min-w-0">
-              <h1
-                className="text-[42px] font-bold leading-none text-white uppercase mb-4 truncate"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
+              <h1 className="text-[42px] font-bold leading-none text-white uppercase mb-4 truncate font-heading">
                 {user.fullName || user.username}
               </h1>
               <div className="flex gap-8">
@@ -130,10 +121,7 @@ export default async function ProfilePage() {
             <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-1.5">
               Account Details
             </p>
-            <h2
-              className="text-[32px] font-bold text-white"
-              style={{ fontFamily: "'Cormorant Garamond', serif" }}
-            >
+            <h2 className="text-[32px] font-bold text-white font-heading">
               Personal Info
             </h2>
             <div className="mt-4 h-px bg-white/6" />
@@ -161,10 +149,7 @@ export default async function ProfilePage() {
                 <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-1.5">
                   Security
                 </p>
-                <h2
-                  className="text-[32px] font-bold text-white"
-                  style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                >
+                <h2 className="text-[32px] font-bold text-white font-heading">
                   Set Password
                 </h2>
                 <div className="mt-4 h-px bg-white/6" />

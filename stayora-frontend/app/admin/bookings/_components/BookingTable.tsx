@@ -243,8 +243,7 @@ export function BookingTable({
                     </p>
                   </td>
                   <td
-                    className="px-5 py-4 text-[#c9a96e] text-sm font-bold whitespace-nowrap"
-                    style={{ fontFamily: "'Georgia', serif" }}
+                    className="px-5 py-4 text-[#c9a96e] text-sm font-bold whitespace-nowrap font-heading"
                   >
                     Rs. {booking.totalPrice.toLocaleString()}
                   </td>

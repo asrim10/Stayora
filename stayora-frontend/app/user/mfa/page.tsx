@@ -147,21 +147,13 @@ export default function MfaPage() {
     <div className="flex min-h-screen bg-[#0a0a0a]">
       <Sidebar />
       <main className="flex-1 min-w-0 p-8">
-        <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');`}</style>
-
-        <div
-          className="max-w-2xl mx-auto"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
-        >
+        <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="mb-10">
             <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-1.5">
               Security
             </p>
-            <h1
-              className="text-[32px] font-bold text-white"
-              style={{ fontFamily: "'Cormorant Garamond', serif" }}
-            >
+            <h1 className="text-[32px] font-bold text-white font-heading">
               Two-Factor Authentication (2FA)
             </h1>
             <p className="text-sm text-[#6b6b8a] mt-2">

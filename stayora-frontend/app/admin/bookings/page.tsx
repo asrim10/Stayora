@@ -90,10 +90,7 @@ export default function BookingsPage() {
             <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
               Admin Panel
             </p>
-            <h1
-              className="text-white font-bold uppercase leading-tight m-0 text-5xl"
-              style={{ fontFamily: "'Georgia', serif" }}
-            >
+            <h1 className="text-white font-bold uppercase leading-tight m-0 text-5xl font-heading">
               Bookings
             </h1>
           </div>

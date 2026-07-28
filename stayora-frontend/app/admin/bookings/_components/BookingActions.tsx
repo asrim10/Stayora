@@ -86,9 +86,7 @@ function DarkModal({
             <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-1">
               Admin
             </p>
-            <h2
-              className="text-white text-lg font-bold uppercase m-0"
-              style={{ fontFamily: "'Georgia', serif" }}
+            <h2 className="text-white text-lg font-bold uppercase m-0 font-heading"
             >
               {title}
             </h2>
@@ -356,9 +354,7 @@ export function BookingActions({
               </div>
               <div className="bg-[#111] border border-[#1a1a1a] px-6 py-5 flex items-center justify-between">
                 <span className={infoLabelCls}>Total Price</span>
-                <span
-                  className="text-[#c9a96e] text-2xl font-bold"
-                  style={{ fontFamily: "'Georgia', serif" }}
+                <span className="text-[#c9a96e] text-2xl font-bold font-heading"
                 >
                   Rs. {booking.totalPrice.toLocaleString()}
                 </span>
