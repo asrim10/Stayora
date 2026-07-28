@@ -57,8 +57,7 @@ export default function Sidebar() {
 
   return (
     <div
-      className="w-60 min-h-screen bg-[#0a0a0a] border-r border-[#1a1a1a] flex flex-col flex-shrink-0"
-      style={{ fontFamily: "'Georgia', serif" }}
+      className="w-60 min-h-screen bg-[#0a0a0a] border-r border-[#1a1a1a] flex flex-col flex-shrink-0 font-heading"
     >
       {/* USER CARD */}
       <div className="px-6 pt-8 pb-6 border-b border-[#1a1a1a]">
@@ -121,7 +120,7 @@ export default function Sidebar() {
         <button
           onClick={logout}
           className="w-full flex items-center gap-3 px-3 py-2.5 text-[#6b7280] text-[13px] tracking-[0.03em] bg-transparent border-none cursor-pointer transition-colors hover:text-[#f87171] hover:bg-[#1a0a0a]"
-          style={{ fontFamily: "'Georgia', serif" }}
+
         >
           <LogOut size={15} strokeWidth={1.8} />
           <span>Log Out</span>

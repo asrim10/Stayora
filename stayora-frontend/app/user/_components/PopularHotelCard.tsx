@@ -129,17 +129,13 @@ export default function PopularHotelCard({
         <p className="text-[#c9a96e] text-[9px] tracking-[0.18em] uppercase mb-1.5 truncate">
           {location}
         </p>
-        <h3
-          className="text-white text-sm font-bold uppercase mb-3 truncate leading-snug"
-          style={{ fontFamily: "'Georgia', serif" }}
+        <h3 className="text-white text-sm font-bold uppercase mb-3 truncate leading-snug font-heading"
         >
           {name}
         </h3>
         <div className="flex items-end justify-between border-t border-[#1a1a1a] pt-3">
           <div>
-            <span
-              className="text-white text-base font-bold"
-              style={{ fontFamily: "'Georgia', serif" }}
+            <span className="text-white text-base font-bold font-heading"
             >
               Rs. {price.toLocaleString()}
             </span>

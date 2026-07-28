@@ -137,12 +137,8 @@ export default function DashboardPage() {
             <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
               Welcome back
             </p>
-            <h1
-              className="text-white font-bold uppercase leading-tight m-0"
-              style={{
-                fontFamily: "'Georgia', serif",
-                fontSize: "clamp(28px, 3vw, 44px)",
-              }}
+            <h1 className="text-white font-bold uppercase leading-tight m-0 font-heading"
+              style={{ fontSize: "clamp(28px, 3vw, 44px)" }}
             >
               {user?.fullName || user?.username || "Watson"}
             </h1>
@@ -204,8 +200,7 @@ export default function DashboardPage() {
                         Top Rated
                       </p>
                       <h2
-                        className="text-white text-2xl font-bold uppercase m-0"
-                        style={{ fontFamily: "'Georgia', serif" }}
+                        className="text-white text-2xl font-bold uppercase m-0 font-heading"
                       >
                         Featured Hotels
                       </h2>

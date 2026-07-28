@@ -62,9 +62,7 @@ export default function HotelDetailSidebar({ hotel }: HotelDetailSidebarProps) {
           <p className="text-[#c9a96e] text-[9px] uppercase tracking-widest mb-1">
             {hotel.location}
           </p>
-          <h2
-            className="text-white text-sm font-bold uppercase leading-snug"
-            style={{ fontFamily: "'Georgia', serif" }}
+          <h2 className="text-white text-sm font-bold uppercase leading-snug font-heading"
           >
             {hotel.name}
           </h2>

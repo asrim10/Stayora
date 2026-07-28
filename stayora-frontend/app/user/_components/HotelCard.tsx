@@ -122,12 +122,8 @@ export default function HotelCard({
 
       {/* Content */}
       <div className="absolute bottom-0 left-0 right-0 p-5">
-        <h3
-          className="text-white font-bold uppercase leading-snug mb-1.5 truncate"
-          style={{
-            fontFamily: "'Georgia', serif",
-            fontSize: isFeatured ? 20 : 16,
-          }}
+        <h3 className="text-white font-bold uppercase leading-snug mb-1.5 truncate font-heading"
+          style={{ fontSize: isFeatured ? 20 : 16 }}
         >
           {name}
         </h3>
@@ -142,9 +138,7 @@ export default function HotelCard({
           </div>
         </div>
         {price !== undefined && (
-          <p
-            className="text-white text-sm font-bold mt-2"
-            style={{ fontFamily: "'Georgia', serif" }}
+          <p className="text-white text-sm font-bold mt-2 font-heading"
           >
             Rs. {price.toLocaleString()}
             <span className="text-[#4b5563] text-xs font-normal ml-1">
