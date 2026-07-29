@@ -1,4 +1,5 @@
 import Navbar from "./_components/Navbar";
+import ScrollToTop from "./_components/ScrollToTop";
 
 export default function PublicLayout({
   children,
@@ -9,6 +10,7 @@ export default function PublicLayout({
     <>
       <Navbar />
       {children}
+      <ScrollToTop />
     </>
   );
 }
