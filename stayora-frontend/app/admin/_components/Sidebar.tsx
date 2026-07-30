@@ -98,23 +98,23 @@ export default function AdminSidebar() {
     href === "/admin" ? pathname === href : pathname?.startsWith(href);
 
   return (
-    <aside className="sticky top-0 h-screen w-60 bg-[#0a0a0a] border-r border-[#1a1a1a] flex flex-col shrink-0 overflow-y-auto">
-      <div className="px-6 py-7 border-b border-[#1a1a1a] flex items-center gap-3.5">
-        <div className="w-8.5 h-8.5 bg-[#c9a96e] flex items-center justify-center text-[#0a0a0a] text-sm font-extrabold tracking-wide shrink-0">
+    <aside className="sticky top-0 h-screen w-60 bg-white border-r border-gray-200 flex flex-col shrink-0 overflow-y-auto">
+      <div className="px-6 py-7 border-b border-gray-200 flex items-center gap-3.5">
+        <div className="w-8.5 h-8.5 bg-[#059669] flex items-center justify-center text-white text-sm font-extrabold tracking-wide shrink-0">
           A
         </div>
         <div>
-          <p className="text-white text-[13px] font-bold tracking-[0.04em] m-0">
+          <p className="text-gray-900 text-[13px] font-bold tracking-[0.04em] m-0">
             Admin Panel
           </p>
-          <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase m-0">
+          <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase m-0">
             Control Center
           </p>
         </div>
       </div>
 
       <nav className="flex-1 px-4 py-6">
-        <p className="text-[#3a3a3a] text-[9px] tracking-[0.2em] uppercase mb-3 ml-2">
+        <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase mb-3 ml-2">
           Navigation
         </p>
         <div className="flex flex-col gap-0.5">
@@ -126,8 +126,8 @@ export default function AdminSidebar() {
                 href={href}
                 className={`flex items-center gap-3 px-3 py-2.5 text-[13px] tracking-[0.02em] transition-all border-l-2 no-underline ${
                   active
-                    ? "bg-[#161612] border-[#c9a96e] text-[#c9a96e] font-semibold"
-                    : "border-transparent text-[#6b7280] font-normal hover:bg-[#111] hover:text-white"
+                    ? "bg-amber-50 border-[#059669] text-[#059669] font-semibold"
+                    : "border-transparent text-gray-500 font-normal hover:bg-gray-50 hover:text-gray-900"
                 }`}
               >
                 <Icon />
@@ -138,8 +138,8 @@ export default function AdminSidebar() {
         </div>
       </nav>
 
-      <div className="px-6 py-5 border-t border-[#1a1a1a]">
-        <p className="text-[#2a2a2a] text-[10px] tracking-[0.12em] uppercase m-0">
+      <div className="px-6 py-5 border-t border-gray-200">
+        <p className="text-gray-400 text-[10px] tracking-[0.12em] uppercase m-0">
           Admin v1.0
         </p>
       </div>

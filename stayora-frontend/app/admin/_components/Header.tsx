@@ -6,7 +6,7 @@ export default function Header() {
   const { logout, user } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur supports-backdrop-filter:bg-background/80 border-b border-black/10 dark:border-white/10">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur supports-backdrop-filter:bg-background/80 border-b border-gray-200">
       <nav
         className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
         aria-label="Global"

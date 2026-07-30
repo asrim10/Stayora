@@ -12,7 +12,7 @@ export interface HeroAction {
   variant?: "solid" | "outline";
 }
 
-export interface DarkPageLayoutProps {
+export interface PageLayoutProps {
   // Hero
   eyebrow?: string;
   title: string;
@@ -28,7 +28,7 @@ export interface DarkPageLayoutProps {
   children?: React.ReactNode;
 }
 
-export function DarkSection({
+export function Section({
   eyebrow,
   title,
   children,
@@ -46,7 +46,7 @@ export function DarkSection({
   );
 }
 
-export function DarkRow({
+export function Row({
   label,
   children,
 }: {
@@ -61,13 +61,13 @@ export function DarkRow({
   );
 }
 
-export function DarkRowList({
+export function RowList({
   rows,
 }: {
   rows: { label: string; value: React.ReactNode }[];
 }) {
   return (
-    <div style={{ borderTop: "1px solid #1a1a1a" }}>
+    <div style={{ borderTop: "1px solid #e5e7eb" }}>
       {rows.map((row, i) => (
         <div key={i} style={styles.row}>
           <p style={styles.eyebrow}>{row.label}</p>
@@ -78,7 +78,7 @@ export function DarkRowList({
   );
 }
 
-export function DarkButton({
+export function Button({
   children,
   href,
   onClick,
@@ -122,7 +122,7 @@ export function DarkButton({
   );
 }
 
-export function DarkInput({
+export function Input({
   id,
   type = "text",
   placeholder,
@@ -148,11 +148,11 @@ export function DarkInput({
         {...registration}
         style={styles.input}
         onFocus={(e) => {
-          e.target.style.borderColor = "#c9a96e";
+          e.target.style.borderColor = "#059669";
           onFocus?.(e);
         }}
         onBlur={(e) => {
-          e.target.style.borderColor = "#2a2a2a";
+          e.target.style.borderColor = "#d1d5db";
           onBlur?.(e);
         }}
       />
@@ -163,7 +163,7 @@ export function DarkInput({
 
 //  Main Layout
 
-export default function DarkPageLayout({
+export default function PageLayout({
   eyebrow,
   title,
   heroTopRight,
@@ -172,16 +172,16 @@ export default function DarkPageLayout({
   avatarSlot,
   stats = [],
   children,
-}: DarkPageLayoutProps) {
+}: PageLayoutProps) {
   const Link = require("next/link").default;
 
   return (
     <div
       className="flex-1"
       style={{
-        background: "#0a0a0a",
+        background: "#faf7f2",
         minHeight: "100vh",
-        color: "#fff",
+        color: "#1a1a1a",
       }}
     >
       {/*  HERO  */}
@@ -194,10 +194,10 @@ export default function DarkPageLayout({
           display: "flex",
           alignItems: "flex-end",
           background:
-            "linear-gradient(135deg, #0d1117 0%, #1a1a0f 40%, #0f0f0f 100%)",
+            "linear-gradient(135deg, #f5f0e8 0%, #faf7f2 40%, #f0ebe3 100%)",
         }}
       >
-        {/* Star dots */}
+        {/* Accent dots */}
         {[
           { top: "25%", left: "15%" },
           { top: "50%", left: "55%" },
@@ -214,9 +214,9 @@ export default function DarkPageLayout({
               width: i % 2 === 0 ? 6 : 4,
               height: i % 2 === 0 ? 6 : 4,
               borderRadius: "50%",
-              background: "#fff",
-              opacity: 0.4,
-              boxShadow: "0 0 16px 4px rgba(255,255,255,0.2)",
+              background: "#059669",
+              opacity: 0.3,
+              boxShadow: "0 0 16px 4px rgba(201,169,110,0.15)",
             }}
           />
         ))}
@@ -227,7 +227,7 @@ export default function DarkPageLayout({
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.55) 55%, rgba(10,10,10,0.1) 100%)",
+              "linear-gradient(to top, #faf7f2 0%, rgba(250,247,242,0.55) 55%, rgba(250,247,242,0.1) 100%)",
           }}
         />
 
@@ -300,8 +300,8 @@ export default function DarkPageLayout({
             gridTemplateColumns: avatarSlot
               ? `auto ${stats.map(() => "1fr").join(" ")}`
               : stats.map(() => "1fr").join(" "),
-            borderTop: "1px solid #1a1a1a",
-            borderBottom: "1px solid #1a1a1a",
+            borderTop: "1px solid #e5e7eb",
+            borderBottom: "1px solid #e5e7eb",
             alignItems: "stretch",
           }}
         >
@@ -309,7 +309,7 @@ export default function DarkPageLayout({
             <div
               style={{
                 padding: "2rem 3rem 2rem 5%",
-                borderRight: "1px solid #1a1a1a",
+                borderRight: "1px solid #e5e7eb",
                 display: "flex",
                 alignItems: "center",
               }}
@@ -323,7 +323,7 @@ export default function DarkPageLayout({
               style={{
                 padding: "2rem 5%",
                 borderRight:
-                  i < stats.length - 1 ? "1px solid #1a1a1a" : "none",
+                  i < stats.length - 1 ? "1px solid #e5e7eb" : "none",
               }}
             >
               <p style={{ ...styles.eyebrow, marginBottom: "0.5rem" }}>
@@ -331,7 +331,7 @@ export default function DarkPageLayout({
               </p>
               <div
                 style={{
-                  color: "#fff",
+                  color: "#1a1a1a",
                   fontSize: 15,
                   fontWeight: 600,
                   margin: 0,
@@ -354,7 +354,7 @@ export default function DarkPageLayout({
 
 export const styles = {
   eyebrow: {
-    color: "#c9a96e",
+    color: "#059669",
     fontSize: 11,
     letterSpacing: "0.2em",
     textTransform: "uppercase" as const,
@@ -366,9 +366,10 @@ export const styles = {
     lineHeight: 1.05,
     textTransform: "uppercase" as const,
     margin: "0 0 1.5rem",
+    color: "#1a1a1a",
   },
   sectionTitle: {
-    color: "#fff",
+    color: "#1a1a1a",
     fontSize: "clamp(24px, 4vw, 48px)",
     fontWeight: 700,
     textTransform: "uppercase" as const,
@@ -380,30 +381,31 @@ export const styles = {
     gridTemplateColumns: "1fr 2fr",
     gap: "3rem",
     padding: "1.75rem 0",
-    borderBottom: "1px solid #1a1a1a",
+    borderBottom: "1px solid #e5e7eb",
     alignItems: "center",
   },
   rowValue: {
-    color: "#9ca3af",
+    color: "#6b7280",
     fontSize: 15,
     lineHeight: 1.8,
     margin: 0,
   },
   input: {
     width: "100%",
-    background: "#111",
-    border: "1px solid #2a2a2a",
-    color: "#fff",
+    background: "#fff",
+    border: "1px solid #d1d5db",
+    color: "#1a1a1a",
     fontSize: 14,
     padding: "0.85rem 1.25rem",
     outline: "none",
     boxSizing: "border-box" as const,
     transition: "border-color 0.2s",
+    borderRadius: "6px",
   },
   btnSolid: {
-    background: "#c9a96e",
+    background: "#059669",
     border: "none",
-    color: "#0a0a0a",
+    color: "#ffffff",
     fontSize: 11,
     letterSpacing: "0.2em",
     textTransform: "uppercase" as const,
@@ -413,8 +415,8 @@ export const styles = {
   },
   btnOutline: {
     background: "none",
-    border: "1px solid #2a2a2a",
-    color: "#c9a96e",
+    border: "1px solid #d1d5db",
+    color: "#059669",
     fontSize: 11,
     letterSpacing: "0.2em",
     textTransform: "uppercase" as const,
@@ -428,6 +430,6 @@ export const styles = {
     letterSpacing: "0.05em",
   },
   divider: {
-    borderTop: "1px solid #1a1a1a",
+    borderTop: "1px solid #e5e7eb",
   },
 };

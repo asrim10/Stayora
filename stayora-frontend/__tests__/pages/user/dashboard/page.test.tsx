@@ -223,7 +223,7 @@ describe("DashboardPage", () => {
       render(<DashboardPage />);
       await waitFor(() => screen.getAllByTestId("popular-card"));
       fireEvent.click(screen.getByText("Popular"));
-      expect(screen.getByText("Popular")).toHaveClass("text-[#c9a96e]");
+      expect(screen.getByText("Popular")).toHaveClass("text-[#059669]");
     });
   });
 

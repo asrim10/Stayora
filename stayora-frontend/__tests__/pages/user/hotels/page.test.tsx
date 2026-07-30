@@ -328,7 +328,7 @@ describe("HotelsPage", () => {
       fireEvent.click(screen.getByRole("button", { name: /^filters$/i }));
       fireEvent.click(screen.getByText("Apply Filters"));
 
-      const badge = document.querySelector("button span.bg-\\[\\#c9a96e\\]");
+      const badge = document.querySelector("button span.bg-\\[\\#059669\\]");
       expect(badge).toBeInTheDocument();
       expect(badge?.textContent).toMatch(/[1-9]/);
     });
