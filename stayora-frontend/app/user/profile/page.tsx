@@ -1,9 +1,10 @@
 import { handleWhoAmI } from "@/lib/actions/auth-action";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Shield, ShieldOff, KeyRound } from "lucide-react";
+import { Shield, ShieldOff, Download } from "lucide-react";
 import UserAvatar from "@/app/_components/UserAvatar";
 import SetPasswordForm from "./SetPasswordForm";
+import DataExportButton from "./DataExportButton";
 
 export const dynamic = 'force-dynamic';
 
@@ -159,18 +160,21 @@ export default async function ProfilePage() {
           )}
 
           {/* Actions */}
-          <div className="mt-12 flex items-center justify-between">
-            <Link
-              href="/user/mfa"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-gray-300 bg-white text-sm text-gray-500 uppercase tracking-widest hover:border-gray-400 hover:text-gray-700 transition-all"
-            >
-              {user.mfaEnabled ? (
-                <Shield size={16} className="text-green-500" />
-              ) : (
-                <ShieldOff size={16} />
-              )}
-              Manage 2FA
-            </Link>
+          <div className="mt-12 flex items-center justify-between flex-wrap gap-4">
+            <div className="flex items-center gap-3">
+              <Link
+                href="/user/mfa"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-gray-300 bg-white text-sm text-gray-500 uppercase tracking-widest hover:border-gray-400 hover:text-gray-700 transition-all"
+              >
+                {user.mfaEnabled ? (
+                  <Shield size={16} className="text-green-500" />
+                ) : (
+                  <ShieldOff size={16} />
+                )}
+                Manage 2FA
+              </Link>
+              <DataExportButton />
+            </div>
             <Link
               href="/user/profile/edit"
               className="px-5 py-2.5 rounded-lg border border-gray-300 bg-white text-sm text-gray-500 uppercase tracking-widest hover:border-gray-400 hover:text-gray-700 transition-all"

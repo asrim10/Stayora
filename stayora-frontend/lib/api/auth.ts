@@ -102,3 +102,17 @@ export const setPassword = async (newPassword: string, confirmPassword: string) 
     );
   }
 };
+
+export const exportUserData = async (format: "json" | "csv" = "json") => {
+  try {
+    const response = await axios.get(API.AUTH.EXPORT_DATA, {
+      params: { format },
+      responseType: "blob",
+    });
+    return response;
+  } catch (error: Error | any) {
+    throw new Error(
+      error.response?.data?.message || error.message || "Export failed",
+    );
+  }
+};

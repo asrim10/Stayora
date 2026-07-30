@@ -10,6 +10,7 @@ export const API = {
     GOOGLE_TOKEN: "/api/auth/google/token",
     GOOGLE_CALLBACK: "/api/auth/google/callback",
     SET_PASSWORD: "/api/auth/set-password",
+    EXPORT_DATA: "/api/auth/export-data",
   },
   MFA: {
     SETUP: "/api/auth/mfa/setup",
