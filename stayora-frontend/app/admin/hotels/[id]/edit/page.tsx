@@ -13,12 +13,12 @@ import { HotelEditData, HotelEditSchema } from "../../schema";
 import Link from "next/link";
 
 const inputCls =
-  "w-full bg-[#111] border border-[#2a2a2a] text-white text-sm px-5 py-3.5 outline-none focus:border-[#c9a96e] transition-colors placeholder:text-[#3a3a3a] box-border";
+  "w-full bg-white border border-gray-300 text-gray-900 text-sm px-5 py-3.5 outline-none focus:border-[#059669] transition-colors placeholder:text-gray-400 box-border rounded";
 const labelCls =
-  "block text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-2.5 pt-3.5";
+  "block text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-2.5 pt-3.5";
 const errCls = "text-[#f87171] text-[11px] mt-1.5";
 const rowCls =
-  "grid grid-cols-[1fr_2fr] gap-12 py-8 border-b border-[#1a1a1a] items-start";
+  "grid grid-cols-[1fr_2fr] gap-12 py-8 border-b border-gray-200 items-start";
 
 export default function EditHotelPage() {
   const params = useParams();
@@ -118,21 +118,21 @@ export default function EditHotelPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-[#faf7f2]">
 
 
-      <div className="border-b border-[#1a1a1a] px-12 py-12 flex items-end justify-between">
+      <div className="border-b border-gray-200 px-12 py-12 flex items-end justify-between">
         <div>
-          <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
+          <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase mb-3">
             Admin Panel
           </p>
-          <h1 className="text-white text-4xl font-bold uppercase leading-tight m-0 font-heading">
+          <h1 className="text-gray-900 text-4xl font-bold uppercase leading-tight m-0 font-heading">
             Edit Hotel
           </h1>
         </div>
         <Link
           href="/admin/hotels"
-          className="border border-[#2a2a2a] text-[#6b7280] text-[11px] tracking-[0.14em] uppercase px-6 py-3 hover:border-[#3a3a3a] hover:text-[#9ca3af] transition-colors no-underline"
+          className="border border-gray-300 text-gray-500 text-[11px] tracking-[0.14em] uppercase px-6 py-3 hover:border-gray-400 hover:text-gray-700 transition-colors no-underline rounded"
         >
           ← Back
         </Link>
@@ -147,10 +147,10 @@ export default function EditHotelPage() {
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="px-12 py-12">
           <div className="mb-12">
-            <p className="text-[#3a3a3a] text-[9px] tracking-[0.2em] uppercase mb-6">
+            <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase mb-6">
               Hotel Image
             </p>
-            <div className="w-full h-50 bg-[#0d0d0d] border border-[#1a1a1a] overflow-hidden mb-4 relative">
+            <div className="w-full h-50 bg-gray-100 border border-gray-200 overflow-hidden mb-4 relative rounded">
               {imagePreview ? (
                 <img
                   src={imagePreview}
@@ -159,7 +159,7 @@ export default function EditHotelPage() {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <p className="text-[#2a2a2a] text-[10px] tracking-[0.2em] uppercase">
+                  <p className="text-gray-400 text-[10px] tracking-[0.2em] uppercase">
                     No Image
                   </p>
                 </div>
@@ -172,14 +172,14 @@ export default function EditHotelPage() {
                 const file = e.target.files?.[0];
                 if (file) setValue("image", file);
               }}
-              className="text-[#6b7280] text-xs"
+              className="text-gray-500 text-xs"
             />
             {errors.image && (
               <p className={errCls}>{errors.image.message as string}</p>
             )}
           </div>
 
-          <div className="border-t border-[#1a1a1a]">
+          <div className="border-t border-gray-200">
             <div className={rowCls}>
               <label className={labelCls} htmlFor="hotelName">
                 Hotel Name
@@ -251,7 +251,7 @@ export default function EditHotelPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c9a96e] text-xs pointer-events-none">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#059669] text-xs pointer-events-none">
                       Rs.
                     </span>
                     <input
@@ -324,14 +324,14 @@ export default function EditHotelPage() {
             <button
               type="button"
               onClick={() => router.push("/admin/hotels")}
-              className="border border-[#2a2a2a] text-[#6b7280] text-[11px] tracking-[0.14em] uppercase px-7 py-3.5 hover:border-[#3a3a3a] hover:text-[#9ca3af] transition-colors cursor-pointer bg-transparent"
+              className="border border-gray-300 text-gray-500 text-[11px] tracking-[0.14em] uppercase px-7 py-3.5 hover:border-gray-400 hover:text-gray-700 transition-colors cursor-pointer bg-white rounded"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="bg-[#c9a96e] text-[#0a0a0a] text-[11px] font-bold tracking-[0.18em] uppercase px-10 py-3.5 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer border-none"
+              className="bg-[#059669] text-white text-[11px] font-bold tracking-[0.18em] uppercase px-10 py-3.5 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer border-none rounded"
             >
               {loading ? "Saving..." : "Save Changes"}
             </button>

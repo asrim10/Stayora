@@ -27,8 +27,8 @@ const CARDS = [
     key: "totalBookings",
     label: "Total",
     Icon: BookOpen,
-    color: "text-[#c9a96e]",
-    bar: "bg-[#c9a96e]",
+    color: "text-[#059669]",
+    bar: "bg-[#059669]",
   },
   {
     key: "confirmedBookings",
@@ -69,24 +69,24 @@ const CARDS = [
 
 export function BookingStats({ stats, isLoading }: BookingStatsProps) {
   return (
-    <div className="grid grid-cols-6 border-t border-l border-[#1a1a1a]">
+    <div className="grid grid-cols-6 border-t border-l border-gray-200 shadow-sm">
       {CARDS.map(({ key, label, Icon, color, bar }, i) => (
         <motion.div
           key={label}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.06 }}
-          className="bg-[#0d0d0d] border-r border-b border-[#1a1a1a] p-6"
+          className="bg-white border-r border-b border-gray-200 p-6"
         >
           <div className="flex items-center justify-between mb-5">
-            <p className="text-[#3a3a3a] text-[9px] tracking-[0.2em] uppercase m-0">
+            <p className="text-gray-500 text-[9px] tracking-[0.2em] uppercase m-0">
               {label}
             </p>
             <Icon size={13} className={`${color} opacity-65`} />
           </div>
-          <p className="text-white text-[34px] font-bold mb-4 leading-none m-0 font-heading"
+          <p className="text-gray-900 text-[34px] font-bold mb-4 leading-none m-0 font-heading"
           >
-            {isLoading ? <span className="text-[#2a2a2a]">—</span> : stats[key]}
+            {isLoading ? <span className="text-gray-300">—</span> : stats[key]}
           </p>
           <div className={`w-5 h-0.5 ${bar} opacity-50`} />
         </motion.div>

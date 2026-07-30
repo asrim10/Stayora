@@ -79,18 +79,18 @@ export default function BookingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
-      <div className="border-b border-[#1a1a1a] px-12 py-12">
+    <div className="min-h-screen bg-[#faf7f2] text-gray-900">
+      <div className="border-b border-gray-200 px-12 py-12">
         <motion.div
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex items-end justify-between"
         >
           <div>
-            <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
+            <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase mb-3">
               Admin Panel
             </p>
-            <h1 className="text-white font-bold uppercase leading-tight m-0 text-5xl font-heading">
+            <h1 className="text-gray-900 font-bold uppercase leading-tight m-0 text-5xl font-heading">
               Bookings
             </h1>
           </div>
@@ -99,7 +99,7 @@ export default function BookingsPage() {
             whileTap={{ scale: 0.97 }}
             onClick={handleRefresh}
             disabled={isRefreshing}
-            className={`flex items-center gap-2 bg-transparent border border-[#2a2a2a] text-[#6b7280] text-[11px] tracking-[0.14em] uppercase px-6 py-3 transition-colors hover:border-[#3a3a3a] hover:text-[#9ca3af] ${isRefreshing ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+            className={`flex items-center gap-2 bg-white border border-gray-300 text-gray-500 text-[11px] tracking-[0.14em] uppercase px-6 py-3 transition-colors hover:border-gray-400 hover:text-gray-700 rounded ${isRefreshing ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
           >
             <RefreshCw
               size={13}
@@ -116,7 +116,7 @@ export default function BookingsPage() {
         transition={{ delay: 0.1 }}
       >
         <div className="px-12 pt-10">
-          <p className="text-[#3a3a3a] text-[9px] tracking-[0.2em] uppercase mb-4">
+          <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase mb-4">
             Overview
           </p>
         </div>
@@ -125,7 +125,7 @@ export default function BookingsPage() {
         </div>
       </motion.div>
 
-      <div className="border-t border-[#1a1a1a] mx-12" />
+      <div className="border-t border-gray-200 mx-12" />
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -133,7 +133,7 @@ export default function BookingsPage() {
         transition={{ delay: 0.2 }}
         className="px-12 py-10 pb-16"
       >
-        <p className="text-[#3a3a3a] text-[9px] tracking-[0.2em] uppercase mb-6">
+        <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase mb-6">
           All Bookings
         </p>
         <BookingTable

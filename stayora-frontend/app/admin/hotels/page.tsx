@@ -12,19 +12,19 @@ export default async function Page() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
-      <div className="border-b border-[#1a1a1a] px-12 py-12 flex items-end justify-between">
+    <div className="min-h-screen bg-[#faf7f2]">
+      <div className="border-b border-gray-200 px-12 py-12 flex items-end justify-between">
         <div>
-          <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
+          <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase mb-3">
             Admin Panel
           </p>
-          <h1 className="text-white font-bold uppercase leading-tight m-0 text-5xl font-heading">
+          <h1 className="text-gray-900 font-bold uppercase leading-tight m-0 text-5xl font-heading">
             Hotels
           </h1>
         </div>
         <Link
           href="/admin/hotels/create"
-          className="bg-[#c9a96e] text-[#0a0a0a] text-[11px] font-bold tracking-[0.18em] uppercase px-8 py-3.5 hover:opacity-90 transition-opacity no-underline"
+          className="bg-[#059669] text-white text-[11px] font-bold tracking-[0.18em] uppercase px-8 py-3.5 hover:opacity-90 transition-opacity no-underline"
         >
           + Create Hotel
         </Link>

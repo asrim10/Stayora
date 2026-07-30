@@ -74,31 +74,31 @@ function DarkModal({
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-1000 flex items-center justify-center">
-      <div onClick={onClose} className="absolute inset-0 bg-black/80" />
+      <div onClick={onClose} className="absolute inset-0 bg-black/50" />
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.96 }}
-        className="relative bg-[#0d0d0d] border border-[#1a1a1a] w-[90%] max-w-2xl max-h-[90vh] overflow-y-auto"
+        className="relative bg-white border border-gray-200 w-[90%] max-w-2xl max-h-[90vh] overflow-y-auto rounded-lg shadow-xl"
       >
-        <div className="flex items-center justify-between px-8 py-5 border-b border-[#1a1a1a]">
+        <div className="flex items-center justify-between px-8 py-5 border-b border-gray-200">
           <div>
-            <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-1">
+            <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-1">
               Admin
             </p>
-            <h2 className="text-white text-lg font-bold uppercase m-0 font-heading"
+            <h2 className="text-gray-900 text-lg font-bold uppercase m-0 font-heading"
             >
               {title}
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="text-[#6b7280] hover:text-white transition-colors bg-transparent border-none cursor-pointer"
+            className="text-gray-400 hover:text-gray-900 transition-colors bg-transparent border-none cursor-pointer"
           >
             <X size={18} />
           </button>
         </div>
-        <div className="p-8">{children}</div>
+        <div className="p-8 text-gray-800">{children}</div>
       </motion.div>
     </div>
   );
@@ -123,7 +123,7 @@ function IconBtn({
       whileTap={{ scale: 0.9 }}
       onClick={onClick}
       title={title}
-      className={`border border-[#1a1a1a] p-1.5 flex items-center justify-center cursor-pointer bg-transparent transition-colors ${hoverBorderColor}`}
+      className={`border border-gray-200 p-1.5 flex items-center justify-center cursor-pointer bg-transparent transition-colors rounded ${hoverBorderColor}`}
       style={{ color: iconColor }}
     >
       {children}
@@ -207,13 +207,13 @@ export function BookingActions({
             : "Check Out";
 
   const infoLabelCls =
-    "block text-[#c9a96e] text-[9px] tracking-[0.18em] uppercase mb-1.5";
-  const infoValueCls = "text-white text-sm font-semibold m-0";
-  const infoSubCls = "text-[#6b7280] text-xs m-0";
+    "block text-[#059669] text-[9px] tracking-[0.18em] uppercase mb-1.5";
+  const infoValueCls = "text-gray-900 text-sm font-semibold m-0";
+  const infoSubCls = "text-gray-500 text-xs m-0";
   const cancelBtnCls =
-    "border border-[#2a2a2a] bg-[#111] text-[#9ca3af] text-[11px] tracking-[0.1em] uppercase px-5 py-2.5 cursor-pointer hover:border-[#3a3a3a] transition-colors bg-transparent";
+    "border border-gray-300 bg-white text-gray-600 text-[11px] tracking-[0.1em] uppercase px-5 py-2.5 cursor-pointer hover:border-gray-400 transition-colors rounded";
   const selCls =
-    "w-full bg-[#111] border border-[#2a2a2a] text-white text-sm px-4 py-3 outline-none focus:border-[#c9a96e] transition-colors cursor-pointer mt-2";
+    "w-full bg-white border border-gray-300 text-gray-900 text-sm px-4 py-3 outline-none focus:border-[#059669] transition-colors cursor-pointer mt-2 rounded";
 
   return (
     <>
@@ -269,8 +269,8 @@ export function BookingActions({
         <IconBtn
           onClick={() => setShowPayment(true)}
           title="Payment"
-          iconColor="#c9a96e"
-          hoverBorderColor="hover:border-[#c9a96e]"
+          iconColor="#059669"
+          hoverBorderColor="hover:border-[#059669]"
         >
           <CreditCard size={13} />
         </IconBtn>
@@ -294,7 +294,7 @@ export function BookingActions({
             <div className="flex flex-col gap-6">
               <div>
                 <span className={infoLabelCls}>Booking ID</span>
-                <code className="text-[#c9a96e] text-sm font-mono">
+                <code className="text-[#059669] text-sm font-mono">
                   #{booking._id}
                 </code>
               </div>
@@ -352,9 +352,9 @@ export function BookingActions({
                   </p>
                 </div>
               </div>
-              <div className="bg-[#111] border border-[#1a1a1a] px-6 py-5 flex items-center justify-between">
+              <div className="bg-gray-50 border border-gray-200 px-6 py-5 flex items-center justify-between rounded-lg">
                 <span className={infoLabelCls}>Total Price</span>
-                <span className="text-[#c9a96e] text-2xl font-bold font-heading"
+                <span className="text-[#059669] text-2xl font-bold font-heading"
                 >
                   Rs. {booking.totalPrice.toLocaleString()}
                 </span>
@@ -362,13 +362,13 @@ export function BookingActions({
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <span className={infoLabelCls}>Booking Status</span>
-                  <span className="text-white text-xs uppercase tracking-widest">
+                  <span                  className="text-gray-700 text-xs uppercase tracking-widest">
                     {booking.status?.replace("_", " ")}
                   </span>
                 </div>
                 <div>
                   <span className={infoLabelCls}>Payment Status</span>
-                  <span className="text-white text-xs uppercase tracking-widest">
+                  <span                  className="text-gray-700 text-xs uppercase tracking-widest">
                     {booking.paymentStatus || "N/A"}
                   </span>
                 </div>
@@ -413,7 +413,7 @@ export function BookingActions({
                 <button
                   onClick={handlePaymentUpdate}
                   disabled={isLoading}
-                  className="bg-[#c9a96e] border border-[#c9a96e] text-[#0a0a0a] text-[11px] font-bold tracking-widest uppercase px-5 py-2.5 cursor-pointer hover:opacity-90 transition-opacity disabled:opacity-50"
+                  className="bg-[#059669] border border-[#059669] text-white text-[11px] font-bold tracking-widest uppercase px-5 py-2.5 cursor-pointer hover:opacity-90 transition-opacity disabled:opacity-50"
                 >
                   {isLoading ? "Updating..." : "Update"}
                 </button>
@@ -449,7 +449,7 @@ export function BookingActions({
                   className={`text-[11px] font-bold tracking-widest uppercase px-5 py-2.5 cursor-pointer transition-opacity disabled:opacity-50 border ${
                     confirmAction === "delete"
                       ? "bg-[#7f1d1d] border-[#7f1d1d] text-white hover:bg-red-900"
-                      : "bg-[#c9a96e] border-[#c9a96e] text-[#0a0a0a] hover:opacity-90"
+                      : "bg-[#059669] border-[#059669] text-white hover:opacity-90"
                   }`}
                 >
                   {isLoading ? "Processing..." : "Confirm"}

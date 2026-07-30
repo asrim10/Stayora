@@ -24,45 +24,45 @@ interface Booking {
 const STATUS_STYLE: Record<string, { bg: string; dot: string; text: string }> =
   {
     confirmed: {
-      bg: "bg-[#0a1f0a]",
+      bg: "bg-emerald-50",
       dot: "bg-[#4ade80]",
-      text: "text-[#4ade80]",
+      text: "text-emerald-700",
     },
     pending: {
-      bg: "bg-[#1f1a0a]",
+      bg: "bg-amber-50",
       dot: "bg-[#facc15]",
-      text: "text-[#facc15]",
+      text: "text-amber-700",
     },
     cancelled: {
-      bg: "bg-[#1f0a0a]",
+      bg: "bg-red-50",
       dot: "bg-[#f87171]",
-      text: "text-[#f87171]",
+      text: "text-red-700",
     },
     checked_in: {
-      bg: "bg-[#130a1f]",
+      bg: "bg-purple-50",
       dot: "bg-[#a78bfa]",
-      text: "text-[#a78bfa]",
+      text: "text-purple-700",
     },
     checked_out: {
-      bg: "bg-[#0a0f1f]",
+      bg: "bg-blue-50",
       dot: "bg-[#60a5fa]",
-      text: "text-[#60a5fa]",
+      text: "text-blue-700",
     },
-    paid: { bg: "bg-[#0a1f0a]", dot: "bg-[#4ade80]", text: "text-[#4ade80]" },
-    unpaid: { bg: "bg-[#1f1a0a]", dot: "bg-[#facc15]", text: "text-[#facc15]" },
+    paid: { bg: "bg-emerald-50", dot: "bg-[#4ade80]", text: "text-emerald-700" },
+    unpaid: { bg: "bg-amber-50", dot: "bg-[#facc15]", text: "text-amber-700" },
     refunded: {
-      bg: "bg-[#1f0a0a]",
+      bg: "bg-red-50",
       dot: "bg-[#f87171]",
-      text: "text-[#f87171]",
+      text: "text-red-700",
     },
   };
 
 const StatusPill = ({ status }: { status?: string }) => {
   const key = status?.toLowerCase() ?? "";
   const s = STATUS_STYLE[key] ?? {
-    bg: "bg-[#111]",
-    dot: "bg-[#6b7280]",
-    text: "text-[#6b7280]",
+    bg: "bg-gray-100",
+    dot: "bg-gray-400",
+    text: "text-gray-500",
   };
   return (
     <span
@@ -75,7 +75,7 @@ const StatusPill = ({ status }: { status?: string }) => {
 };
 
 const selCls =
-  "bg-[#111] border border-[#2a2a2a] text-[#9ca3af] text-xs px-3.5 py-2.5 outline-none focus:border-[#c9a96e] transition-colors cursor-pointer";
+  "bg-white border border-gray-300 text-gray-500 text-xs px-3.5 py-2.5 outline-none focus:border-[#059669] transition-colors cursor-pointer rounded";
 
 const TH_COLS = [
   "Booking ID",
@@ -132,7 +132,7 @@ export function BookingTable({
       animate={{ opacity: 1, y: 0 }}
       className="flex flex-col gap-4"
     >
-      <div className="bg-[#0d0d0d] border border-[#1a1a1a] px-6 py-5 flex flex-wrap gap-3 items-center">
+      <div className="bg-white border border-gray-200 px-6 py-5 flex flex-wrap gap-3 items-center rounded-lg shadow-sm">
         <div className="relative flex-1 min-w-60">
           <Search
             size={14}
@@ -178,31 +178,31 @@ export function BookingTable({
         </select>
       </div>
 
-      <p className="text-[#3a3a3a] text-[10px] tracking-[0.18em] uppercase m-0">
+      <p className="text-gray-500 text-[10px] tracking-[0.18em] uppercase m-0">
         Showing {filtered.length} of {bookings.length} bookings
       </p>
 
-      <div className="bg-[#0d0d0d] border border-[#1a1a1a] overflow-x-auto">
+      <div className="bg-white border border-gray-200 overflow-x-auto rounded-lg shadow-sm">
         {isLoading ? (
           <div className="p-12 flex flex-col gap-4">
             {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-14 bg-[#111] animate-pulse" />
+              <div key={i} className="h-14 bg-gray-100 animate-pulse" />
             ))}
           </div>
         ) : filtered.length === 0 ? (
           <div className="py-20 text-center">
-            <p className="text-[#2a2a2a] text-[11px] tracking-[0.2em] uppercase">
+            <p className="text-gray-400 text-[11px] tracking-[0.2em] uppercase">
               No bookings found
             </p>
           </div>
         ) : (
           <table className="w-full border-collapse">
             <thead>
-              <tr className="border-b border-[#1a1a1a]">
+              <tr className="border-b border-gray-200 bg-gray-50">
                 {TH_COLS.map((col) => (
                   <th
                     key={col}
-                    className="px-5 py-4 text-left text-[9px] text-[#3a3a3a] tracking-[0.18em] uppercase font-semibold whitespace-nowrap"
+                    className="px-5 py-4 text-left text-[9px] text-gray-500 tracking-[0.18em] uppercase font-semibold whitespace-nowrap"
                   >
                     {col}
                   </th>
@@ -216,34 +216,34 @@ export function BookingTable({
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: idx * 0.03 }}
-                  className="border-b border-[#111] hover:bg-[#111] transition-colors"
+                  className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
                 >
                   <td className="px-5 py-4">
-                    <code className="bg-[#1a1a1a] text-[#c9a96e] text-[10px] px-2 py-1 font-mono">
+                    <code className="bg-gray-100 text-[#059669] text-[10px] px-2 py-1 font-mono rounded">
                       #{booking._id.slice(-8)}
                     </code>
                   </td>
                   <td className="px-5 py-4">
-                    <p className="text-white text-sm font-semibold mb-0.5 m-0">
+                    <p className="text-gray-900 text-sm font-semibold mb-0.5 m-0">
                       {booking.fullName}
                     </p>
-                    <p className="text-[#4b5563] text-xs m-0">
+                    <p className="text-gray-500 text-xs m-0">
                       {booking.email}
                     </p>
                   </td>
-                  <td className="px-5 py-4 text-[#9ca3af] text-xs">
+                  <td className="px-5 py-4 text-gray-500 text-xs">
                     {booking.hotelName || booking.hotelId.slice(-8)}
                   </td>
                   <td className="px-5 py-4">
-                    <p className="text-[#9ca3af] text-xs mb-0.5 m-0">
+                    <p className="text-gray-600 text-xs mb-0.5 m-0">
                       {formatDate(booking.checkInDate)}
                     </p>
-                    <p className="text-[#3a3a3a] text-[11px] m-0">
+                    <p className="text-gray-400 text-[11px] m-0">
                       → {formatDate(booking.checkOutDate)}
                     </p>
                   </td>
                   <td
-                    className="px-5 py-4 text-[#c9a96e] text-sm font-bold whitespace-nowrap font-heading"
+                    className="px-5 py-4 text-[#059669] text-sm font-bold whitespace-nowrap font-heading"
                   >
                     Rs. {booking.totalPrice.toLocaleString()}
                   </td>
@@ -253,7 +253,7 @@ export function BookingTable({
                   <td className="px-5 py-4">
                     <StatusPill status={booking.paymentStatus} />
                   </td>
-                  <td className="px-5 py-4 text-[#4b5563] text-xs whitespace-nowrap">
+                  <td className="px-5 py-4 text-gray-500 text-xs whitespace-nowrap">
                     {formatDate(booking.createdAt)}
                   </td>
                   <td className="px-5 py-4">
