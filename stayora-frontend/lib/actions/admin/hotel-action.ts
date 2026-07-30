@@ -18,6 +18,7 @@ export const handleCreateHotel = async (data: FormData) => {
         success: true,
         message: "Hotel created successfully",
         data: response.data,
+        geocodingWarning: response.geocodingWarning,
       };
     }
     return {
@@ -93,6 +94,7 @@ export const handleUpdateHotel = async (id: string, data: FormData) => {
         success: true,
         message: "Hotel updated successfully",
         data: response.data,
+        geocodingWarning: response.geocodingWarning,
       };
     }
     return {

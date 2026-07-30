@@ -7,17 +7,18 @@ let hotelRepository = new HotelRepository();
 
 export class AdminHotelService {
   async createHotel(data: CreateHotelDTO) {
+    let geocodingWarning: string | null = null;
+
     if (!data.coordinates) {
-      const coords = await geocodeAddress(
-        data.address,
-        data.city,
-        data.country,
-      );
-      if (coords) data.coordinates = coords;
+      const result = await geocodeAddress(data.address, data.city, data.country);
+      if (result.coordinates) {
+        data.coordinates = result.coordinates;
+      }
+      geocodingWarning = result.warning;
     }
 
     const newHotel = await hotelRepository.create(data);
-    return newHotel;
+    return { hotel: newHotel, geocodingWarning };
   }
 
   async getAllHotels() {
@@ -40,19 +41,24 @@ export class AdminHotelService {
       throw new HttpError(404, "Hotel not found");
     }
 
+    let geocodingWarning: string | null = null;
+
     const locationChanged =
       updateData.address || updateData.city || updateData.country;
     if (locationChanged && !updateData.coordinates) {
-      const coords = await geocodeAddress(
+      const result = await geocodeAddress(
         updateData.address ?? hotel.address,
         updateData.city ?? hotel.city,
         updateData.country ?? hotel.country,
       );
-      if (coords) updateData.coordinates = coords;
+      if (result.coordinates) {
+        updateData.coordinates = result.coordinates;
+      }
+      geocodingWarning = result.warning;
     }
 
     const updatedHotel = await hotelRepository.update(id, updateData);
-    return updatedHotel;
+    return { hotel: updatedHotel, geocodingWarning };
   }
 
   async getHotelById(id: string) {

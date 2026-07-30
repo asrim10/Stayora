@@ -16,15 +16,24 @@ export class AdminHotelController {
           .status(400)
           .json({ success: false, message: z.prettifyError(parsedData.error) });
       }
-      if (req.file) {
-        parsedData.data.imageUrl = `/uploads/${req.file.filename}`;
+
+      // Handle multiple file uploads
+      const files = req.files as Express.Multer.File[] | undefined;
+      if (files && files.length > 0) {
+        parsedData.data.images = files.map(
+          (file) => `/uploads/${file.filename}`,
+        );
       }
 
       const hotelData: CreateHotelDTO = parsedData.data;
-      const newHotel = await adminHotelService.createHotel(hotelData);
-      return res
-        .status(201)
-        .json({ success: true, message: "Hotel Created", data: newHotel });
+      const { hotel: newHotel, geocodingWarning } =
+        await adminHotelService.createHotel(hotelData);
+      return res.status(201).json({
+        success: true,
+        message: "Hotel Created",
+        data: newHotel,
+        ...(geocodingWarning && { geocodingWarning }),
+      });
     } catch (error: Error | any) {
       return res.status(error.statusCode ?? 500).json({
         success: false,
@@ -58,18 +67,23 @@ export class AdminHotelController {
           .json({ success: false, message: z.prettifyError(parsedData.error) });
       }
 
-      if (req.file) {
-        parsedData.data.imageUrl = `/uploads/${req.file.filename}`;
+      // Handle multiple file uploads
+      const files = req.files as Express.Multer.File[] | undefined;
+      if (files && files.length > 0) {
+        parsedData.data.images = files.map(
+          (file) => `/uploads/${file.filename}`,
+        );
       }
 
       const updateData: UpdateHotelDTO = parsedData.data;
-      const updatedHotel = await adminHotelService.updateHotel(
-        hotelId,
-        updateData,
-      );
-      return res
-        .status(200)
-        .json({ success: true, message: "Hotel Updated", data: updatedHotel });
+      const { hotel: updatedHotel, geocodingWarning } =
+        await adminHotelService.updateHotel(hotelId, updateData);
+      return res.status(200).json({
+        success: true,
+        message: "Hotel Updated",
+        data: updatedHotel,
+        ...(geocodingWarning && { geocodingWarning }),
+      });
     } catch (error: Error | any) {
       return res.status(error.statusCode ?? 500).json({
         success: false,

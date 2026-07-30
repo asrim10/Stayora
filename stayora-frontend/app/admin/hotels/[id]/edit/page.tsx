@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,7 @@ import {
 } from "@/lib/actions/admin/hotel-action";
 import { HotelEditData, HotelEditSchema } from "../../schema";
 import Link from "next/link";
+import { X, ImagePlus } from "lucide-react";
 
 const inputCls =
   "w-full bg-white border border-gray-300 text-gray-900 text-sm px-5 py-3.5 outline-none focus:border-[#059669] transition-colors placeholder:text-gray-400 box-border rounded";
@@ -20,6 +21,8 @@ const errCls = "text-[#f87171] text-[11px] mt-1.5";
 const rowCls =
   "grid grid-cols-[1fr_2fr] gap-12 py-8 border-b border-gray-200 items-start";
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+
 export default function EditHotelPage() {
   const params = useParams();
   const router = useRouter();
@@ -27,7 +30,9 @@ export default function EditHotelPage() {
 
   const [fetching, setFetching] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [existingImages, setExistingImages] = useState<string[]>([]);
+  const [newPreviews, setNewPreviews] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
     register,
@@ -46,19 +51,46 @@ export default function EditHotelPage() {
       description: "",
       price: 0,
       availableRooms: 0,
-      image: undefined,
+      images: undefined,
     },
   });
 
-  const watchedImage = watch("image");
+  const selectedNewImages = watch("images") || [];
 
-  useEffect(() => {
-    if (watchedImage instanceof File) {
-      const reader = new FileReader();
-      reader.onloadend = () => setImagePreview(reader.result as string);
-      reader.readAsDataURL(watchedImage);
+  const getImageUrl = (path: string) => {
+    if (path.startsWith("http")) return path;
+    return `${BASE_URL}${path}`;
+  };
+
+  const handleFilesSelected = (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+
+    const newFiles = Array.from(files);
+    const currentFiles = selectedNewImages;
+    const total = currentFiles.length + newFiles.length;
+
+    if (total > 10) {
+      toast.error(`Maximum 10 images. You can add ${10 - currentFiles.length} more.`);
+      return;
     }
-  }, [watchedImage]);
+
+    const newPreviewsArr: string[] = [];
+    newFiles.forEach((file) => {
+      newPreviewsArr.push(URL.createObjectURL(file));
+    });
+
+    setNewPreviews((prev) => [...prev, ...newPreviewsArr]);
+    setValue("images", [...currentFiles, ...newFiles]);
+  };
+
+  const removeNewImage = (index: number) => {
+    const currentFiles = [...selectedNewImages];
+    const currentPreviews = [...newPreviews];
+    currentFiles.splice(index, 1);
+    currentPreviews.splice(index, 1);
+    setValue("images", currentFiles);
+    setNewPreviews(currentPreviews);
+  };
 
   useEffect(() => {
     const fetchHotel = async () => {
@@ -75,10 +107,14 @@ export default function EditHotelPage() {
           setValue("description", hotel?.description || "");
           setValue("price", hotel?.price || 0);
           setValue("availableRooms", hotel?.availableRooms || 0);
-          if (hotel?.imageUrl)
-            setImagePreview(
-              (process.env.NEXT_PUBLIC_API_BASE_URL || "") + hotel.imageUrl,
-            );
+
+          // Load existing images
+          if (hotel?.images && Array.isArray(hotel.images)) {
+            setExistingImages(hotel.images);
+          } else if (hotel?.imageUrl) {
+            // Backward compat: single imageUrl → treat as array
+            setExistingImages([hotel.imageUrl]);
+          }
         } else toast.error(response.message || "Failed to fetch hotel");
       } catch (err: any) {
         toast.error(err.message || "Something went wrong");
@@ -104,10 +140,24 @@ export default function EditHotelPage() {
         formData.append("price", String(data.price));
       if (data.availableRooms !== undefined)
         formData.append("availableRooms", String(data.availableRooms));
-      if (data.image) formData.append("image", data.image);
+
+      // Append new images
+      if (data.images && data.images.length > 0) {
+        data.images.forEach((file) => {
+          formData.append("images", file);
+        });
+      }
+
       const response = await handleUpdateHotel(id, formData);
       if (response.success) {
         toast.success("Hotel updated!");
+        if (response.geocodingWarning) {
+          toast(response.geocodingWarning, {
+            icon: "⚠️",
+            duration: 8000,
+            style: { background: "#fef3c7", color: "#92400e" },
+          });
+        }
         router.push("/admin/hotels");
       } else toast.error(response.message || "Update failed");
     } catch (err: any) {
@@ -119,8 +169,6 @@ export default function EditHotelPage() {
 
   return (
     <div className="min-h-screen bg-[#faf7f2]">
-
-
       <div className="border-b border-gray-200 px-12 py-12 flex items-end justify-between">
         <div>
           <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase mb-3">
@@ -146,36 +194,96 @@ export default function EditHotelPage() {
         </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)} className="px-12 py-12">
+          {/* ── MULTI IMAGE ── */}
           <div className="mb-12">
-            <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase mb-6">
-              Hotel Image
-            </p>
-            <div className="w-full h-50 bg-gray-100 border border-gray-200 overflow-hidden mb-4 relative rounded">
-              {imagePreview ? (
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <p className="text-gray-400 text-[10px] tracking-[0.2em] uppercase">
-                    No Image
-                  </p>
+            <div className="flex items-end justify-between mb-6">
+              <div>
+                <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase mb-1">
+                  Hotel Images
+                </p>
+                <p className="text-gray-400 text-[10px]">
+                  Max 10 images. First image is the cover.
+                </p>
+              </div>
+            </div>
+
+            {/* Existing images */}
+            {existingImages.length > 0 && (
+              <>
+                <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase mb-2">
+                  Current Images
+                </p>
+                <div className="grid grid-cols-5 gap-3 mb-6">
+                  {existingImages.map((path, i) => (
+                    <div
+                      key={i}
+                      className="relative aspect-[4/3] bg-gray-100 border border-gray-200 overflow-hidden rounded"
+                    >
+                      <img
+                        src={getImageUrl(path)}
+                        alt={`Hotel image ${i + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute top-2 left-2 bg-black/60 text-white text-[9px] px-1.5 py-0.5 rounded">
+                        {i === 0 ? "Cover" : `#${i + 1}`}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              )}
+              </>
+            )}
+
+            {/* New image previews */}
+            {newPreviews.length > 0 && (
+              <>
+                <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase mb-2">
+                  New Images
+                </p>
+                <div className="grid grid-cols-5 gap-3 mb-6">
+                  {newPreviews.map((src, i) => (
+                    <div
+                      key={i}
+                      className="relative aspect-[4/3] bg-gray-100 border border-gray-200 overflow-hidden group rounded"
+                    >
+                      <img
+                        src={src}
+                        alt={`New ${i + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeNewImage(i)}
+                        className="absolute top-2 right-2 bg-white/90 border border-gray-200 text-gray-500 w-6 h-6 flex items-center justify-center cursor-pointer hover:bg-white hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 rounded"
+                      >
+                        <X size={11} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Upload zone */}
+            <div
+              onClick={() => fileInputRef.current?.click()}
+              className="relative w-full border-2 border-dashed border-gray-300 hover:border-[#059669] transition-colors cursor-pointer p-8 flex flex-col items-center justify-center gap-2 bg-white rounded"
+            >
+              <ImagePlus size={28} className="text-gray-300" />
+              <p className="text-gray-400 text-[10px] tracking-[0.16em] uppercase">
+                Click to add more images
+              </p>
+              <p className="text-gray-300 text-[9px]">JPG, PNG, WEBP — Max 5MB each</p>
             </div>
             <input
+              ref={fileInputRef}
               type="file"
-              accept="image/*"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) setValue("image", file);
-              }}
-              className="text-gray-500 text-xs"
+              multiple
+              accept=".jpg,.jpeg,.png,.webp"
+              onChange={(e) => handleFilesSelected(e.target.files)}
+              className="hidden"
             />
-            {errors.image && (
-              <p className={errCls}>{errors.image.message as string}</p>
+            {errors.images && (
+              <p className={errCls}>{errors.images.message || errors.images.root?.message}</p>
             )}
           </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { HotelData, HotelSchema } from "..//schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef, useState, useTransition } from "react";
@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { handleCreateHotel } from "@/lib/actions/admin/hotel-action";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { X } from "lucide-react";
+import { X, ImagePlus } from "lucide-react";
 
 const inputCls =
   "w-full bg-white border border-gray-300 text-gray-900 text-sm px-5 py-3.5 outline-none focus:border-[#059669] transition-colors placeholder:text-gray-400 box-border rounded";
@@ -24,29 +24,47 @@ export default function CreateHotelForm() {
   const {
     register,
     handleSubmit,
-    control,
-    reset,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<HotelData>({ resolver: zodResolver(HotelSchema) });
   const [error, setError] = useState<string | null>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [previews, setPreviews] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageChange = (
-    file: File | undefined,
-    onChange: (f: File | undefined) => void,
-  ) => {
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setPreviewImage(reader.result as string);
-      reader.readAsDataURL(file);
-    } else setPreviewImage(null);
-    onChange(file);
+  const selectedImages = watch("images") || [];
+
+  const handleFilesSelected = (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+
+    const newFiles = Array.from(files);
+    const currentFiles = selectedImages;
+    const total = currentFiles.length + newFiles.length;
+
+    if (total > 10) {
+      toast.error(`Maximum 10 images allowed. You can add ${10 - currentFiles.length} more.`);
+      return;
+    }
+
+    // Generate previews using object URLs
+    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+
+    setPreviews((prev) => [...prev, ...newPreviews]);
+    setValue("images", [...currentFiles, ...newFiles]);
   };
 
-  const handleDismissImage = (onChange?: (f: File | undefined) => void) => {
-    setPreviewImage(null);
-    onChange?.(undefined);
+  const removeImage = (index: number) => {
+    const currentFiles = [...selectedImages];
+    const currentPreviews = [...previews];
+    currentFiles.splice(index, 1);
+    currentPreviews.splice(index, 1);
+    setValue("images", currentFiles);
+    setPreviews(currentPreviews);
+  };
+
+  const handleDismissAll = () => {
+    setPreviews([]);
+    setValue("images", []);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -64,13 +82,23 @@ export default function CreateHotelForm() {
         if (data.rating !== undefined)
           formData.append("rating", data.rating.toString());
         if (data.description) formData.append("description", data.description);
-        if (data.image) formData.append("image", data.image);
+
+        // Append multiple images
+        if (data.images && data.images.length > 0) {
+          data.images.forEach((file) => {
+            formData.append("images", file);
+          });
+        }
+
         const response = await handleCreateHotel(formData);
         if (!response.success)
           throw new Error(response.message || "Create hotel failed");
-        reset();
-        handleDismissImage();
+
+        handleDismissAll();
         toast.success("Hotel created successfully");
+        if (response.geocodingWarning) {
+          toast.warning(response.geocodingWarning, { autoClose: 8000 });
+        }
         router.push("/admin/hotels");
       } catch (err: any) {
         toast.error(err.message || "Create hotel failed");
@@ -81,8 +109,6 @@ export default function CreateHotelForm() {
 
   return (
     <div className="min-h-screen bg-[#faf7f2]">
-
-
       <div className="border-b border-gray-200 px-12 py-12 flex items-end justify-between">
         <div>
           <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase mb-3">
@@ -101,56 +127,80 @@ export default function CreateHotelForm() {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="px-12 py-12">
+        {/* ── MULTI IMAGE UPLOAD ── */}
         <div className="mb-12">
-          <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase mb-6">
-            Hotel Image
-          </p>
-          <div className="relative w-full h-50 bg-gray-100 border border-gray-200 overflow-hidden mb-4 rounded">
-            {previewImage ? (
-              <>
-                <img
-                  src={previewImage}
-                  alt="Preview"
-                  className="w-full h-full object-cover"
-                />
-                <Controller
-                  name="image"
-                  control={control}
-                  render={({ field: { onChange } }) => (
-                    <button
-                      type="button"
-                      onClick={() => handleDismissImage(onChange)}
-                      className="absolute top-3 right-3 bg-white border border-gray-200 text-gray-500 w-7 h-7 flex items-center justify-center cursor-pointer hover:border-gray-300 transition-colors rounded"
-                    >
-                      <X size={12} />
-                    </button>
-                  )}
-                />
-              </>
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <p className="text-gray-400 text-[10px] tracking-[0.2em] uppercase">
-                  No Image Selected
-                </p>
-              </div>
+          <div className="flex items-end justify-between mb-6">
+            <div>
+              <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase mb-1">
+                Hotel Images
+              </p>
+              <p className="text-gray-400 text-[10px]">
+                Upload up to 10 images. First image will be the cover.
+              </p>
+            </div>
+            {previews.length > 0 && (
+              <button
+                type="button"
+                onClick={handleDismissAll}
+                className="text-gray-400 text-[10px] tracking-[0.14em] uppercase border border-gray-300 px-3 py-1.5 hover:border-gray-400 hover:text-gray-600 transition-colors bg-transparent cursor-pointer rounded"
+              >
+                Remove all
+              </button>
             )}
           </div>
-          <Controller
-            name="image"
-            control={control}
-            render={({ field: { onChange } }) => (
-              <input
-                ref={fileInputRef}
-                type="file"
-                onChange={(e) =>
-                  handleImageChange(e.target.files?.[0], onChange)
-                }
-                accept=".jpg,.jpeg,.png,.webp"
-                className="text-gray-500 text-xs"
-              />
-            )}
+
+          {/* Gallery grid */}
+          {previews.length > 0 && (
+            <div className="grid grid-cols-5 gap-3 mb-4">
+              {previews.map((src, i) => (
+                <div
+                  key={i}
+                  className="relative aspect-[4/3] bg-gray-100 border border-gray-200 overflow-hidden group rounded"
+                >
+                  <img
+                    src={src}
+                    alt={`Preview ${i + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Order badge */}
+                  <div className="absolute top-2 left-2 bg-black/60 text-white text-[9px] px-1.5 py-0.5 rounded">
+                    {i === 0 ? "Cover" : `#${i + 1}`}
+                  </div>
+                  {/* Remove button */}
+                  <button
+                    type="button"
+                    onClick={() => removeImage(i)}
+                    className="absolute top-2 right-2 bg-white/90 border border-gray-200 text-gray-500 w-6 h-6 flex items-center justify-center cursor-pointer hover:bg-white hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100 rounded"
+                  >
+                    <X size={11} />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Drop zone */}
+          <div
+            onClick={() => fileInputRef.current?.click()}
+            className="relative w-full border-2 border-dashed border-gray-300 hover:border-[#059669] transition-colors cursor-pointer p-8 flex flex-col items-center justify-center gap-2 bg-white rounded"
+          >
+            <ImagePlus size={28} className="text-gray-300" />
+            <p className="text-gray-400 text-[10px] tracking-[0.16em] uppercase">
+              Click to upload images
+            </p>
+            <p className="text-gray-300 text-[9px]">JPG, PNG, WEBP — Max 5MB each</p>
+          </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            multiple
+            accept=".jpg,.jpeg,.png,.webp"
+            onChange={(e) => handleFilesSelected(e.target.files)}
+            className="hidden"
           />
-          {errors.image && <p className={errCls}>{errors.image.message}</p>}
+          {errors.images && (
+            <p className={errCls}>{errors.images.message || errors.images.root?.message}</p>
+          )}
         </div>
 
         <div className="border-t border-gray-200">
