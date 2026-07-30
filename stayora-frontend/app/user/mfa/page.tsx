@@ -134,32 +134,32 @@ export default function MfaPage() {
 
   if (checking) {
     return (
-      <div className="flex min-h-screen bg-[#0a0a0a]">
+      <div className="flex min-h-screen bg-[#faf7f2]">
         <Sidebar />
         <main className="flex-1 flex items-center justify-center">
-          <div className="animate-pulse text-white/40 text-sm">Loading...</div>
+          <div className="animate-pulse text-gray-400 text-sm">Loading...</div>
         </main>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-[#0a0a0a]">
+    <div className="flex min-h-screen bg-[#faf7f2]">
       <Sidebar />
       <main className="flex-1 min-w-0 p-8">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="mb-10">
-            <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-1.5">
+            <p className="text-[10px] uppercase tracking-[0.15em] text-gray-500 mb-1.5">
               Security
             </p>
-            <h1 className="text-[32px] font-bold text-white font-heading">
+            <h1 className="text-[32px] font-bold text-gray-900 font-heading">
               Two-Factor Authentication (2FA)
             </h1>
-            <p className="text-sm text-[#6b6b8a] mt-2">
+            <p className="text-sm text-gray-500 mt-2">
               Add an extra layer of security to your account using an authenticator app like Google Authenticator or Authy.
             </p>
-            <div className="mt-4 h-px bg-white/6" />
+            <div className="mt-4 h-px bg-gray-200" />
           </div>
 
           {/* Success/Error messages */}
@@ -179,13 +179,13 @@ export default function MfaPage() {
 
           {/* Status Card */}
           {step === "idle" && (
-            <div className="rounded-2xl border border-white/8 bg-white/3 p-8">
+            <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
               <div className="flex items-center gap-4 mb-6">
                 <div
                   className={`w-14 h-14 rounded-full flex items-center justify-center ${
                     mfaEnabled
-                      ? "bg-green-900/30 text-green-400"
-                      : "bg-[#2a2a2a] text-[#6b6b8a]"
+                      ? "bg-green-100 text-green-600"
+                      : "bg-gray-100 text-gray-400"
                   }`}
                 >
                   {mfaEnabled ? (
@@ -195,10 +195,10 @@ export default function MfaPage() {
                   )}
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold text-white">
+                  <h2 className="text-lg font-semibold text-gray-900">
                     {mfaEnabled ? "MFA is Enabled" : "MFA is Disabled"}
                   </h2>
-                  <p className="text-sm text-[#6b6b8a]">
+                  <p className="text-sm text-gray-500">
                     {mfaEnabled
                       ? "Your account is protected with two-factor authentication."
                       : "Protect your account with an extra layer of security."}
@@ -209,7 +209,7 @@ export default function MfaPage() {
               {mfaEnabled ? (
                 <button
                   onClick={handleStartDisable}
-                  className="px-5 py-2.5 rounded-lg border border-red-800/40 text-sm text-red-400 hover:bg-red-900/20 hover:border-red-600/60 transition-all"
+                  className="px-5 py-2.5 rounded-lg border border-red-300 text-sm text-red-600 hover:bg-red-50 transition-all"
                 >
                   Disable Two-Factor Authentication
                 </button>
@@ -220,7 +220,7 @@ export default function MfaPage() {
                     setError(null);
                     setPassword("");
                   }}
-                  className="px-5 py-2.5 rounded-lg bg-white text-[#0a0a0a] text-sm font-semibold hover:opacity-90 transition-all"
+                  className="px-5 py-2.5 rounded-lg bg-[#059669] text-white text-sm font-semibold hover:opacity-90 transition-all"
                 >
                   Enable Two-Factor Authentication
                 </button>
@@ -230,29 +230,29 @@ export default function MfaPage() {
 
           {/* Setup Step 1: Enter Password */}
           {step === "setup" && (
-            <div className="rounded-2xl border border-white/8 bg-white/3 p-8">
+            <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
               <div className="flex items-center gap-2 mb-6">
                 <button
                   onClick={() => setStep("idle")}
-                  className="text-[#6b6b8a] hover:text-white transition-colors"
+                  className="text-gray-400 hover:text-gray-900 transition-colors"
                 >
                   <ArrowLeft size={18} />
                 </button>
-                <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a]">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-gray-500">
                   Step 1 of 2
                 </p>
               </div>
 
-              <h2 className="text-lg font-semibold text-white mb-2">
+              <h2 className="text-lg font-semibold text-gray-900 mb-2">
                 Confirm your password
               </h2>
-              <p className="text-sm text-[#6b6b8a] mb-6">
+              <p className="text-sm text-gray-500 mb-6">
                 Enter your account password to start setting up two-factor authentication.
               </p>
 
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm text-white/60 mb-1 block">
+                  <label className="text-sm text-gray-600 mb-1 block">
                     Current Password
                   </label>
                   <input
@@ -260,13 +260,13 @@ export default function MfaPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="h-11 w-full rounded-lg border border-white/10 bg-white/5 px-4 text-sm text-white outline-none focus:border-white/25 transition-colors"
+                    className="h-11 w-full rounded-lg border border-gray-300 bg-white px-4 text-sm text-gray-900 outline-none focus:border-[#059669] transition-colors"
                   />
                 </div>
                 <button
                   onClick={handleStartSetup}
                   disabled={loading || !password}
-                  className="w-full h-11 rounded-lg bg-white text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
+                  className="w-full h-11 rounded-lg bg-[#059669] text-white text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
                 >
                   {loading ? "Generating..." : "Continue"}
                 </button>
@@ -276,26 +276,26 @@ export default function MfaPage() {
 
           {/* Setup Step 2: Scan QR Code & Verify */}
           {step === "verify" && (
-            <div className="rounded-2xl border border-white/8 bg-white/3 p-8">
+            <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
               <div className="flex items-center gap-2 mb-6">
                 <button
                   onClick={() => {
                     setStep("setup");
                     setError(null);
                   }}
-                  className="text-[#6b6b8a] hover:text-white transition-colors"
+                  className="text-gray-400 hover:text-gray-900 transition-colors"
                 >
                   <ArrowLeft size={18} />
                 </button>
-                <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a]">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-gray-500">
                   Step 2 of 2
                 </p>
               </div>
 
-              <h2 className="text-lg font-semibold text-white mb-2">
+              <h2 className="text-lg font-semibold text-gray-900 mb-2">
                 Scan QR Code
               </h2>
-              <p className="text-sm text-[#6b6b8a] mb-6">
+              <p className="text-sm text-gray-500 mb-6">
                 Scan this QR code with your authenticator app (Google Authenticator, Authy, etc.), then enter the 6-digit code below.
               </p>
 
@@ -309,17 +309,17 @@ export default function MfaPage() {
               </div>
 
               {/* Manual Setup Key */}
-              <div className="mb-6 p-4 rounded-lg bg-white/5 border border-white/8">
-                <p className="text-xs text-[#6b6b8a] mb-2">
+              <div className="mb-6 p-4 rounded-lg bg-gray-50 border border-gray-200">
+                <p className="text-xs text-gray-500 mb-2">
                   Can&apos;t scan the code? Enter this key manually:
                 </p>
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 text-sm text-white/80 font-mono bg-black/30 px-3 py-2 rounded break-all select-all">
+                  <code className="flex-1 text-sm text-gray-800 font-mono bg-gray-100 px-3 py-2 rounded break-all select-all">
                     {secret}
                   </code>
                   <button
                     onClick={copySecret}
-                    className="shrink-0 p-2 rounded-lg text-[#6b6b8a] hover:text-white hover:bg-white/5 transition-all"
+                    className="shrink-0 p-2 rounded-lg text-gray-400 hover:text-gray-900 hover:bg-gray-100 transition-all"
                     title="Copy secret"
                   >
                     {copied ? <Check size={16} className="text-green-400" /> : <Copy size={16} />}
@@ -330,13 +330,13 @@ export default function MfaPage() {
               {/* Verify Code */}
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm text-white/60 mb-1 block">
+                  <label className="text-sm text-gray-600 mb-1 block">
                     Verification Code
                   </label>
                   <div className="relative">
                     <KeyRound
                       size={18}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6b6b8a]"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                     />
                     <input
                       type="text"
@@ -347,14 +347,14 @@ export default function MfaPage() {
                         setVerifyCode(e.target.value.replace(/\D/g, "").slice(0, 6))
                       }
                       placeholder="000000"
-                      className="h-11 w-full rounded-lg border border-white/10 bg-white/5 pl-10 pr-4 text-lg tracking-[0.3em] font-mono text-white outline-none focus:border-white/25 transition-colors"
+                      className="h-11 w-full rounded-lg border border-gray-300 bg-white pl-10 pr-4 text-lg tracking-[0.3em] font-mono text-gray-900 outline-none focus:border-[#059669] transition-colors"
                     />
                   </div>
                 </div>
                 <button
                   onClick={handleVerifyAndEnable}
                   disabled={loading || verifyCode.length < 6}
-                  className="w-full h-11 rounded-lg bg-white text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
+                  className="w-full h-11 rounded-lg bg-[#059669] text-white text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
                 >
                   {loading ? "Verifying..." : "Enable Two-Factor Authentication"}
                 </button>
@@ -364,29 +364,29 @@ export default function MfaPage() {
 
           {/* Disable Step */}
           {step === "disable" && (
-            <div className="rounded-2xl border border-white/8 bg-white/3 p-8">
+            <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
               <div className="flex items-center gap-2 mb-6">
                 <button
                   onClick={() => setStep("idle")}
-                  className="text-[#6b6b8a] hover:text-white transition-colors"
+                  className="text-gray-400 hover:text-gray-900 transition-colors"
                 >
                   <ArrowLeft size={18} />
                 </button>
-                <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a]">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-gray-500">
                   Disable 2FA
                 </p>
               </div>
 
-              <h2 className="text-lg font-semibold text-white mb-2">
+              <h2 className="text-lg font-semibold text-gray-900 mb-2">
                 Disable Two-Factor Authentication
               </h2>
-              <p className="text-sm text-[#6b6b8a] mb-6">
+              <p className="text-sm text-gray-500 mb-6">
                 Enter your password and a verification code from your authenticator app to disable 2FA.
               </p>
 
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm text-white/60 mb-1 block">
+                  <label className="text-sm text-gray-600 mb-1 block">
                     Current Password
                   </label>
                   <input
@@ -394,17 +394,17 @@ export default function MfaPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="h-11 w-full rounded-lg border border-white/10 bg-white/5 px-4 text-sm text-white outline-none focus:border-white/25 transition-colors"
+                    className="h-11 w-full rounded-lg border border-gray-300 bg-white px-4 text-sm text-gray-900 outline-none focus:border-[#059669] transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-white/60 mb-1 block">
+                  <label className="text-sm text-gray-600 mb-1 block">
                     Authentication Code
                   </label>
                   <div className="relative">
                     <KeyRound
                       size={18}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-[#6b6b8a]"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                     />
                     <input
                       type="text"
@@ -415,14 +415,14 @@ export default function MfaPage() {
                         setVerifyCode(e.target.value.replace(/\D/g, "").slice(0, 6))
                       }
                       placeholder="000000"
-                      className="h-11 w-full rounded-lg border border-white/10 bg-white/5 pl-10 pr-4 text-lg tracking-[0.3em] font-mono text-white outline-none focus:border-white/25 transition-colors"
+                      className="h-11 w-full rounded-lg border border-gray-300 bg-white pl-10 pr-4 text-lg tracking-[0.3em] font-mono text-gray-900 outline-none focus:border-[#059669] transition-colors"
                     />
                   </div>
                 </div>
                 <button
                   onClick={handleDisable}
                   disabled={loading || !password || verifyCode.length < 6}
-                  className="w-full h-11 rounded-lg border border-red-800/40 text-sm text-red-400 font-semibold hover:bg-red-900/20 hover:border-red-600/60 disabled:opacity-40 transition-all"
+                  className="w-full h-11 rounded-lg border border-red-300 text-sm text-red-600 font-semibold hover:bg-red-50 disabled:opacity-40 transition-all"
                 >
                   {loading ? "Disabling..." : "Disable Two-Factor Authentication"}
                 </button>
@@ -431,25 +431,25 @@ export default function MfaPage() {
           )}
 
           {/* Info Section */}
-          <div className="mt-8 rounded-2xl border border-white/8 bg-white/3 p-6">
-            <h3 className="text-sm font-semibold text-white mb-3">
+          <div className="mt-8 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+            <h3 className="text-sm font-semibold text-gray-900 mb-3">
               What is Two-Factor Authentication?
             </h3>
-            <ul className="space-y-2 text-sm text-[#6b6b8a]">
+            <ul className="space-y-2 text-sm text-gray-500">
               <li className="flex items-start gap-2">
-                <span className="text-white/40 mt-0.5">•</span>
+                <span className="text-gray-300 mt-0.5">•</span>
                 After enabling, you&apos;ll need to enter a 6-digit code from your authenticator app when logging in.
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-white/40 mt-0.5">•</span>
+                <span className="text-gray-300 mt-0.5">•</span>
                 This adds an extra layer of security even if your password is compromised.
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-white/40 mt-0.5">•</span>
+                <span className="text-gray-300 mt-0.5">•</span>
                 We recommend Google Authenticator, Authy, or Microsoft Authenticator.
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-white/40 mt-0.5">•</span>
+                <span className="text-gray-300 mt-0.5">•</span>
                 You can disable 2FA at any time by providing your password and a valid code.
               </li>
             </ul>

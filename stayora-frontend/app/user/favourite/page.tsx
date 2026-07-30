@@ -75,26 +75,26 @@ export default function FavoritesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-[#faf7f2] text-gray-900">
       {/* PAGE HEADER */}
-      <div className="border-b border-[#1a1a1a] px-12 py-12 flex items-end justify-between">
+      <div className="border-b border-gray-200 px-12 py-12 flex items-end justify-between">
         <div>
-          <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
+          <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase mb-3">
             My Collection
           </p>
-          <h1 className="text-white text-5xl font-bold uppercase leading-tight m-0 font-heading">
+          <h1 className="text-gray-900 text-5xl font-bold uppercase leading-tight m-0 font-heading">
             Favorites
           </h1>
         </div>
         <div className="flex items-center gap-3">
           {/* View toggle */}
-          <div className="border border-[#1a1a1a] flex">
+          <div className="border border-gray-200 flex rounded">
             <button
               onClick={() => setViewMode("grid")}
               className={`p-2.5 flex items-center justify-center transition-colors cursor-pointer border-none ${
                 viewMode === "grid"
-                  ? "bg-[#161206] text-[#c9a96e]"
-                  : "bg-transparent text-[#3a3a3a] hover:text-[#6b7280]"
+                  ? "bg-amber-50 text-[#059669]"
+                  : "bg-transparent text-gray-400 hover:text-gray-600"
               }`}
             >
               <LayoutGrid size={15} />
@@ -103,14 +103,14 @@ export default function FavoritesPage() {
               onClick={() => setViewMode("list")}
               className={`p-2.5 flex items-center justify-center transition-colors cursor-pointer border-none border-l border-[#1a1a1a] ${
                 viewMode === "list"
-                  ? "bg-[#161206] text-[#c9a96e]"
-                  : "bg-transparent text-[#3a3a3a] hover:text-[#6b7280]"
+                  ? "bg-amber-50 text-[#059669]"
+                  : "bg-transparent text-gray-400 hover:text-gray-600"
               }`}
             >
               <List size={15} />
             </button>
           </div>
-          <Heart size={18} className="text-[#c9a96e]" strokeWidth={1.5} />
+          <Heart size={18} className="text-[#059669]" strokeWidth={1.5} />
         </div>
       </div>
 
@@ -130,7 +130,7 @@ export default function FavoritesPage() {
             {[...Array(4)].map((_, i) => (
               <div
                 key={i}
-                className="h-14 bg-[#0d0d0d] border border-[#1a1a1a] animate-pulse"
+                className="h-14 bg-gray-100 border border-gray-200 animate-pulse rounded"
               />
             ))}
           </div>
@@ -143,7 +143,7 @@ export default function FavoritesPage() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="grid gap-px bg-[#1a1a1a]"
+                className="grid gap-px bg-gray-200"
                 style={{
                   gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
                 }}
@@ -151,7 +151,7 @@ export default function FavoritesPage() {
                 {filtered.map((fav) => {
                   if (!fav.hotel) return null;
                   return (
-                    <div key={fav._id} className="bg-[#0a0a0a]">
+                    <div key={fav._id} className="bg-[#faf7f2]">
                       <FavoriteGridCard
                         favoriteId={fav._id}
                         hotelId={fav.hotelId}
@@ -169,7 +169,7 @@ export default function FavoritesPage() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="border-t border-[#1a1a1a]"
+                className="border-t border-gray-200"
               >
                 {filtered.map((fav, i) => {
                   if (!fav.hotel) return null;

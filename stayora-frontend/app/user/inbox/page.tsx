@@ -17,7 +17,7 @@ const TYPE_STYLES: Record<string, { color: string; bg: string }> = {
   checked_in: { color: "text-[#a78bfa]", bg: "bg-[#130a1f]" },
   checked_out: { color: "text-[#60a5fa]", bg: "bg-[#0a0f1f]" },
   booking_pending: { color: "text-[#facc15]", bg: "bg-[#1f1a0a]" },
-  general: { color: "text-[#c9a96e]", bg: "bg-[#1a1206]" },
+  general: { color: "text-[#059669]", bg: "bg-[#1a1206]" },
 };
 
 export default function InboxPage() {
@@ -63,25 +63,25 @@ export default function InboxPage() {
   const unread = notifications.filter((n) => !n.isRead).length;
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white font-heading"
+    <div className="min-h-screen bg-[#faf7f2] text-gray-900 font-heading"
     >
       {/* HEADER */}
-      <div className="border-b border-[#1a1a1a] px-12 py-10">
-        <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
+      <div className="border-b border-gray-200 px-12 py-10">
+        <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase mb-3">
           Notifications
         </p>
         <div className="flex items-end justify-between">
-          <h1 className="text-white text-5xl font-bold uppercase m-0">Inbox</h1>
+          <h1 className="text-gray-900 text-5xl font-bold uppercase m-0">Inbox</h1>
           <div className="flex items-center gap-3">
             {unread > 0 && (
-              <span className="bg-[#c9a96e] text-[#0a0a0a] text-[10px] font-bold px-3 py-1">
+              <span className="bg-[#059669] text-white text-[10px] font-bold px-3 py-1">
                 {unread} unread
               </span>
             )}
             {unread > 0 && (
               <button
                 onClick={handleReadAll}
-                className="flex items-center gap-2 border border-[#2a2a2a] text-[#6b7280] text-[10px] tracking-[0.14em] uppercase px-5 py-2.5 bg-transparent cursor-pointer hover:border-[#c9a96e] hover:text-[#c9a96e] transition-colors"
+                className="flex items-center gap-2 border border-gray-300 text-gray-500 text-[10px] tracking-[0.14em] uppercase px-5 py-2.5 bg-white cursor-pointer hover:border-[#059669] hover:text-[#059669] transition-colors rounded"
               >
                 <CheckCheck size={13} /> Mark All Read
               </button>
@@ -96,25 +96,25 @@ export default function InboxPage() {
             {[...Array(4)].map((_, i) => (
               <div
                 key={i}
-                className="h-24 bg-[#0d0d0d] border border-[#1a1a1a] animate-pulse"
+                className="h-24 bg-gray-100 border border-gray-200 animate-pulse rounded"
               />
             ))}
           </div>
         ) : notifications.length === 0 ? (
-          <div className="py-32 text-center border-t border-[#1a1a1a]">
-            <Bell size={32} className="text-[#2a2a2a] mx-auto mb-4" />
-            <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-3">
+          <div className="py-32 text-center border-t border-gray-200">
+            <Bell size={32} className="text-gray-200 mx-auto mb-4" />
+            <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-3">
               All Clear
             </p>
-            <h2 className="text-white text-3xl font-bold uppercase mb-2">
+            <h2 className="text-gray-900 text-3xl font-bold uppercase mb-2">
               No Notifications
             </h2>
-            <p className="text-[#4b5563] text-sm">
+            <p className="text-gray-500 text-sm">
               You're all caught up! Notifications will appear here.
             </p>
           </div>
         ) : (
-          <div className="flex flex-col gap-px bg-[#1a1a1a]">
+          <div className="flex flex-col gap-px bg-gray-200">
             {notifications.map((n, i) => {
               const style = TYPE_STYLES[n.type] || TYPE_STYLES.general;
               return (
@@ -124,20 +124,20 @@ export default function InboxPage() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.03 }}
                   className={`flex items-start gap-5 p-6 transition-colors ${
-                    n.isRead ? "bg-[#0a0a0a]" : "bg-[#0d0d0d]"
+                    n.isRead ? "bg-[#faf7f2]" : "bg-white"
                   }`}
                 >
                   {/* unread dot */}
                   <div className="mt-2 shrink-0">
                     <div
                       className={`w-2 h-2 rounded-full ${
-                        n.isRead ? "bg-[#2a2a2a]" : "bg-[#c9a96e]"
+                        n.isRead ? "bg-gray-300" : "bg-[#059669]"
                       }`}
                     />
                   </div>
 
                   {/* icon */}
-                  <div className={`${style.bg} p-2.5 shrink-0`}>
+                  <div className={`bg-gray-100 p-2.5 shrink-0 rounded`}>
                     <Bell size={14} className={style.color} />
                   </div>
 
@@ -147,12 +147,12 @@ export default function InboxPage() {
                       <div>
                         <p
                           className={`text-sm font-bold m-0 mb-1 ${
-                            n.isRead ? "text-[#6b7280]" : "text-white"
+                            n.isRead ? "text-gray-500" : "text-gray-900"
                           }`}
                         >
                           {n.title}
                         </p>
-                        <p className="text-[#6b7280] text-sm leading-relaxed m-0">
+                        <p className="text-gray-500 text-sm leading-relaxed m-0">
                           {n.message}
                         </p>
                       </div>
@@ -161,7 +161,7 @@ export default function InboxPage() {
                           <button
                             onClick={() => handleRead(n._id)}
                             title="Mark as read"
-                            className="text-[#3a3a3a] hover:text-[#4ade80] bg-transparent border-none cursor-pointer transition-colors p-1"
+                            className="text-gray-400 hover:text-[#4ade80] bg-transparent border-none cursor-pointer transition-colors p-1"
                           >
                             <Check size={14} />
                           </button>
@@ -169,15 +169,15 @@ export default function InboxPage() {
                         <button
                           onClick={() => handleDelete(n._id)}
                           title="Delete"
-                          className="text-[#3a3a3a] hover:text-[#f87171] bg-transparent border-none cursor-pointer transition-colors p-1"
+                          className="text-gray-400 hover:text-[#f87171] bg-transparent border-none cursor-pointer transition-colors p-1"
                         >
                           <Trash2 size={14} />
                         </button>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 mt-2">
-                      <Calendar size={10} className="text-[#3a3a3a]" />
-                      <span className="text-[#3a3a3a] text-[10px]">
+                      <Calendar size={10} className="text-gray-400" />
+                      <span className="text-gray-400 text-[10px]">
                         {new Date(n.createdAt).toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
@@ -187,7 +187,7 @@ export default function InboxPage() {
                         })}
                       </span>
                       {!n.isRead && (
-                        <span className="text-[#c9a96e] text-[9px] tracking-[0.14em] uppercase">
+                        <span className="text-[#059669] text-[9px] tracking-[0.14em] uppercase">
                           New
                         </span>
                       )}

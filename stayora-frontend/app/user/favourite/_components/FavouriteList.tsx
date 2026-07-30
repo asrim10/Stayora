@@ -42,11 +42,11 @@ export function FavoriteListCard({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04 }}
-      className="border-b border-[#1a1a1a] grid items-stretch hover:bg-[#0d0d0d] transition-colors"
+      className="border-b border-gray-200 grid items-stretch hover:bg-gray-50 transition-colors"
       style={{ gridTemplateColumns: "260px 1fr" }}
     >
       {/* Image */}
-      <div className="relative h-[160px] overflow-hidden bg-[#111]">
+      <div className="relative h-[160px] overflow-hidden bg-gray-100">
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -55,16 +55,16 @@ export function FavoriteListCard({
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <p className="text-[#2a2a2a] text-[10px] tracking-[0.2em] uppercase">
+            <p className="text-gray-400 text-[10px] tracking-[0.2em] uppercase">
               No Image
             </p>
           </div>
         )}
         <div className="absolute bottom-3 left-3">
-          <span className="bg-[#0a0a0a]/90 border border-[#2a2a2a] text-[#c9a96e] text-xs font-bold px-2.5 py-1 font-heading"
+          <span className="bg-white/90 border border-gray-200 text-[#059669] text-xs font-bold px-2.5 py-1 font-heading rounded"
           >
             Rs. {hotel.price.toLocaleString()}
-            <span className="text-[#4b5563] font-normal text-[10px]">
+            <span className="text-gray-500 font-normal text-[10px]">
               /night
             </span>
           </span>
@@ -74,21 +74,21 @@ export function FavoriteListCard({
       {/* Content */}
       <div className="px-8 py-6 flex flex-col justify-between">
         <div>
-          <p className="text-[#c9a96e] text-[9px] tracking-[0.18em] uppercase mb-1.5">
+          <p className="text-[#059669] text-[9px] tracking-[0.18em] uppercase mb-1.5">
             {location}
           </p>
-          <h3 className="text-white text-lg font-bold uppercase mb-3 leading-tight font-heading"
+          <h3 className="text-gray-900 text-lg font-bold uppercase mb-3 leading-tight font-heading"
           >
             {hotel.hotelName}
           </h3>
           <div className="flex items-center gap-1.5 mb-4">
-            <Star size={11} className="text-[#c9a96e] fill-[#c9a96e]" />
-            <span className="text-[#c9a96e] text-xs font-bold">
+            <Star size={11} className="text-[#059669] fill-[#059669]" />
+            <span className="text-[#059669] text-xs font-bold">
               {hotel.rating?.toFixed(1) || "—"}
             </span>
           </div>
           {hotel.description && (
-            <p className="text-[#4b5563] text-sm leading-relaxed line-clamp-2">
+            <p className="text-gray-500 text-sm leading-relaxed line-clamp-2">
               {hotel.description}
             </p>
           )}
@@ -97,19 +97,19 @@ export function FavoriteListCard({
         <div className="flex gap-3 mt-5">
           <Link
             href={`/user/booking?hotelId=${hotelId}`}
-            className="bg-[#c9a96e] text-[#0a0a0a] text-[11px] font-bold tracking-[0.14em] uppercase px-6 py-2.5 hover:opacity-90 transition-opacity no-underline"
+            className="bg-[#059669] text-white text-[11px] font-bold tracking-[0.14em] uppercase px-6 py-2.5 hover:opacity-90 transition-opacity no-underline"
           >
             Book Now
           </Link>
           <Link
             href={`/user/reviews?hotelId=${hotelId}`}
-            className="border border-[#2a2a2a] text-[#6b7280] text-[11px] tracking-[0.14em] uppercase px-6 py-2.5 hover:border-[#3a3a3a] hover:text-[#9ca3af] transition-colors no-underline"
+            className="border border-gray-300 text-gray-500 text-[11px] tracking-[0.14em] uppercase px-6 py-2.5 hover:border-gray-400 hover:text-gray-700 transition-colors no-underline rounded"
           >
             Reviews
           </Link>
           <button
             onClick={() => onRemove(hotelId)}
-            className="ml-auto text-[#3a3a3a] text-[10px] tracking-[0.14em] uppercase hover:text-[#f87171] transition-colors bg-transparent border-none cursor-pointer"
+            className="ml-auto text-gray-400 text-[10px] tracking-[0.14em] uppercase hover:text-[#f87171] transition-colors bg-transparent border-none cursor-pointer"
           >
             Remove
           </button>
