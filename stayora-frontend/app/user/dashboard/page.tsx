@@ -124,7 +124,7 @@ export default function DashboardPage() {
   return (
     <>
       <OAuthToast />
-      <div className="flex-1 bg-[#0a0a0a] overflow-y-auto min-h-screen text-white">
+      <div className="flex-1 bg-[#faf7f2] overflow-y-auto min-h-screen text-gray-900">
         <div className="flex gap-0">
         {/* ── MAIN CONTENT ── */}
         <div className="flex-1 px-12 py-12 min-w-0">
@@ -134,15 +134,15 @@ export default function DashboardPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-12"
           >
-            <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
+            <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase mb-3">
               Welcome back
             </p>
-            <h1 className="text-white font-bold uppercase leading-tight m-0 font-heading"
+            <h1 className="text-gray-900 font-bold uppercase leading-tight m-0 font-heading"
               style={{ fontSize: "clamp(28px, 3vw, 44px)" }}
             >
               {user?.fullName || user?.username || "Watson"}
             </h1>
-            <p className="text-[#4b5563] text-sm mt-2">
+            <p className="text-gray-500 text-sm mt-2">
               Explore and discover premium stays
             </p>
           </motion.div>
@@ -152,14 +152,14 @@ export default function DashboardPage() {
             <div className="relative max-w-xl">
               <Search
                 size={14}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-[#3a3a3a]"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
               />
               <input
                 type="text"
                 placeholder="Search hotels by name or location..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#0d0d0d] border border-[#2a2a2a] text-white text-sm px-4 py-3 pl-10 outline-none focus:border-[#c9a96e] transition-colors placeholder:text-[#3a3a3a]"
+                className="w-full bg-white border border-gray-300 text-gray-900 text-sm px-4 py-3 pl-10 outline-none focus:border-[#059669] transition-colors placeholder:text-gray-400 rounded"
               />
             </div>
           </div>
@@ -170,17 +170,17 @@ export default function DashboardPage() {
               {[...Array(3)].map((_, i) => (
                 <div
                   key={i}
-                  className="h-20 bg-[#0d0d0d] border border-[#1a1a1a] animate-pulse"
+                  className="h-20 bg-gray-100 border border-gray-200 animate-pulse rounded"
                 />
               ))}
             </div>
           ) : hotels.length === 0 ? (
-            <div className="py-24 border-t border-[#1a1a1a]">
-              <p className="text-[#2a2a2a] text-[11px] tracking-[0.2em] uppercase mb-2">
+            <div className="py-24 border-t border-gray-200">
+              <p className="text-gray-400 text-[11px] tracking-[0.2em] uppercase mb-2">
                 No results
               </p>
               {searchQuery && (
-                <p className="text-[#3a3a3a] text-sm">
+                <p className="text-gray-500 text-sm">
                   Try adjusting your search
                 </p>
               )}
@@ -196,18 +196,18 @@ export default function DashboardPage() {
                 >
                   <div className="flex items-end justify-between mb-6">
                     <div>
-                      <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-2">
+                      <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-2">
                         Top Rated
                       </p>
                       <h2
-                        className="text-white text-2xl font-bold uppercase m-0 font-heading"
+                        className="text-gray-900 text-2xl font-bold uppercase m-0 font-heading"
                       >
                         Featured Hotels
                       </h2>
                     </div>
                   </div>
                   <div
-                    className="grid gap-px bg-[#1a1a1a]"
+                    className="grid gap-px bg-gray-200"
                     style={{
                       gridTemplateColumns:
                         "repeat(auto-fill, minmax(260px, 1fr))",
@@ -219,7 +219,7 @@ export default function DashboardPage() {
                         initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.05 }}
-                        className="bg-[#0a0a0a] cursor-pointer"
+                        className="bg-white cursor-pointer"
                         onClick={() => setSelectedHotel(hotel)}
                       >
                         <HotelCard
@@ -242,7 +242,7 @@ export default function DashboardPage() {
 
               {/* Filter tabs + grid */}
               <div>
-                <div className="flex items-end justify-between mb-6 border-b border-[#1a1a1a] pb-0">
+                <div className="flex items-end justify-between mb-6 border-b border-gray-200 pb-0">
                   <div className="flex gap-0">
                     {FILTERS.map((f) => (
                       <button
@@ -250,21 +250,21 @@ export default function DashboardPage() {
                         onClick={() => setActiveFilter(f.id)}
                         className={`text-[10px] tracking-[0.16em] uppercase px-5 py-3.5 border-none bg-transparent cursor-pointer transition-colors border-b-2 ${
                           activeFilter === f.id
-                            ? "text-[#c9a96e] border-[#c9a96e]"
-                            : "text-[#3a3a3a] border-transparent hover:text-[#6b7280]"
+                            ? "text-[#059669] border-[#059669]"
+                            : "text-gray-400 border-transparent hover:text-gray-600"
                         }`}
                       >
                         {f.label}
                       </button>
                     ))}
                   </div>
-                  <button className="text-[#c9a96e] text-[10px] tracking-[0.14em] uppercase bg-transparent border-none cursor-pointer hover:opacity-70 transition-opacity mb-0.5">
+                  <button className="text-[#059669] text-[10px] tracking-[0.14em] uppercase bg-transparent border-none cursor-pointer hover:opacity-70 transition-opacity mb-0.5">
                     View All →
                   </button>
                 </div>
 
                 <div
-                  className="grid gap-px bg-[#1a1a1a]"
+                  className="grid gap-px bg-gray-200"
                   style={{
                     gridTemplateColumns:
                       "repeat(auto-fill, minmax(220px, 1fr))",
@@ -276,7 +276,7 @@ export default function DashboardPage() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.04 }}
-                      className="bg-[#0a0a0a] cursor-pointer"
+                      className="bg-white cursor-pointer"
                       onClick={() => setSelectedHotel(hotel)}
                     >
                       <PopularHotelCard
@@ -302,7 +302,7 @@ export default function DashboardPage() {
 
         {/* ── SIDEBAR ── */}
         {selectedHotel && (
-          <div className="border-l border-[#1a1a1a]">
+          <div className="border-l border-gray-200">
             <HotelDetailSidebar
               hotel={{
                 id: selectedHotel._id,

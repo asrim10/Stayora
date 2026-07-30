@@ -10,7 +10,7 @@ export default async function EditProfilePage() {
   if (!result.data) notFound();
 
   return (
-    <div className="flex-1 min-h-screen bg-[#0a0a0a] p-8">
+    <div className="flex-1 min-h-screen bg-[#faf7f2] p-8">
       <UpdateUserForm user={result.data} />
     </div>
   );

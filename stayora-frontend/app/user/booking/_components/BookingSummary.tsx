@@ -23,30 +23,30 @@ export default function BookingSummaryStats({
   );
 
   const stats = [
-    { value: bookings.length, label: "Total Bookings", accent: "#c9a96e" },
+    { value: bookings.length, label: "Total Bookings", accent: "#059669" },
     { value: upcoming.length, label: "Upcoming Trips", accent: "#60a5fa" },
     { value: completed.length, label: "Completed Stays", accent: "#4ade80" },
     {
       value: `Rs. ${totalSpent.toLocaleString()}`,
       label: "Total Spent",
-      accent: "#c9a96e",
+      accent: "#059669",
     },
   ];
 
   return (
     <div
-      className="grid border-t border-l border-[#1a1a1a] mt-16"
+      className="grid border-t border-l border-gray-200 mt-16 shadow-sm"
       style={{ gridTemplateColumns: "repeat(4,1fr)" }}
     >
       {stats.map((s) => (
         <div
           key={s.label}
-          className="bg-[#0d0d0d] border-r border-b border-[#1a1a1a] p-8"
+          className="bg-white border-r border-b border-gray-200 p-8"
         >
-          <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-4">
+          <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-4">
             {s.label}
           </p>
-          <p className="text-white text-[36px] font-bold leading-none m-0 font-heading"
+          <p className="text-gray-900 text-[36px] font-bold leading-none m-0 font-heading"
           >
             {s.value}
           </p>

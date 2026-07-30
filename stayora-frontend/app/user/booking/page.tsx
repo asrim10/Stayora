@@ -16,18 +16,18 @@ const HotelMap = dynamic(() => import("../_components/HotelMap"), {
 });
 
 const inputCls =
-  "w-full bg-[#0d0d0d] border border-[#2a2a2a] text-white text-sm px-4 py-3 outline-none focus:border-[#c9a96e] transition-colors placeholder:text-[#3a3a3a]";
+  "w-full bg-white border border-gray-300 text-gray-900 text-sm px-4 py-3 outline-none focus:border-[#059669] transition-colors placeholder:text-gray-400 rounded";
 const labelCls =
-  "block text-[#c9a96e] text-[9px] tracking-[0.18em] uppercase mb-2";
+  "block text-[#059669] text-[9px] tracking-[0.18em] uppercase mb-2";
 
 function SectionTitle({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
     <div className="mb-6">
-      <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-2">
+      <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-2">
         {eyebrow}
       </p>
       <h3
-        className="text-white text-2xl font-bold uppercase m-0 font-heading"
+        className="text-gray-900 text-2xl font-bold uppercase m-0 font-heading"
       >
         {title}
       </h3>
@@ -203,58 +203,36 @@ function HotelBookingContent() {
 
   return (
     <div
-      className="min-h-screen bg-[#0a0a0a] text-white"
+      className="min-h-screen bg-[#faf7f2] text-gray-900"
     >
       <style>{`
         input[type="date"]::-webkit-calendar-picker-indicator {
-          filter: invert(1);
           cursor: pointer;
-          opacity: 0.7;
+          opacity: 0.5;
         }
         input[type="date"]::-webkit-calendar-picker-indicator:hover {
           opacity: 1;
         }
-        input[type="date"]::-webkit-datetime-edit {
-          color: white;
-        }
-        input[type="date"]::-webkit-datetime-edit-fields-wrapper {
-          color: white;
-        }
-        input[type="date"]::-webkit-datetime-edit-text {
-          color: #3a3a3a;
-        }
-        input[type="date"]::-webkit-datetime-edit-month-field,
-        input[type="date"]::-webkit-datetime-edit-day-field,
-        input[type="date"]::-webkit-datetime-edit-year-field {
-          color: white;
-        }
-        input[type="date"]::-webkit-datetime-edit-month-field:focus,
-        input[type="date"]::-webkit-datetime-edit-day-field:focus,
-        input[type="date"]::-webkit-datetime-edit-year-field:focus {
-          background-color: #c9a96e;
-          color: #0a0a0a;
-          border-radius: 2px;
-        }
         select option {
-          background-color: #0d0d0d;
-          color: white;
+          background-color: white;
+          color: #1a1a1a;
         }
       `}</style>
 
       {/* TOP NAV */}
-      <div className="border-b border-[#1a1a1a] px-12 py-4 flex items-center justify-between">
+      <div className="border-b border-gray-200 px-12 py-4 flex items-center justify-between">
         <button
           onClick={() => router.back()}
-          className="flex items-center gap-2 text-[#6b7280] text-[10px] tracking-[0.16em] uppercase bg-transparent border-none cursor-pointer hover:text-[#c9a96e] transition-colors"
+          className="flex items-center gap-2 text-[#6b7280] text-[10px] tracking-[0.16em] uppercase bg-transparent border-none cursor-pointer hover:text-[#059669] transition-colors"
         >
           <ChevronLeft size={14} /> Back
         </button>
-        <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase m-0">
+        <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase m-0">
           Stayora
         </p>
         <Heart
           size={16}
-          className="text-[#3a3a3a] cursor-pointer hover:text-[#c9a96e] transition-colors"
+          className="text-gray-300 cursor-pointer hover:text-[#059669] transition-colors"
         />
       </div>
 
@@ -264,7 +242,7 @@ function HotelBookingContent() {
             {[...Array(3)].map((_, i) => (
               <div
                 key={i}
-                className="h-6 w-64 bg-[#0d0d0d] border border-[#1a1a1a] animate-pulse"
+                className="h-6 w-64 bg-gray-100 border border-gray-200 animate-pulse rounded"
               />
             ))}
           </div>
@@ -272,7 +250,7 @@ function HotelBookingContent() {
       )}
 
       {!loading && !hotel && (
-        <div className="flex items-center justify-center py-32 text-[#4b5563] text-sm">
+        <div className="flex items-center justify-center py-32 text-gray-500 text-sm">
           Hotel not found.
         </div>
       )}
@@ -280,13 +258,13 @@ function HotelBookingContent() {
       {!loading && hotel && (
         <div className="grid" style={{ gridTemplateColumns: "1fr 380px" }}>
           {/* LEFT */}
-          <div className="border-r border-[#1a1a1a] px-12 py-12">
+          <div className="border-r border-gray-200 px-12 py-12">
             <div className="mb-3">
-              <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-2">
+              <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-2">
                 {location}
               </p>
               <h1
-                className="text-white font-bold uppercase leading-tight m-0 font-heading"
+                className="text-gray-900 font-bold uppercase leading-tight m-0 font-heading"
                 style={{ fontSize: "clamp(28px, 3vw, 48px)" }}
               >
                 {hotel.hotelName || hotel.name}
@@ -294,17 +272,17 @@ function HotelBookingContent() {
               <div className="flex items-center gap-4 mt-3">
                 {avgRating && (
                   <div className="flex items-center gap-1.5">
-                    <Star size={13} className="text-[#c9a96e] fill-[#c9a96e]" />
-                    <span className="text-[#c9a96e] text-sm font-bold">
+                    <Star size={13} className="text-[#059669] fill-[#059669]" />
+                    <span className="text-[#059669] text-sm font-bold">
                       {avgRating}
                     </span>
-                    <span className="text-[#4b5563] text-xs">
+                    <span className="text-gray-500 text-xs">
                       ({reviews.length} reviews)
                     </span>
                   </div>
                 )}
-                <div className="flex items-center gap-1.5 text-[#4b5563] text-xs">
-                  <MapPin size={11} className="text-[#c9a96e]" />
+                <div className="flex items-center gap-1.5 text-gray-500 text-xs">
+                  <MapPin size={11} className="text-[#059669]" />
                   {location}
                 </div>
               </div>
@@ -312,21 +290,21 @@ function HotelBookingContent() {
 
             {/* IMAGE GALLERY */}
             <div
-              className="grid gap-px bg-[#1a1a1a] mb-14"
+              className="grid gap-px bg-gray-200 mb-14"
               style={{
                 gridTemplateColumns: "2fr 1fr 1fr",
                 gridTemplateRows: "280px",
               }}
             >
               {[0, 1, 2].map((i) => (
-                <div key={i} className="overflow-hidden bg-[#111] relative">
+                <div key={i} className="overflow-hidden bg-gray-100 relative">
                   <img
                     src={getImageUrl(hotel.imageUrl)}
                     alt={hotel.hotelName}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                   {i === 2 && (
-                    <button className="absolute bottom-4 right-4 bg-[#0a0a0a]/90 border border-[#2a2a2a] text-[#9ca3af] text-[10px] tracking-[0.14em] uppercase px-4 py-2 hover:border-[#c9a96e] hover:text-[#c9a96e] transition-colors cursor-pointer">
+                    <button className="absolute bottom-4 right-4 bg-white/90 border border-gray-200 text-gray-500 text-[10px] tracking-[0.14em] uppercase px-4 py-2 hover:border-[#059669] hover:text-[#059669] transition-colors cursor-pointer rounded">
                       All Photos
                     </button>
                   )}
@@ -335,15 +313,15 @@ function HotelBookingContent() {
             </div>
 
             {/* ABOUT */}
-            <div className="border-b border-[#1a1a1a] pb-12 mb-12">
+            <div className="border-b border-gray-200 pb-12 mb-12">
               <SectionTitle eyebrow="Overview" title="About This Hotel" />
-              <p className="text-[#6b7280] text-sm leading-relaxed">
+              <p className="text-gray-500 text-sm leading-relaxed">
                 {hotel.description || "No description available."}
               </p>
             </div>
 
             {/* AMENITIES */}
-            <div className="border-b border-[#1a1a1a] pb-12 mb-12">
+            <div className="border-b border-gray-200 pb-12 mb-12">
               <SectionTitle eyebrow="Facilities" title="Amenities" />
               <div className="grid grid-cols-2 gap-3">
                 {(
@@ -358,9 +336,9 @@ function HotelBookingContent() {
                 ).map((a: string, i: number) => (
                   <div
                     key={i}
-                    className="flex items-center gap-3 text-[#6b7280] text-sm"
+                    className="flex items-center gap-3 text-gray-500 text-sm"
                   >
-                    <Waves size={13} className="text-[#c9a96e] shrink-0" />
+                    <Waves size={13} className="text-[#059669] shrink-0" />
                     {a}
                   </div>
                 ))}
@@ -368,11 +346,11 @@ function HotelBookingContent() {
             </div>
 
             {/* LOCATION */}
-            <div className="border-b border-[#1a1a1a] pb-12 mb-12">
+            <div className="border-b border-gray-200 pb-12 mb-12">
               <SectionTitle eyebrow="Where We Are" title="Location" />
               {hotel.coordinates ? (
                 <>
-                  <div className="h-52 w-full overflow-hidden border border-[#1a1a1a]">
+                  <div className="h-52 w-full overflow-hidden border border-gray-200 rounded">
                     <HotelMap
                       lat={hotel.coordinates.lat}
                       lng={hotel.coordinates.lng}
@@ -384,14 +362,14 @@ function HotelBookingContent() {
                     href={`https://www.google.com/maps/search/?api=1&query=${hotel.coordinates.lat},${hotel.coordinates.lng}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-3 inline-block bg-[#0a0a0a]/90 border border-[#2a2a2a] text-[#c9a96e] text-[10px] tracking-[0.14em] uppercase px-4 py-2 hover:border-[#c9a96e] hover:text-white transition-colors"
+                    className="mt-3 inline-block bg-white border border-gray-300 text-[#059669] text-[10px] tracking-[0.14em] uppercase px-4 py-2 hover:border-[#059669] hover:text-[#059669] transition-colors rounded"
                   >
                     Open in Google Maps
                   </a>
                 </>
               ) : (
-                <div className="h-52 bg-[#0d0d0d] border border-[#1a1a1a] flex items-center justify-center">
-                  <p className="text-[#3a3a3a] text-[9px] tracking-[0.2em] uppercase">
+                <div className="h-52 bg-gray-100 border border-gray-200 flex items-center justify-center rounded">
+                  <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase">
                     Location unavailable
                   </p>
                 </div>
@@ -402,25 +380,25 @@ function HotelBookingContent() {
             <div>
               <SectionTitle eyebrow="What Guests Say" title="Guest Reviews" />
               {reviews.length === 0 ? (
-                <div className="border border-[#1a1a1a] p-10 text-center">
-                  <p className="text-[#3a3a3a] text-[10px] tracking-[0.2em] uppercase">
+                <div className="border border-gray-200 p-10 text-center rounded">
+                  <p className="text-gray-400 text-[10px] tracking-[0.2em] uppercase">
                     No reviews yet
                   </p>
                 </div>
               ) : (
-                <div className="flex flex-col gap-px bg-[#1a1a1a]">
+                <div className="flex flex-col gap-px bg-gray-200">
                   {reviews.map((r: any, i: number) => {
                     const reviewer =
                       r.userId?.fullName || r.fullName || r.name || "Guest";
                     const comment = r.comment || r.text || "";
                     const rating = r.rating || 5;
                     return (
-                      <div key={r._id || i} className="bg-[#0d0d0d] p-6">
+                      <div key={r._id || i} className="bg-white p-6">
                         <div className="flex items-center gap-3 mb-3">
-                          <div className="w-8 h-8 bg-[#1a1a1a] border border-[#2a2a2a] rounded-full flex items-center justify-center text-[#c9a96e] text-xs font-bold">
+                          <div className="w-8 h-8 bg-gray-100 border border-gray-200 rounded-full flex items-center justify-center text-[#059669] text-xs font-bold">
                             {reviewer[0]?.toUpperCase()}
                           </div>
-                          <span className="text-white text-sm font-bold">
+                          <span className="text-gray-900 text-sm font-bold">
                             {reviewer}
                           </span>
                           <div className="flex gap-0.5">
@@ -430,14 +408,14 @@ function HotelBookingContent() {
                                 size={10}
                                 className={
                                   j < rating
-                                    ? "text-[#c9a96e] fill-[#c9a96e]"
-                                    : "text-[#2a2a2a] fill-[#2a2a2a]"
+                                    ? "text-[#059669] fill-[#059669]"
+                                    : "text-gray-200 fill-gray-200"
                                 }
                               />
                             ))}
                           </div>
                           {r.createdAt && (
-                            <span className="text-[#3a3a3a] text-[10px] ml-auto">
+                            <span className="text-gray-400 text-[10px] ml-auto">
                               {new Date(r.createdAt).toLocaleDateString(
                                 "en-US",
                                 {
@@ -449,7 +427,7 @@ function HotelBookingContent() {
                             </span>
                           )}
                         </div>
-                        <p className="text-[#6b7280] text-sm leading-relaxed m-0">
+                        <p className="text-gray-500 text-sm leading-relaxed m-0">
                           {comment}
                         </p>
                       </div>
@@ -460,7 +438,7 @@ function HotelBookingContent() {
               {reviews.length > 0 && (
                 <button
                   onClick={() => router.push(`/user/review?hotelId=${hotelId}`)}
-                  className="text-[#c9a96e] text-[10px] tracking-[0.16em] uppercase mt-5 bg-transparent border-none cursor-pointer hover:opacity-70 transition-opacity"
+                  className="text-[#059669] text-[10px] tracking-[0.16em] uppercase mt-5 bg-transparent border-none cursor-pointer hover:opacity-70 transition-opacity"
                 >
                   Show all {reviews.length} reviews →
                 </button>
@@ -471,7 +449,7 @@ function HotelBookingContent() {
           {/* RIGHT - BOOKING PANEL */}
           <div className="sticky top-0 h-screen overflow-y-auto bg-[#0d0d0d] border-l border-[#1a1a1a] flex flex-col">
             <div className="p-8 border-b border-[#1a1a1a]">
-              <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-2">
+              <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-2">
                 Starting from
               </p>
               <p className="text-white text-3xl font-bold m-0">
@@ -483,7 +461,7 @@ function HotelBookingContent() {
             </div>
 
             <div className="p-8 flex flex-col gap-5 flex-1">
-              <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase">
+              <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase">
                 Reserve Your Stay
               </p>
 
@@ -541,7 +519,7 @@ function HotelBookingContent() {
                   </div>
                   <div className="flex justify-between font-bold mt-2">
                     <span className="text-white">Total</span>
-                    <span className="text-[#c9a96e] text-lg">
+                    <span className="text-[#059669] text-lg">
                       Rs. {totalPrice.toLocaleString()}
                     </span>
                   </div>
@@ -578,7 +556,7 @@ function HotelBookingContent() {
                 <button
                   disabled={submitting || nights <= 0}
                   onClick={() => handleBook("cash")}
-                  className="w-full bg-transparent border border-[#c9a96e] text-[#c9a96e] text-[11px] font-bold tracking-[0.18em] uppercase py-4 hover:bg-[#c9a96e] hover:text-[#0a0a0a] transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                  className="w-full bg-transparent border border-[#059669] text-[#059669] text-[11px] font-bold tracking-[0.18em] uppercase py-4 hover:bg-[#059669] hover:text-[#0a0a0a] transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {submitting ? "Booking..." : "Pay at Hotel (Cash)"}
                 </button>
@@ -595,7 +573,7 @@ export default function HotelBookingPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <div className="w-12 h-12 border-2 border-[#c9a96e] border-t-transparent rounded-full animate-spin" />
+        <div className="w-12 h-12 border-2 border-[#059669] border-t-transparent rounded-full animate-spin" />
       </div>
     }>
       <HotelBookingContent />

@@ -57,28 +57,28 @@ export default function Sidebar() {
 
   return (
     <div
-      className="w-60 min-h-screen bg-[#0a0a0a] border-r border-[#1a1a1a] flex flex-col flex-shrink-0 font-heading"
+      className="w-60 min-h-screen bg-white border-r border-gray-200 flex flex-col flex-shrink-0 font-heading"
     >
       {/* USER CARD */}
-      <div className="px-6 pt-8 pb-6 border-b border-[#1a1a1a]">
-        <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#2a2a2a] mb-4">
+      <div className="px-6 pt-8 pb-6 border-b border-gray-200">
+        <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200 mb-4">
           <UserAvatar
             imageUrl={user?.imageUrl}
             username={user?.username}
             size={64}
           />
         </div>
-        <p className="text-white text-[15px] font-bold m-0 mb-0.5 tracking-[0.02em]">
+        <p className="text-gray-900 text-[15px] font-bold m-0 mb-0.5 tracking-[0.02em]">
           {user?.fullName || user?.username || "Guest User"}
         </p>
-        <p className="text-[#c9a96e] text-[10px] tracking-[0.18em] uppercase m-0">
+        <p className="text-[#059669] text-[10px] tracking-[0.18em] uppercase m-0">
           Traveler Enthusiast
         </p>
       </div>
 
       {/* NAV */}
       <nav className="flex-1 px-4 py-6">
-        <p className="text-[#3a3a3a] text-[9px] tracking-[0.2em] uppercase ml-2 mb-3">
+        <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase ml-2 mb-3">
           Menu
         </p>
         <div className="flex flex-col gap-0.5">
@@ -91,8 +91,8 @@ export default function Sidebar() {
                 href={item.href}
                 className={`flex items-center justify-between px-3 py-2.5 no-underline transition-colors border-l-2 ${
                   isActive
-                    ? "bg-[#161612] border-[#c9a96e] text-[#c9a96e]"
-                    : "border-transparent text-[#6b7280] hover:bg-[#111] hover:text-white"
+                    ? "bg-amber-50 border-[#059669] text-[#059669]"
+                    : "border-transparent text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -105,7 +105,7 @@ export default function Sidebar() {
                 </div>
                 {/* 👇 show unread badge only for Inbox */}
                 {"badge" in item && item.badge && unreadCount > 0 && (
-                  <span className="bg-[#c9a96e] text-[#0a0a0a] text-[9px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+                  <span className="bg-[#059669] text-white text-[9px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
                     {unreadCount}
                   </span>
                 )}
@@ -116,10 +116,10 @@ export default function Sidebar() {
       </nav>
 
       {/* LOGOUT */}
-      <div className="p-4 border-t border-[#1a1a1a]">
+      <div className="p-4 border-t border-gray-200">
         <button
           onClick={logout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 text-[#6b7280] text-[13px] tracking-[0.03em] bg-transparent border-none cursor-pointer transition-colors hover:text-[#f87171] hover:bg-[#1a0a0a]"
+          className="w-full flex items-center gap-3 px-3 py-2.5 text-gray-500 text-[13px] tracking-[0.03em] bg-transparent border-none cursor-pointer transition-colors hover:text-[#f87171] hover:bg-red-50 rounded"
 
         >
           <LogOut size={15} strokeWidth={1.8} />

@@ -93,7 +93,7 @@ export default function BookingHistoryPage() {
   const filtered = filterBookings();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className="min-h-screen bg-[#faf7f2] text-gray-900">
       <BookingHeader />
 
       <div className="px-12 py-10">
@@ -108,29 +108,29 @@ export default function BookingHistoryPage() {
             {[...Array(3)].map((_, i) => (
               <div
                 key={i}
-                className="h-50 bg-[#0d0d0d] border border-[#1a1a1a] animate-pulse"
+                className="h-50 bg-gray-100 border border-gray-200 animate-pulse rounded"
               />
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <div className="py-24 border-t border-[#1a1a1a]">
-            <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-3">
+          <div className="py-24 border-t border-gray-200">
+            <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-3">
               No Results
             </p>
-            <h2 className="text-white text-3xl font-bold uppercase mb-3 font-heading"
+            <h2 className="text-gray-900 text-3xl font-bold uppercase mb-3 font-heading"
             >
               {searchQuery ? "No Bookings Found" : "No Bookings Yet"}
             </h2>
-            <p className="text-[#4b5563] text-sm">
+            <p className="text-gray-500 text-sm">
               {searchQuery
                 ? "Try adjusting your search terms."
                 : "Your booking history will appear here."}
             </p>
           </div>
         ) : (
-          <div className="flex flex-col gap-px bg-[#1a1a1a]">
+          <div className="flex flex-col gap-px bg-gray-200">
             {filtered.map((booking) => (
-              <div key={booking._id || booking.id} className="bg-[#0a0a0a]">
+              <div key={booking._id || booking.id} className="bg-white">
                 <BookingCard
                   booking={booking}
                   hotelData={getHotelData(booking)}

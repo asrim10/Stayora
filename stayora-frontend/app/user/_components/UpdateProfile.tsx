@@ -207,7 +207,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
                     id="fullName"
                     placeholder="Enter your full name"
                     {...register("fullName")}
-                    className="w-full bg-transparent border-b border-white/10 text-sm text-white/80 placeholder:text-[#6b6b8a] py-2 outline-none focus:border-[#C9A84C]/40 transition-colors"
+                    className="w-full bg-transparent border-b border-white/10 text-sm text-white/80 placeholder:text-[#6b6b8a] py-2 outline-none focus:border-[#059669]/40 transition-colors"
                   />
                   {errors.fullName && (
                     <p className="mt-1.5 text-xs text-red-400">
@@ -230,7 +230,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
                     id="username"
                     placeholder="Enter your username"
                     {...register("username")}
-                    className="w-full bg-transparent border-b border-white/10 text-sm text-white/80 placeholder:text-[#6b6b8a] py-2 outline-none focus:border-[#C9A84C]/40 transition-colors"
+                    className="w-full bg-transparent border-b border-white/10 text-sm text-white/80 placeholder:text-[#6b6b8a] py-2 outline-none focus:border-[#059669]/40 transition-colors"
                   />
                   {errors.username && (
                     <p className="mt-1.5 text-xs text-red-400">
@@ -254,7 +254,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
                     type="email"
                     placeholder="Enter your email"
                     {...register("email")}
-                    className="w-full bg-transparent border-b border-white/10 text-sm text-white/80 placeholder:text-[#6b6b8a] py-2 outline-none focus:border-[#C9A84C]/40 transition-colors"
+                    className="w-full bg-transparent border-b border-white/10 text-sm text-white/80 placeholder:text-[#6b6b8a] py-2 outline-none focus:border-[#059669]/40 transition-colors"
                   />
                   {errors.email && (
                     <p className="mt-1.5 text-xs text-red-400">
@@ -276,7 +276,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-5 py-2.5 rounded-lg border border-[#C9A84C]/30 bg-[#C9A84C]/10 text-sm text-[#C9A84C] uppercase tracking-widest hover:bg-[#C9A84C]/20 hover:border-[#C9A84C]/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                className="px-5 py-2.5 rounded-lg border border-[#059669]/30 bg-[#059669]/10 text-sm text-[#059669] uppercase tracking-widest hover:bg-[#059669]/20 hover:border-[#059669]/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 {isSubmitting ? "Saving..." : "Save Changes"}
               </button>

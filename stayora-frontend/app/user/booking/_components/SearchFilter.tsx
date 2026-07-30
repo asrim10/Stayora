@@ -15,17 +15,17 @@ export default function SearchFilterBar({
       <div className="relative flex-1">
         <Search
           size={13}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-[#3a3a3a]"
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
         />
         <input
           type="text"
           placeholder="Search by hotel name, location, or booking ID..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full bg-[#0d0d0d] border border-[#2a2a2a] text-white text-xs px-4 py-3 pl-9 outline-none focus:border-[#c9a96e] transition-colors placeholder:text-[#3a3a3a]"
+          className="w-full bg-white border border-gray-300 text-gray-900 text-xs px-4 py-3 pl-9 outline-none focus:border-[#059669] transition-colors placeholder:text-gray-400 rounded"
         />
       </div>
-      <button className="flex items-center gap-2 border border-[#2a2a2a] text-[#6b7280] text-[10px] tracking-[0.16em] uppercase px-5 py-3 hover:border-[#3a3a3a] hover:text-[#9ca3af] transition-colors bg-transparent cursor-pointer">
+      <button className="flex items-center gap-2 border border-gray-300 text-gray-500 text-[10px] tracking-[0.16em] uppercase px-5 py-3 hover:border-gray-400 hover:text-gray-700 transition-colors bg-white cursor-pointer rounded">
         <SlidersHorizontal size={13} />
         Filters
       </button>

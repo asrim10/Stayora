@@ -52,11 +52,11 @@ function VerifyContent() {
   }, [searchParams, router]);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center font-heading"
+    <div className="min-h-screen bg-[#faf7f2] flex items-center justify-center font-heading"
     >
       {status === "loading" && (
         <div className="text-center space-y-4">
-          <div className="w-12 h-12 border-2 border-[#c9a96e] border-t-transparent rounded-full animate-spin mx-auto" />
+          <div className="w-12 h-12 border-2 border-[#059669] border-t-transparent rounded-full animate-spin mx-auto" />
           <p className="text-[#6b7280] text-sm tracking-[0.1em] uppercase">
             Verifying payment...
           </p>
@@ -65,7 +65,7 @@ function VerifyContent() {
 
       {status === "success" && (
         <div className="text-center space-y-3">
-          <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase">
+          <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase">
             Payment Confirmed
           </p>
           <h2 className="text-white text-3xl font-bold uppercase">
@@ -79,7 +79,7 @@ function VerifyContent() {
 
       {status === "failed" && (
         <div className="text-center space-y-3">
-          <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase">
+          <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase">
             Payment Failed
           </p>
           <h2 className="text-white text-3xl font-bold uppercase">
@@ -90,7 +90,7 @@ function VerifyContent() {
           </p>
           <button
             onClick={() => router.back()}
-            className="border border-[#c9a96e] text-[#c9a96e] text-[11px] tracking-[0.18em] uppercase px-6 py-3 hover:bg-[#c9a96e] hover:text-[#0a0a0a] transition-all"
+            className="border border-[#059669] text-[#059669] text-[11px] tracking-[0.18em] uppercase px-6 py-3 hover:bg-[#059669] hover:text-white transition-all rounded"
           >
             Try Again
           </button>
@@ -103,8 +103,8 @@ function VerifyContent() {
 export default function VerifyPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <div className="w-12 h-12 border-2 border-[#c9a96e] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-[#faf7f2] flex items-center justify-center">
+        <div className="w-12 h-12 border-2 border-[#059669] border-t-transparent rounded-full animate-spin" />
       </div>
     }>
       <VerifyContent />

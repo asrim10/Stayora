@@ -64,10 +64,10 @@ export default function SetPasswordForm() {
   }
 
   return (
-    <div className="rounded-2xl border border-[#C9A84C]/20 bg-[#C9A84C]/5 p-6">
+    <div className="rounded-2xl border border-[#059669]/20 bg-[#059669]/5 p-6">
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 rounded-full bg-[#C9A84C]/15 flex items-center justify-center">
-          <KeyRound size={18} className="text-[#C9A84C]" />
+        <div className="w-10 h-10 rounded-full bg-[#059669]/15 flex items-center justify-center">
+          <KeyRound size={18} className="text-[#059669]" />
         </div>
         <div>
           <p className="text-sm font-semibold text-white">Set a Password</p>
@@ -88,7 +88,7 @@ export default function SetPasswordForm() {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="At least 8 chars, 1 uppercase, 1 number"
-              className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 pr-10 text-sm text-white outline-none focus:border-[#C9A84C]/40 transition-colors"
+              className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 pr-10 text-sm text-white outline-none focus:border-[#059669]/40 transition-colors"
             />
             <button
               type="button"
@@ -110,7 +110,7 @@ export default function SetPasswordForm() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Re-enter your new password"
-              className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 pr-10 text-sm text-white outline-none focus:border-[#C9A84C]/40 transition-colors"
+              className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 pr-10 text-sm text-white outline-none focus:border-[#059669]/40 transition-colors"
             />
             <button
               type="button"
@@ -125,7 +125,7 @@ export default function SetPasswordForm() {
         <button
           onClick={handleSubmit}
           disabled={loading || !newPassword || !confirmPassword}
-          className="w-full h-10 rounded-lg bg-[#C9A84C] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
+          className="w-full h-10 rounded-lg bg-[#059669] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
         >
           {loading ? "Setting Password..." : "Set Password"}
         </button>

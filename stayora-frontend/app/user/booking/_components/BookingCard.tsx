@@ -19,19 +19,19 @@ interface BookingCardProps {
 }
 
 const STATUS_STYLES: Record<string, string> = {
-  upcoming: "bg-[#0d1f3c] text-[#60a5fa] border border-[#1e3a5f]",
-  confirmed: "bg-[#0d1f3c] text-[#60a5fa] border border-[#1e3a5f]",
-  completed: "bg-[#0d2818] text-[#4ade80] border border-[#1a4a2e]",
-  cancelled: "bg-[#2d0d0d] text-[#f87171] border border-[#4a1a1a]",
-  pending: "bg-[#1f1a0d] text-[#facc15] border border-[#3a3010]",
-  checked_in: "bg-[#130a1f] text-[#a78bfa] border border-[#2d1a4a]",
-  checked_out: "bg-[#0a0f1f] text-[#60a5fa] border border-[#1a2a4a]",
+  upcoming: "bg-blue-50 text-blue-600 border border-blue-200",
+  confirmed: "bg-blue-50 text-blue-600 border border-blue-200",
+  completed: "bg-green-50 text-green-600 border border-green-200",
+  cancelled: "bg-red-50 text-red-600 border border-red-200",
+  pending: "bg-amber-50 text-amber-600 border border-amber-200",
+  checked_in: "bg-purple-50 text-purple-600 border border-purple-200",
+  checked_out: "bg-blue-50 text-blue-600 border border-blue-200",
 };
 
 function statusStyle(status: string) {
   return (
     STATUS_STYLES[(status || "").toLowerCase().trim()] ||
-    "bg-[#1a1a1a] text-[#6b7280] border border-[#2a2a2a]"
+    "bg-gray-100 text-gray-500 border border-gray-200"
   );
 }
 
@@ -46,12 +46,12 @@ function InfoCell({
 }) {
   return (
     <div className="flex flex-col gap-1">
-      <p className="text-[#3a3a3a] text-[9px] tracking-[0.18em] uppercase">
+      <p className="text-gray-400 text-[9px] tracking-[0.18em] uppercase">
         {label}
       </p>
       <div className="flex items-center gap-2">
-        <span className="text-[#c9a96e]">{icon}</span>
-        <span className="text-white text-sm font-semibold">{value}</span>
+        <span className="text-[#059669]">{icon}</span>
+        <span className="text-gray-900 text-sm font-semibold">{value}</span>
       </div>
     </div>
   );
@@ -68,35 +68,35 @@ function CancelModal({
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/80" onClick={onCancel} />
-      <div className="relative bg-[#0d0d0d] border border-[#1a1a1a] w-[90%] max-w-md p-8">
+      <div className="absolute inset-0 bg-black/50" onClick={onCancel} />
+      <div className="relative bg-white border border-gray-200 w-[90%] max-w-md p-8 rounded-lg shadow-xl">
         <button
           onClick={onCancel}
-          className="absolute top-4 right-4 text-[#6b7280] hover:text-white bg-transparent border-none cursor-pointer text-lg leading-none"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-900 bg-transparent border-none cursor-pointer text-lg leading-none"
         >
           ✕
         </button>
-        <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
+        <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase mb-3">
           Confirm Action
         </p>
-        <h2 className="text-white text-2xl font-bold uppercase mb-5 m-0 font-heading">
+        <h2 className="text-gray-900 text-2xl font-bold uppercase mb-5 m-0 font-heading">
           Cancel Booking
         </h2>
-        <p className="text-[#9ca3af] text-sm leading-relaxed mb-8">
+        <p className="text-gray-500 text-sm leading-relaxed mb-8">
           Are you sure you want to cancel this booking? This action cannot be
           undone.
         </p>
         <div className="flex gap-3">
           <button
             onClick={onCancel}
-            className="flex-1 border border-[#2a2a2a] bg-transparent text-[#9ca3af] text-[11px] tracking-[0.14em] uppercase py-3 cursor-pointer hover:border-[#3a3a3a] hover:text-white transition-colors"
+            className="flex-1 border border-gray-300 bg-white text-gray-500 text-[11px] tracking-[0.14em] uppercase py-3 cursor-pointer hover:border-gray-400 hover:text-gray-700 transition-colors rounded"
           >
             Keep Booking
           </button>
           <button
             onClick={onConfirm}
             disabled={loading}
-            className="flex-1 bg-[#7f1d1d] border border-[#7f1d1d] text-white text-[11px] tracking-[0.14em] uppercase font-bold py-3 cursor-pointer hover:bg-red-900 transition-colors disabled:opacity-50"
+            className="flex-1 bg-red-600 border border-red-600 text-white text-[11px] tracking-[0.14em] uppercase font-bold py-3 cursor-pointer hover:bg-red-700 transition-colors disabled:opacity-50 rounded"
           >
             {loading ? "Cancelling..." : "Cancel Booking"}
           </button>
@@ -142,10 +142,10 @@ export default function BookingCard({
         />
       )}
 
-      <div className="border border-[#1a1a1a] bg-[#0d0d0d] hover:border-[#2a2a2a] transition-colors">
+      <div className="border border-gray-200 bg-white hover:border-gray-300 transition-colors rounded-lg shadow-sm">
         <div className="grid" style={{ gridTemplateColumns: "240px 1fr" }}>
           {/* Image */}
-          <div className="relative overflow-hidden bg-[#111] h-full min-h-50">
+          <div className="relative overflow-hidden bg-gray-100 h-full min-h-50 rounded-l-lg">
             <img
               src={getImageUrl(hotelData?.imageUrl || booking.image)}
               alt={hotelData?.hotelName || booking.hotelName || "Hotel"}
@@ -155,7 +155,7 @@ export default function BookingCard({
               className="absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(to top, rgba(13,13,13,0.6) 0%, transparent 60%)",
+                  "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)",
               }}
             />
             <div className="absolute bottom-3 left-3">
@@ -172,23 +172,23 @@ export default function BookingCard({
             <div>
               <div className="flex items-start justify-between mb-1">
                 <div>
-                  <p className="text-[#c9a96e] text-[9px] tracking-[0.18em] uppercase mb-1">
+                  <p className="text-[#059669] text-[9px] tracking-[0.18em] uppercase mb-1">
                     {getLocationString(hotelData)}
                   </p>
-                  <h3 className="text-white text-xl font-bold uppercase leading-snug font-heading">
+                  <h3 className="text-gray-900 text-xl font-bold uppercase leading-snug font-heading">
                     {hotelData?.hotelName || booking.hotelName || "Hotel"}
                   </h3>
                 </div>
                 {booking.rating && (
-                  <div className="flex items-center gap-1.5 bg-[#161206] border border-[#c9a96e33] px-3 py-1.5">
-                    <Star size={11} className="text-[#c9a96e] fill-[#c9a96e]" />
-                    <span className="text-[#c9a96e] text-xs font-bold">
+                  <div className="flex items-center gap-1.5 bg-amber-50 border border-[#05966933] px-3 py-1.5 rounded">
+                    <Star size={11} className="text-[#059669] fill-[#059669]" />
+                    <span className="text-[#059669] text-xs font-bold">
                       {booking.rating}.0
                     </span>
                   </div>
                 )}
               </div>
-              <p className="text-[#3a3a3a] text-[10px] font-mono mt-1">
+              <p className="text-gray-400 text-[10px] font-mono mt-1">
                 ID: {(booking._id || booking.id || "").slice(-12).toUpperCase()}
                 &nbsp;·&nbsp;
                 {booking.confirmation || booking.confirmationCode || "—"}
@@ -196,7 +196,7 @@ export default function BookingCard({
             </div>
 
             {/* Dates + Guests */}
-            <div className="grid grid-cols-3 border-t border-b border-[#1a1a1a] py-5 my-5 gap-4">
+            <div className="grid grid-cols-3 border-t border-b border-gray-200 py-5 my-5 gap-4">
               <InfoCell
                 icon={<Calendar size={13} />}
                 label="Check-in"
@@ -219,11 +219,11 @@ export default function BookingCard({
             {/* Bottom */}
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="text-[#3a3a3a] text-[9px] tracking-[0.18em] uppercase mb-1">
+                <p className="text-gray-400 text-[9px] tracking-[0.18em] uppercase mb-1">
                   {booking.nights || 1}{" "}
                   {(booking.nights || 1) === 1 ? "Night" : "Nights"}
                 </p>
-                <p className="text-white text-2xl font-bold font-heading">
+                <p className="text-gray-900 text-2xl font-bold font-heading">
                   Rs.{" "}
                   {(
                     booking.totalAmount ||
@@ -238,7 +238,7 @@ export default function BookingCard({
                   <>
                     <button
                       onClick={() => setShowCancelModal(true)}
-                      className="border border-[#7f1d1d] text-[#f87171] text-[10px] tracking-[0.14em] uppercase px-4 py-2.5 hover:bg-[#7f1d1d] hover:text-white transition-colors bg-transparent cursor-pointer"
+                      className="border border-red-300 text-red-600 text-[10px] tracking-[0.14em] uppercase px-4 py-2.5 hover:bg-red-50 transition-colors bg-white cursor-pointer rounded"
                     >
                       Cancel
                     </button>
@@ -248,7 +248,7 @@ export default function BookingCard({
                   onClick={() =>
                     router.push(`/user/review?hotelId=${hotelReviewId}`)
                   }
-                  className="border border-[#2a2a2a] text-[#6b7280] text-[10px] tracking-[0.14em] uppercase px-4 py-2.5 hover:border-[#c9a96e] hover:text-[#c9a96e] transition-colors bg-transparent cursor-pointer flex items-center gap-1.5"
+                  className="border border-gray-300 text-gray-500 text-[10px] tracking-[0.14em] uppercase px-4 py-2.5 hover:border-[#059669] hover:text-[#059669] transition-colors bg-white cursor-pointer rounded flex items-center gap-1.5"
                 >
                   <Star size={12} /> Review
                 </button>
@@ -256,7 +256,7 @@ export default function BookingCard({
                   onClick={() =>
                     router.push(`/user/booking?hotelId=${hotelId}`)
                   }
-                  className="bg-[#c9a96e] text-[#0a0a0a] text-[10px] font-bold tracking-[0.14em] uppercase px-5 py-2.5 hover:opacity-90 transition-opacity cursor-pointer border-none flex items-center gap-1.5"
+                  className="bg-[#059669] text-white text-[10px] font-bold tracking-[0.14em] uppercase px-5 py-2.5 hover:opacity-90 transition-opacity cursor-pointer border-none rounded flex items-center gap-1.5"
                 >
                   Details <ChevronRight size={12} />
                 </button>
