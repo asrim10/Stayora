@@ -18,7 +18,7 @@ interface Hotel {
   description?: string;
   price: number;
   availableRooms: number;
-  imageUrl?: string;
+  images?: string[];
 }
 
 function ConfirmModal({
@@ -135,9 +135,9 @@ export default function HotelCards({ hotels }: { hotels: Hotel[] }) {
             className="bg-white border-r border-b border-gray-200 flex flex-col"
           >
             <div className="relative h-45 overflow-hidden bg-gray-100 shrink-0">
-              {hotel.imageUrl ? (
+              {hotel.images?.[0] ? (
                 <img
-                  src={process.env.NEXT_PUBLIC_API_BASE_URL + hotel.imageUrl}
+                  src={process.env.NEXT_PUBLIC_API_BASE_URL + hotel.images[0]}
                   alt={hotel.hotelName}
                   className="w-full h-full object-cover transition-transform duration-300 hover:scale-105 block"
                   onError={(e) => {

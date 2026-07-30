@@ -46,7 +46,7 @@ export default function HotelCard({
         style={{ height: 220 }}
       >
         <img
-          src={getImageUrl(hotel.imageUrl)}
+          src={getImageUrl(hotel.images?.[0])}
           alt={hotel.hotelName || hotel.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
         />

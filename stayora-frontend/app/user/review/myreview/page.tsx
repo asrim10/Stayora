@@ -19,7 +19,7 @@ interface ReviewData {
   hotel?: {
     _id?: string;
     hotelName?: string;
-    imageUrl?: string;
+    images?: string[];
     city?: string;
     country?: string;
   };

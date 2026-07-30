@@ -15,7 +15,7 @@ interface ReviewData {
   id?: string;
   hotelId?: {
     hotelName?: string;
-    imageUrl?: string;
+    images?: string[];
     city?: string;
     country?: string;
   };
@@ -96,7 +96,7 @@ export function ReviewCard({
   const location = [review.hotelId?.city, review.hotelId?.country]
     .filter(Boolean)
     .join(", ");
-  const imageUrl = getImageUrl(review.hotelId?.imageUrl);
+  const imageUrl = getImageUrl(review.hotelId?.images?.[0]);
   const date = review.createdAt
     ? new Date(review.createdAt).toLocaleDateString("en-US", {
         month: "long",

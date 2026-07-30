@@ -8,6 +8,15 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/webp",
 ];
 
+const FileSchema = z
+  .instanceof(File)
+  .refine((file) => file.size <= MAX_FILE_SIZE, {
+    message: "Max file size is 5MB",
+  })
+  .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {
+    message: "Only .jpg, .jpeg, .png and .webp formats are supported",
+  });
+
 export const HotelSchema = z.object({
   hotelName: z
     .string()
@@ -32,15 +41,7 @@ export const HotelSchema = z.object({
     .number()
     .min(0, { message: "Available rooms cannot be negative" })
     .int({ message: "Available rooms must be a whole number" }),
-  image: z
-    .instanceof(File)
-    .optional()
-    .refine((file) => !file || file.size <= MAX_FILE_SIZE, {
-      message: "Max file size is 5MB",
-    })
-    .refine((file) => !file || ACCEPTED_IMAGE_TYPES.includes(file.type), {
-      message: "Only .jpg, .jpeg, .png and .webp formats are supported",
-    }),
+  images: z.array(FileSchema).max(10, "Maximum 10 images allowed").optional(),
 });
 
 export type HotelData = z.infer<typeof HotelSchema>;

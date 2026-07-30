@@ -147,7 +147,7 @@ export default function BookingCard({
           {/* Image */}
           <div className="relative overflow-hidden bg-gray-100 h-full min-h-50 rounded-l-lg">
             <img
-              src={getImageUrl(hotelData?.imageUrl || booking.image)}
+              src={getImageUrl(hotelData?.images?.[0] || booking.image)}
               alt={hotelData?.hotelName || booking.hotelName || "Hotel"}
               className="w-full h-full object-cover"
             />

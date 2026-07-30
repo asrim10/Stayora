@@ -22,7 +22,7 @@ interface Hotel {
   description?: string;
   price: number;
   availableRooms: number;
-  imageUrl?: string;
+  images?: string[];
   coordinates?: {
     lat: number;
     lng: number;
@@ -106,6 +106,10 @@ export default function DashboardPage() {
       return "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800";
     if (imageUrl.startsWith("http")) return imageUrl;
     return process.env.NEXT_PUBLIC_API_BASE_URL + imageUrl;
+  };
+
+  const getCoverImage = (hotel: Hotel): string => {
+    return getImageUrl(hotel.images?.[0]);
   };
 
   const featuredHotels = hotels
@@ -227,7 +231,7 @@ export default function DashboardPage() {
                           name={hotel.hotelName}
                           location={`${hotel.city}, ${hotel.country}`}
                           rating={hotel.rating || 0}
-                          image={getImageUrl(hotel.imageUrl)}
+                          image={getCoverImage(hotel)}
                           price={hotel.price}
                           isFeatured
                           isFavorited={!!favoriteMap[hotel._id]}
@@ -287,7 +291,7 @@ export default function DashboardPage() {
                         }
                         price={hotel.price}
                         rating={hotel.rating}
-                        image={getImageUrl(hotel.imageUrl)}
+                        image={getCoverImage(hotel)}
                         isFavorited={!!favoriteMap[hotel._id]}
                         favouriteId={favoriteMap[hotel._id]}
                         onFavoriteChange={handleFavoriteChange}
@@ -307,7 +311,7 @@ export default function DashboardPage() {
               hotel={{
                 id: selectedHotel._id,
                 name: selectedHotel.hotelName,
-                images: [getImageUrl(selectedHotel.imageUrl)],
+                images: [getCoverImage(selectedHotel)],
                 description:
                   selectedHotel.description ||
                   "A beautiful hotel with excellent amenities and service.",

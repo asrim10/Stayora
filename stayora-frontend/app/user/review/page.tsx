@@ -19,7 +19,7 @@ interface HotelData {
   description?: string;
   price?: number;
   rating?: number;
-  imageUrl?: string;
+  images?: string[];
   availableRooms?: number;
 }
 
@@ -78,7 +78,7 @@ function HotelReviewsContent() {
   const avgRating = reviews.length
     ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)
     : null;
-  const imageUrl = getImageUrl(hotel?.imageUrl);
+  const imageUrl = getImageUrl(hotel?.images?.[0]);
   const location = [hotel?.address, hotel?.city, hotel?.country]
     .filter(Boolean)
     .join(", ");

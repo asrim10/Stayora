@@ -10,7 +10,7 @@ interface Hotel {
   city: string;
   country: string;
   rating: number;
-  imageUrl: string;
+  images?: string[];
   price: number;
   description?: string;
 }
@@ -31,8 +31,8 @@ export function FavoriteGridCard({
   const location = [hotel.address, hotel.city, hotel.country]
     .filter(Boolean)
     .join(", ");
-  const imageUrl = hotel.imageUrl
-    ? (process.env.NEXT_PUBLIC_API_BASE_URL || "") + hotel.imageUrl
+  const imageUrl = hotel.images?.[0]
+    ? (process.env.NEXT_PUBLIC_API_BASE_URL || "") + hotel.images[0]
     : undefined;
 
   return (
