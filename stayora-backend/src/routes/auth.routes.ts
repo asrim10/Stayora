@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { AuthController } from "../controllers/auth.controller";
+import { DataExportController } from "../controllers/data-export.controller";
 import { GoogleOAuthController } from "../controllers/google-oauth.controller";
 import { authorizedMiddleware } from "../middlewares/authorized.middleware";
 import { uploads } from "../middlewares/upload.middleware";
@@ -13,6 +14,7 @@ import {
 import { captchaMiddleware } from "../middlewares/captcha.middleware";
 
 let authController = new AuthController();
+const dataExportController = new DataExportController();
 const googleOAuthController = new GoogleOAuthController();
 const router = Router();
 
@@ -47,6 +49,11 @@ router.post(
   "/reset-password/:token",
   passwordResetLimiter,
   authController.resetPassword,
+);
+
+// Data export — arrow function wrapper preserves `this` binding
+router.get("/export-data", authorizedMiddleware, (req, res) =>
+  dataExportController.exportUserData(req, res),
 );
 
 // Google OAuth
