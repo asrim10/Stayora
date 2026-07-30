@@ -25,6 +25,7 @@ const UserSchema: Schema = new Schema<UserType>(
       enum: ["local", "google"],
       default: "local",
     },
+    passwordHistory: { type: [String], default: [] },
   },
   {
     timestamps: true,

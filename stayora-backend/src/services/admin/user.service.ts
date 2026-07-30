@@ -1,6 +1,5 @@
 import {
   CreateUserDTO,
-  LoginUserDTO,
   UpdateUserDTO,
 } from "../../dtos/user.dto";
 import { UserRepository } from "../../repositories/user.repositories";
@@ -8,6 +7,7 @@ import bcryptjs from "bcryptjs";
 import { HttpError } from "../../errors/http-error";
 
 let userRepository = new UserRepository();
+const MAX_PASSWORD_HISTORY = 5;
 
 export class AdminUserService {
   async createUser(data: CreateUserDTO) {
@@ -20,10 +20,14 @@ export class AdminUserService {
       throw new HttpError(403, "Username already in use");
     }
     // hash password
-    const hashedPassword = await bcryptjs.hash(data.password, 10); // 10 - complexity
+    const hashedPassword = await bcryptjs.hash(data.password, 10);
     data.password = hashedPassword;
 
-    const newUser = await userRepository.createUser(data);
+    // Initialize password history
+    const userData = data as any;
+    userData.passwordHistory = [hashedPassword];
+
+    const newUser = await userRepository.createUser(userData);
     return newUser;
   }
 
@@ -58,6 +62,28 @@ export class AdminUserService {
     if (!user) {
       throw new HttpError(404, "User not found");
     }
+
+    if (updateData.password) {
+      // Check password history
+      const history = user.passwordHistory || [];
+      for (const oldHash of history) {
+        const isReused = await bcryptjs.compare(updateData.password, oldHash);
+        if (isReused) {
+          throw new HttpError(
+            400,
+            "This password has been used recently. Please choose a different one.",
+          );
+        }
+      }
+
+      const hashedPassword = await bcryptjs.hash(updateData.password, 10);
+      updateData.password = hashedPassword;
+
+      // Update password history
+      const updatedHistory = [hashedPassword, ...history].slice(0, MAX_PASSWORD_HISTORY);
+      (updateData as any).passwordHistory = updatedHistory;
+    }
+
     const updatedUser = await userRepository.updateUser(id, updateData);
     return updatedUser;
   }

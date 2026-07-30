@@ -22,6 +22,7 @@ export const UserSchema = z.object({
   mfaEnabled: z.boolean().optional().default(false),
   googleId: z.string().optional(),
   authProvider: z.enum(["local", "google"]).default("local"),
+  passwordHistory: z.array(z.string()).optional().default([]),
 });
 
 export type UserType = z.infer<typeof UserSchema>;
