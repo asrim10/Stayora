@@ -43,7 +43,7 @@ export class AuthController {
         });
       }
       const loginData: LoginUserDTO = parsedData.data;
-      const { token, user, mfaRequired } = await userService.loginUser(loginData);
+      const { token, user, mfaRequired } = await userService.loginUser(loginData, req);
 
       // If MFA is required, return temp token — don't set auth cookie yet
       if (mfaRequired) {
@@ -111,7 +111,7 @@ export class AuthController {
       if (req.file) {
         parsedData.data.imageUrl = `/uploads/${req.file.filename}`;
       }
-      const updatedUser = await userService.updateUser(userId, parsedData.data);
+      const updatedUser = await userService.updateUser(userId, parsedData.data, req);
       return res.status(200).json({
         success: true,
         data: updatedUser,
@@ -177,7 +177,7 @@ export class AuthController {
     try {
       const token = req.params.token;
       const { newPassword } = req.body;
-      await userService.resetPassword(token, newPassword);
+      await userService.resetPassword(token, newPassword, req);
       return res.status(200).json({
         success: true,
         message: "Password has been reset successfully.",
@@ -207,6 +207,7 @@ export class AuthController {
       const updatedUser = await userService.setPassword(
         userId,
         parsedData.data.newPassword,
+        req,
       );
       return res.status(200).json({
         success: true,

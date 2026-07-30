@@ -6,11 +6,15 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET, JWT_KEYS, CURRENT_KID } from "../config";
 import { CreateUserDTO, LoginUserDTO, UpdateUserDTO } from "../dtos/user.dto";
 import { sendEmail } from "../config/email";
+import { AuditLogService } from "./audit-log.service";
+import { Request } from "express";
+
+const auditLogService = new AuditLogService();
 const CLIENT_URL = process.env.CLIENT_URL as string;
+const MAX_PASSWORD_HISTORY = 5;
 
 export class UserService {
   async createUser(data: CreateUserDTO) {
-    //business logic before creating user
     const emailCheck = await userRepository.getUserByEmail(data.email);
     if (emailCheck) {
       throw new HttpError(403, "Email already in use");
@@ -19,15 +23,18 @@ export class UserService {
     if (usernameCheck) {
       throw new HttpError(403, "Username already in use");
     }
-    //hash password
-    const hashedPassword = await bcryptjs.hash(data.password, 10); //10 complexity
+    const hashedPassword = await bcryptjs.hash(data.password, 10);
     data.password = hashedPassword;
 
-    //create user
-    const newUser = await userRepository.createUser(data);
+    // Initialize password history with the first password
+    const userData = data as any;
+    userData.passwordHistory = [hashedPassword];
+
+    const newUser = await userRepository.createUser(userData);
     return newUser;
   }
-  async loginUser(data: LoginUserDTO) {
+
+  async loginUser(data: LoginUserDTO, req?: Request) {
     const user = await userRepository.getUserByEmail(data.email);
     if (!user) {
       throw new HttpError(404, "User not found");
@@ -69,7 +76,6 @@ export class UserService {
       const maxAttempts = 15;
 
       if (attempts >= maxAttempts) {
-        // Lock the account for 30 minutes
         await userRepository.updateUser(user._id.toString(), {
           loginAttempts: attempts,
           lockUntil: new Date(Date.now() + 30 * 60 * 1000),
@@ -83,6 +89,17 @@ export class UserService {
       await userRepository.updateUser(user._id.toString(), {
         loginAttempts: attempts,
       });
+
+      // Audit: failed login (non-blocking)
+      try {
+        await auditLogService.log(
+          user._id.toString(),
+          "login_failed",
+          `Failed login attempt from IP: ${req?.ip}`,
+          req,
+        );
+      } catch { /* audit failure should not block login */ }
+
       throw new HttpError(401, "Invalid credentials");
     }
 
@@ -91,6 +108,16 @@ export class UserService {
       loginAttempts: 0,
       lockUntil: null as any,
     });
+
+    // Audit: successful login (non-blocking)
+    try {
+      await auditLogService.log(
+        user._id.toString(),
+        "login_success",
+        "Successful login",
+        req,
+      );
+    } catch { /* audit failure should not block login */ }
 
     // If MFA is enabled, issue a short-lived temp token instead of the real JWT
     if (user.mfaEnabled) {
@@ -123,7 +150,7 @@ export class UserService {
     return user;
   }
 
-  async updateUser(userId: string, data: UpdateUserDTO) {
+  async updateUser(userId: string, data: UpdateUserDTO, req?: Request) {
     const user = await userRepository.getUserByID(userId);
     if (!user) {
       throw new HttpError(404, "User not found");
@@ -143,10 +170,50 @@ export class UserService {
       }
     }
     if (data.password) {
+      // Check password history
+      const history = user.passwordHistory || [];
+      for (const oldHash of history) {
+        const isReused = await bcryptjs.compare(data.password, oldHash);
+        if (isReused) {
+          throw new HttpError(
+            400,
+            "You have used this password recently. Please choose a different password.",
+          );
+        }
+      }
+
       const hashedPassword = await bcryptjs.hash(data.password, 10);
       data.password = hashedPassword;
+
+      // Update password history
+      const updatedHistory = [hashedPassword, ...history].slice(0, MAX_PASSWORD_HISTORY);
+      (data as any).passwordHistory = updatedHistory;
+
+      // Audit: password changed (non-blocking)
+      try {
+        await auditLogService.log(
+          userId,
+          "password_changed",
+          "User changed their password",
+          req,
+        );
+      } catch { /* audit failure should not block password change */ }
     }
+
     const updatedUser = await userRepository.updateUser(userId, data);
+
+    // Audit: profile updated (non-blocking)
+    if (!data.password) {
+      try {
+        await auditLogService.log(
+          userId,
+          "profile_updated",
+          "User updated their profile",
+          req,
+        );
+      } catch { /* audit failure should not block profile update */ }
+    }
+
     return updatedUser;
   }
 
@@ -170,7 +237,6 @@ export class UserService {
     }
     const user = await userRepository.getUserByEmail(email);
     if (!user) {
-      // Return silently — don't reveal whether the email exists (prevents enumeration)
       return;
     }
 
@@ -200,7 +266,6 @@ export class UserService {
     const maxAttempts = 5;
 
     if (attempts >= maxAttempts) {
-      // Lock password reset for 30 minutes
       await userRepository.updateUser(user._id.toString(), {
         passwordResetAttempts: attempts,
         resetLockUntil: new Date(Date.now() + 30 * 60 * 1000),
@@ -222,7 +287,7 @@ export class UserService {
     return user;
   }
 
-  async resetPassword(token?: string, newPassword?: string) {
+  async resetPassword(token?: string, newPassword?: string, req?: Request) {
     try {
       if (!token || !newPassword) {
         throw new HttpError(400, "Token and new password are required");
@@ -234,8 +299,38 @@ export class UserService {
       if (!user) {
         throw new HttpError(404, "User not found");
       }
+
+      // Check password history
+      const history = user.passwordHistory || [];
+      for (const oldHash of history) {
+        const isReused = await bcryptjs.compare(newPassword, oldHash);
+        if (isReused) {
+          throw new HttpError(
+            400,
+            "You have used this password recently. Please choose a different password.",
+          );
+        }
+      }
+
       const hashedPassword = await bcryptjs.hash(newPassword, 10);
-      await userRepository.updateUser(userId, { password: hashedPassword });
+
+      // Update password history
+      const updatedHistory = [hashedPassword, ...history].slice(0, MAX_PASSWORD_HISTORY);
+      await userRepository.updateUser(userId, {
+        password: hashedPassword,
+        passwordHistory: updatedHistory,
+      });
+
+      // Audit: password reset (non-blocking)
+      try {
+        await auditLogService.log(
+          userId,
+          "password_reset",
+          "Password was reset via email link",
+          req,
+        );
+      } catch { /* audit failure should not block password reset */ }
+
       return user;
     } catch (error) {
       throw new HttpError(400, "Invalid or expired token");
@@ -243,7 +338,7 @@ export class UserService {
   }
 
   // For OAuth users to set a password for the first time
-  async setPassword(userId: string, newPassword: string) {
+  async setPassword(userId: string, newPassword: string, req?: Request) {
     const user = await userRepository.getUserByID(userId);
     if (!user) {
       throw new HttpError(404, "User not found");
@@ -260,8 +355,20 @@ export class UserService {
     const hashedPassword = await bcryptjs.hash(newPassword, 10);
     const updatedUser = await userRepository.updateUser(userId, {
       password: hashedPassword,
+      passwordHistory: [hashedPassword],
       authProvider: "local",
     });
+
+    // Audit: password set (non-blocking)
+    try {
+      await auditLogService.log(
+        userId,
+        "password_set",
+        "Password set for OAuth-linked account",
+        req,
+      );
+    } catch { /* audit failure should not block password set */ }
+
     return updatedUser;
   }
 }
