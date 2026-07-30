@@ -39,9 +39,9 @@ export default function HotelDetailSidebar({ hotel }: HotelDetailSidebarProps) {
   };
 
   return (
-    <div className="w-80 shrink-0 bg-[#0d0d0d] border border-[#1a1a1a] flex flex-col self-start sticky top-8">
+    <div className="w-80 shrink-0 bg-white border border-gray-200 flex flex-col self-start sticky top-8 shadow-sm rounded-lg">
       {/* Main Image */}
-      <div className="relative h-52 overflow-hidden bg-[#111]">
+      <div className="relative h-52 overflow-hidden bg-gray-100 rounded-t-lg">
         {hotel.images[0] ? (
           <img
             src={hotel.images[0]}
@@ -56,10 +56,10 @@ export default function HotelDetailSidebar({ hotel }: HotelDetailSidebarProps) {
           </div>
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
         <div className="absolute bottom-4 left-4 right-4">
-          <p className="text-[#c9a96e] text-[9px] uppercase tracking-widest mb-1">
+          <p className="text-[#059669] text-[9px] uppercase tracking-widest mb-1">
             {hotel.location}
           </p>
           <h2 className="text-white text-sm font-bold uppercase leading-snug font-heading"
@@ -70,15 +70,15 @@ export default function HotelDetailSidebar({ hotel }: HotelDetailSidebarProps) {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-[#1a1a1a]">
+      <div className="flex border-b border-gray-200">
         {TABS.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`flex-1 text-[10px] uppercase tracking-widest py-3 transition-colors ${
               activeTab === tab.id
-                ? "text-[#c9a96e] border-b border-[#c9a96e]"
-                : "text-[#3a3a3a] hover:text-[#6b7280]"
+                ? "text-[#059669] border-b border-[#059669]"
+                : "text-gray-400 hover:text-gray-600"
             }`}
           >
             {tab.label}
@@ -92,15 +92,15 @@ export default function HotelDetailSidebar({ hotel }: HotelDetailSidebarProps) {
           <div className="flex flex-col gap-6">
             {/* About */}
             <div>
-              <p className="text-[#c9a96e] text-[9px] uppercase tracking-widest mb-2">
+              <p className="text-[#059669] text-[9px] uppercase tracking-widest mb-2">
                 About
               </p>
-              <p className="text-[#6b7280] text-xs leading-relaxed">
+              <p className="text-gray-500 text-xs leading-relaxed">
                 {expanded ? desc : short}
                 {desc.length > 120 && (
                   <button
                     onClick={() => setExpanded(!expanded)}
-                    className="ml-1 text-[#c9a96e] uppercase text-[10px] tracking-widest"
+                    className="ml-1 text-[#059669] uppercase text-[10px] tracking-widest"
                   >
                     {expanded ? "Less" : "More"}
                   </button>
@@ -110,13 +110,13 @@ export default function HotelDetailSidebar({ hotel }: HotelDetailSidebarProps) {
 
             {/* Location */}
             <div>
-              <p className="text-[#c9a96e] text-[9px] uppercase tracking-widest mb-3">
+              <p className="text-[#059669] text-[9px] uppercase tracking-widest mb-3">
                 Location
               </p>
 
               {hotel.coordinates ? (
                 <>
-                  <div className="h-36 w-full overflow-hidden border border-[#1a1a1a] mb-2">
+                  <div className="h-36 w-full overflow-hidden border border-gray-200 mb-2 rounded">
                     <HotelMap
                       lat={hotel.coordinates.lat}
                       lng={hotel.coordinates.lng}
@@ -128,21 +128,21 @@ export default function HotelDetailSidebar({ hotel }: HotelDetailSidebarProps) {
                   {/* Open in Google Maps */}
                   <button
                     onClick={openInGoogleMaps}
-                    className="text-[10px] uppercase tracking-widest text-[#c9a96e] hover:opacity-70 transition-opacity"
+                    className="text-[10px] uppercase tracking-widest text-[#059669] hover:opacity-70 transition-opacity"
                   >
                     Open in Google Maps →
                   </button>
                 </>
               ) : (
-                <div className="h-28 bg-[#111] border border-[#1a1a1a] flex items-center justify-center">
-                  <p className="text-[#3a3a3a] text-[9px] uppercase tracking-widest">
+                <div className="h-28 bg-gray-100 border border-gray-200 flex items-center justify-center rounded">
+                  <p className="text-gray-400 text-[9px] uppercase tracking-widest">
                     Location unavailable
                   </p>
                 </div>
               )}
 
-              <div className="mt-3 text-[#4b5563] text-[11px] flex items-center gap-1">
-                <MapPin size={12} className="text-[#c9a96e]" />
+              <div className="mt-3 text-gray-500 text-[11px] flex items-center gap-1">
+                <MapPin size={12} className="text-[#059669]" />
                 {hotel.location}
               </div>
             </div>
@@ -151,10 +151,10 @@ export default function HotelDetailSidebar({ hotel }: HotelDetailSidebarProps) {
       </div>
 
       {/* Book Now */}
-      <div className="p-5 border-t border-[#1a1a1a]">
+      <div className="p-5 border-t border-gray-200">
         <button
           onClick={() => router.push(`/user/booking?hotelId=${hotel.id}`)}
-          className="w-full bg-[#c9a96e] text-[#0a0a0a] text-[11px] font-bold uppercase tracking-widest py-3 hover:opacity-90 transition-opacity"
+          className="w-full bg-[#059669] text-white text-[11px] font-bold uppercase tracking-widest py-3 hover:opacity-90 transition-opacity rounded"
         >
           Book Now
         </button>

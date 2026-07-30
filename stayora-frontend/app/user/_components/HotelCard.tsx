@@ -100,7 +100,7 @@ export default function HotelCard({
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.3) 55%, rgba(10,10,10,0.05) 100%)",
+              "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.05) 100%)",
           }}
         />
       </div>
@@ -109,13 +109,13 @@ export default function HotelCard({
       <button
         onClick={handleFavoriteClick}
         disabled={isProcessing}
-        className={`absolute top-3 right-3 w-8 h-8 bg-[#0a0a0a]/75 border border-[#2a2a2a] flex items-center justify-center transition-all z-10 hover:border-[#c9a96e] ${isProcessing ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+        className={`absolute top-3 right-3 w-8 h-8 bg-white/75 backdrop-blur-sm border border-gray-200 flex items-center justify-center transition-all z-10 hover:border-[#059669] ${isProcessing ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} rounded`}
         aria-label={isLiked ? "Remove from favorites" : "Add to favorites"}
       >
         <Heart
           size={13}
           className={
-            isLiked ? "fill-[#c9a96e] text-[#c9a96e]" : "text-[#6b7280]"
+            isLiked ? "fill-[#059669] text-[#059669]" : "text-[#6b7280]"
           }
         />
       </button>
@@ -128,11 +128,11 @@ export default function HotelCard({
           {name}
         </h3>
         <div className="flex items-center gap-2 text-xs">
-          <MapPin size={10} className="text-[#c9a96e] shrink-0" />
+          <MapPin size={10} className="text-[#059669] shrink-0" />
           <span className="text-[#9ca3af] truncate">{location}</span>
           <div className="ml-auto flex items-center gap-1 shrink-0">
-            <Star size={10} className="text-[#c9a96e] fill-[#c9a96e]" />
-            <span className="text-[#c9a96e] font-bold text-[11px]">
+            <Star size={10} className="text-[#059669] fill-[#059669]" />
+            <span className="text-[#059669] font-bold text-[11px]">
               {rating.toFixed(1)}
             </span>
           </div>
@@ -155,9 +155,9 @@ export default function HotelCard({
             e.stopPropagation();
             goToBooking();
           }}
-          className="absolute bottom-5 right-5 w-8 h-8 bg-[#c9a96e] flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer border-none z-10"
+          className="absolute bottom-5 right-5 w-8 h-8 bg-[#059669] flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer border-none z-10"
         >
-          <ArrowRight size={14} className="text-[#0a0a0a]" />
+          <ArrowRight size={14} className="text-white" />
         </button>
       )}
     </div>

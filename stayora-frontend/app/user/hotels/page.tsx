@@ -91,29 +91,29 @@ export default function HotelsPage() {
 
   return (
     <div
-      className="min-h-screen bg-[#0a0a0a] text-white font-heading"
+      className="min-h-screen bg-[#faf7f2] text-gray-900 font-heading"
     >
       <HotelsHero total={hotels.length} />
 
       {/* SEARCH + FILTER BAR */}
-      <div className="sticky top-0 z-30 bg-[#0a0a0a]/95 backdrop-blur-sm border-b border-[#1a1a1a]">
+      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-200">
         <div className="px-12 py-4 flex items-center gap-4">
           <div className="relative flex-1 max-w-xl">
             <Search
               size={14}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-[#3a3a3a]"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
             />
             <input
               type="text"
               placeholder="Search by hotel name, city, country..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#0d0d0d] border border-[#1a1a1a] text-white text-sm pl-10 pr-4 py-3 outline-none focus:border-[#c9a96e] transition-colors placeholder:text-[#3a3a3a]"
+              className="w-full bg-white border border-gray-300 text-gray-900 text-sm pl-10 pr-4 py-3 outline-none focus:border-[#059669] transition-colors placeholder:text-gray-400 rounded"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3a3a3a] hover:text-white bg-transparent border-none cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-900 bg-transparent border-none cursor-pointer"
               >
                 <X size={13} />
               </button>
@@ -125,20 +125,20 @@ export default function HotelsPage() {
             onClick={() => setShowFilters(!showFilters)}
             className={`flex items-center gap-2 border text-[10px] tracking-[0.16em] uppercase px-5 py-3 cursor-pointer transition-colors bg-transparent ${
               showFilters || activeFilterCount > 0
-                ? "border-[#c9a96e] text-[#c9a96e]"
-                : "border-[#2a2a2a] text-[#6b7280] hover:border-[#3a3a3a] hover:text-[#9ca3af]"
+                ? "border-[#059669] text-[#059669]"
+                : "border-gray-300 text-gray-500 hover:border-gray-400 hover:text-gray-700"
             }`}
           >
             <SlidersHorizontal size={13} />
             Filters
             {activeFilterCount > 0 && (
-              <span className="bg-[#c9a96e] text-[#0a0a0a] text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="bg-[#059669] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                 {activeFilterCount}
               </span>
             )}
           </motion.button>
 
-          <p className="text-[#3a3a3a] text-[10px] tracking-[0.16em] uppercase ml-auto">
+          <p className="text-gray-400 text-[10px] tracking-[0.16em] uppercase ml-auto">
             {filtered.length} of {hotels.length} hotels
           </p>
         </div>
@@ -150,7 +150,7 @@ export default function HotelsPage() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="overflow-hidden border-t border-[#1a1a1a]"
+              className="overflow-hidden border-t border-gray-200"
             >
               <HotelFilters
                 filters={filters}
@@ -165,20 +165,20 @@ export default function HotelsPage() {
       {/* HOTELS GRID */}
       <div className="px-12 py-12">
         {loading ? (
-          <div className="grid grid-cols-3 gap-px bg-[#1a1a1a]">
+          <div className="grid grid-cols-3 gap-px bg-gray-200">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="bg-[#0a0a0a] h-80 animate-pulse" />
+              <div key={i} className="bg-[#faf7f2] h-80 animate-pulse" />
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <div className="py-32 text-center border-t border-[#1a1a1a]">
-            <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-4">
+          <div className="py-32 text-center border-t border-gray-200">
+            <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-4">
               No Results
             </p>
-            <h2 className="text-white text-3xl font-bold uppercase mb-3">
+            <h2 className="text-gray-900 text-3xl font-bold uppercase mb-3">
               No Hotels Found
             </h2>
-            <p className="text-[#4b5563] text-sm mb-6">
+            <p className="text-gray-500 text-sm mb-6">
               Try adjusting your search or filters.
             </p>
             <button
@@ -192,20 +192,20 @@ export default function HotelsPage() {
                   sortBy: "default",
                 });
               }}
-              className="border border-[#2a2a2a] text-[#9ca3af] text-[10px] tracking-[0.16em] uppercase px-6 py-3 bg-transparent cursor-pointer hover:border-[#c9a96e] hover:text-[#c9a96e] transition-colors"
+              className="border border-gray-300 text-gray-500 text-[10px] tracking-[0.16em] uppercase px-6 py-3 bg-white cursor-pointer hover:border-[#059669] hover:text-[#059669] transition-colors rounded"
             >
               Clear All Filters
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-3 gap-px bg-[#1a1a1a]">
+          <div className="grid grid-cols-3 gap-px bg-gray-200">
             {filtered.map((hotel, i) => (
               <motion.div
                 key={hotel._id || hotel.id}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
-                className="bg-[#0a0a0a]"
+                className="bg-white"
               >
                 <HotelCard
                   hotel={hotel}

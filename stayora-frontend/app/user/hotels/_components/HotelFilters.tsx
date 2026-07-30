@@ -11,11 +11,11 @@ const AMENITY_OPTIONS = [
 ];
 
 const selCls =
-  "bg-[#0d0d0d] border border-[#1a1a1a] text-[#9ca3af] text-xs px-3 py-2.5 outline-none focus:border-[#c9a96e] transition-colors cursor-pointer";
+  "bg-white border border-gray-300 text-gray-500 text-xs px-3 py-2.5 outline-none focus:border-[#059669] transition-colors cursor-pointer rounded";
 const inputCls =
-  "w-full bg-[#0d0d0d] border border-[#1a1a1a] text-white text-xs px-3 py-2.5 outline-none focus:border-[#c9a96e] transition-colors placeholder:text-[#3a3a3a]";
+  "w-full bg-white border border-gray-300 text-gray-900 text-xs px-3 py-2.5 outline-none focus:border-[#059669] transition-colors placeholder:text-gray-400 rounded";
 const labelCls =
-  "block text-[#c9a96e] text-[9px] tracking-[0.16em] uppercase mb-2";
+  "block text-[#059669] text-[9px] tracking-[0.16em] uppercase mb-2";
 
 export default function HotelFilters({
   filters,
@@ -46,7 +46,7 @@ export default function HotelFilters({
     });
 
   return (
-    <div className="px-12 py-6 bg-[#0d0d0d]">
+    <div className="px-12 py-6 bg-white border-b border-gray-200">
       <div className="grid grid-cols-5 gap-6 items-end">
         {/* Min Price */}
         <div>
@@ -106,13 +106,13 @@ export default function HotelFilters({
         <div className="flex gap-2">
           <button
             onClick={reset}
-            className="flex-1 border border-[#2a2a2a] text-[#6b7280] text-[10px] tracking-[0.14em] uppercase py-2.5 bg-transparent cursor-pointer hover:border-[#3a3a3a] hover:text-[#9ca3af] transition-colors"
+            className="flex-1 border border-gray-300 text-gray-500 text-[10px] tracking-[0.14em] uppercase py-2.5 bg-white cursor-pointer hover:border-gray-400 hover:text-gray-700 transition-colors rounded"
           >
             Reset
           </button>
           <button
             onClick={onClose}
-            className="flex-1 bg-[#c9a96e] text-[#0a0a0a] text-[10px] font-bold tracking-[0.14em] uppercase py-2.5 border-none cursor-pointer hover:opacity-90 transition-opacity"
+            className="flex-1 bg-[#059669] text-white text-[10px] font-bold tracking-[0.14em] uppercase py-2.5 border-none cursor-pointer hover:opacity-90 transition-opacity rounded"
           >
             Apply
           </button>
@@ -120,7 +120,7 @@ export default function HotelFilters({
       </div>
 
       {/* Amenities */}
-      <div className="mt-5 pt-5 border-t border-[#1a1a1a]">
+      <div className="mt-5 pt-5 border-t border-gray-200">
         <label className={labelCls}>Amenities</label>
         <div className="flex gap-2 flex-wrap">
           {AMENITY_OPTIONS.map((a) => (
@@ -129,8 +129,8 @@ export default function HotelFilters({
               onClick={() => toggleAmenity(a)}
               className={`text-[10px] tracking-[0.12em] uppercase px-4 py-2 border cursor-pointer transition-colors bg-transparent ${
                 filters.amenities?.includes(a)
-                  ? "border-[#c9a96e] text-[#c9a96e]"
-                  : "border-[#1a1a1a] text-[#6b7280] hover:border-[#2a2a2a] hover:text-[#9ca3af]"
+                  ? "border-[#059669] text-[#059669]"
+                  : "border-gray-300 text-gray-500 hover:border-gray-400 hover:text-gray-700"
               }`}
             >
               {a}
