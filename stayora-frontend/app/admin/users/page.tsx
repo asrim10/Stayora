@@ -22,7 +22,7 @@ export default async function Page({
     <div>
       <Link
         href="/admin/users/create"
-        className="border border-[#2a2a2a] text-[#9ca3af] text-[11px] tracking-[0.14em] uppercase px-5 py-2.5 hover:border-[#c9a96e] hover:text-[#c9a96e] transition-colors inline-block"
+        className="border border-gray-300 text-gray-500 text-[11px] tracking-[0.14em] uppercase px-5 py-2.5 hover:border-[#059669] hover:text-[#059669] transition-colors inline-block rounded"
       >
         Create User
       </Link>

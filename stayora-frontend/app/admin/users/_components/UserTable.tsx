@@ -18,39 +18,39 @@ function ConfirmModal({
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div onClick={onClose} className="absolute inset-0 bg-black/85" />
+      <div onClick={onClose} className="absolute inset-0 bg-black/50" />
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.96 }}
-        className="relative bg-[#0d0d0d] border border-[#1a1a1a] w-[90%] max-w-sm p-8"
+        className="relative bg-white border border-gray-200 w-[90%] max-w-sm p-8 rounded-lg shadow-xl"
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-[#6b7280] hover:text-white transition-colors cursor-pointer"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-900 transition-colors cursor-pointer"
         >
           <X size={16} />
         </button>
-        <p className="text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-2">
+        <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-2">
           Confirm Action
         </p>
-        <h3 className="text-white text-lg font-bold uppercase mb-4 font-heading">
+        <h3 className="text-gray-900 text-lg font-bold uppercase mb-4 font-heading">
           Delete User
         </h3>
-        <p className="text-[#6b7280] text-sm leading-relaxed mb-8">
+        <p className="text-gray-500 text-sm leading-relaxed mb-8">
           Are you sure you want to delete this user? This action cannot be
           undone.
         </p>
         <div className="flex justify-end gap-3">
           <button
             onClick={onClose}
-            className="border border-[#2a2a2a] text-[#6b7280] text-[11px] tracking-[0.14em] uppercase px-6 py-2.5 hover:text-white hover:border-[#3a3a3a] transition-colors cursor-pointer bg-transparent"
+            className="border border-gray-300 text-gray-500 text-[11px] tracking-[0.14em] uppercase px-6 py-2.5 hover:text-gray-700 hover:border-gray-400 transition-colors cursor-pointer bg-white rounded"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="bg-[#7f1d1d] border border-[#7f1d1d] text-white text-[11px] font-bold tracking-[0.14em] uppercase px-6 py-2.5 hover:bg-red-800 transition-colors cursor-pointer"
+            className="bg-red-600 border border-red-600 text-white text-[11px] font-bold tracking-[0.14em] uppercase px-6 py-2.5 hover:bg-red-700 transition-colors cursor-pointer rounded"
           >
             Delete
           </button>
@@ -111,11 +111,11 @@ const UserTable = ({
 
   return (
     <div>
-      <div className="flex gap-3 items-center pb-6 border-b border-[#1a1a1a] mb-6">
+      <div className="flex gap-3 items-center pb-6 border-b border-gray-200 mb-6">
         <div className="relative flex-1 max-w-sm">
           <Search
             size={13}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-[#3a3a3a]"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
           />
           <input
             type="text"
@@ -125,25 +125,25 @@ const UserTable = ({
               if (e.key === "Enter") handleSearchChange();
             }}
             placeholder="Search users..."
-            className="w-full bg-[#111] border border-[#2a2a2a] text-white text-xs pl-9 pr-4 py-2.5 outline-none focus:border-[#c9a96e] transition-colors placeholder:text-[#3a3a3a]"
+            className="w-full bg-white border border-gray-300 text-gray-900 text-xs pl-9 pr-4 py-2.5 outline-none focus:border-[#059669] transition-colors placeholder:text-gray-400 rounded"
           />
         </div>
         <button
           onClick={handleSearchChange}
-          className="border border-[#2a2a2a] text-[#9ca3af] text-[11px] tracking-[0.14em] uppercase px-5 py-2.5 hover:border-[#c9a96e] hover:text-[#c9a96e] transition-colors cursor-pointer bg-transparent mt-4"
+          className="border border-gray-300 text-gray-500 text-[11px] tracking-[0.14em] uppercase px-5 py-2.5 hover:border-[#059669] hover:text-[#059669] transition-colors cursor-pointer bg-white mt-4 rounded"
         >
           Search
         </button>
       </div>
 
-      <div className="border border-[#1a1a1a] overflow-x-auto">
+      <div className="border border-gray-200 overflow-x-auto rounded-lg shadow-sm">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="border-b border-[#1a1a1a] bg-[#0d0d0d]">
+            <tr className="border-b border-gray-200 bg-gray-50">
               {["User", "Email", "Role", "Actions"].map((col) => (
                 <th
                   key={col}
-                  className="px-6 py-4 text-left text-[9px] text-[#3a3a3a] tracking-[0.18em] uppercase font-semibold whitespace-nowrap"
+                  className="px-6 py-4 text-left text-[9px] text-gray-500 tracking-[0.18em] uppercase font-semibold whitespace-nowrap"
                 >
                   {col}
                 </th>
@@ -157,11 +157,11 @@ const UserTable = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: idx * 0.03 }}
-                className="border-b border-[#111] hover:bg-[#111] transition-colors"
+                className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
               >
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full overflow-hidden border border-[#2a2a2a] shrink-0">
+                    <div className="w-9 h-9 rounded-full overflow-hidden border border-gray-200 shrink-0">
                       <UserAvatar
                         imageUrl={user.imageUrl}
                         username={user.fullName}
@@ -169,21 +169,21 @@ const UserTable = ({
                       />
                     </div>
                     <div>
-                      <p className="text-white text-sm font-semibold mb-0.5">
+                      <p className="text-gray-900 text-sm font-semibold mb-0.5">
                         {user.fullName}
                       </p>
-                      <p className="text-[#4b5563] text-xs">@{user.username}</p>
+                      <p className="text-gray-500 text-xs">@{user.username}</p>
                     </div>
                   </div>
                 </td>
 
-                <td className="px-6 py-4 text-[#9ca3af] text-xs">
+                <td className="px-6 py-4 text-gray-500 text-xs">
                   {user.email}
                 </td>
 
                 <td className="px-6 py-4">
                   <span
-                    className={`text-[9px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 border ${user.role === "admin" ? "bg-[#161206] text-[#c9a96e] border-[#c9a96e33]" : "bg-[#0d0d0d] text-[#6b7280] border-[#2a2a2a]"}`}
+                    className={`text-[9px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 border rounded ${user.role === "admin" ? "bg-amber-50 text-[#059669] border-[#05966933]" : "bg-gray-50 text-gray-500 border-gray-200"}`}
                   >
                     {user.role}
                   </span>
@@ -199,7 +199,7 @@ const UserTable = ({
                     </Link>
                     <Link
                       href={`/admin/users/${user._id}/edit`}
-                      className="text-[#c9a96e] text-[11px]tracking-widest uppercase hover:opacity-70 transition-opacity"
+                      className="text-[#059669] text-[11px]tracking-widest uppercase hover:opacity-70 transition-opacity"
                     >
                       Edit
                     </Link>
@@ -218,13 +218,13 @@ const UserTable = ({
       </div>
 
       <div className="flex items-center justify-between pt-5">
-        <p className="text-[#3a3a3a] text-[10px] tracking-[0.14em] uppercase">
+        <p className="text-gray-400 text-[10px] tracking-[0.14em] uppercase">
           Page {currentPage} of {totalPages}
         </p>
         <div className="flex items-center gap-1">
           <Link
             href={currentPage === 1 ? "#" : makePageHref(currentPage - 1)}
-            className={`flex items-center px-2.5 py-2 border border-[#2a2a2a] transition-colors ${currentPage === 1 ? "text-[#2a2a2a] pointer-events-none" : "text-[#9ca3af] hover:border-[#c9a96e] hover:text-[#c9a96e]"}`}
+            className={`flex items-center px-2.5 py-2 border border-gray-300 transition-colors rounded ${currentPage === 1 ? "text-gray-200 pointer-events-none" : "text-gray-500 hover:border-[#059669] hover:text-[#059669]"}`}
           >
             <ChevronLeft size={13} />
           </Link>
@@ -232,28 +232,28 @@ const UserTable = ({
             <>
               <Link
                 href={makePageHref(1)}
-                className="flex items-center justify-center w-8 h-8 border border-[#2a2a2a] text-[#9ca3af] text-xs hover:border-[#c9a96e] hover:text-[#c9a96e] transition-colors"
+                className="flex items-center justify-center w-8 h-8 border border-gray-300 text-gray-500 text-xs hover:border-[#059669] hover:text-[#059669] transition-colors rounded"
               >
                 1
               </Link>
-              <span className="text-[#3a3a3a] text-xs px-1">…</span>
+              <span className="text-gray-300 text-xs px-1">…</span>
             </>
           )}
           {pageNumbers().map((p) => (
             <Link
               key={p}
               href={makePageHref(p)}
-              className={`flex items-center justify-center w-8 h-8 border text-xs transition-colors ${p === currentPage ? "border-[#c9a96e] text-[#c9a96e] bg-[#161206] font-bold" : "border-[#2a2a2a] text-[#9ca3af] hover:border-[#c9a96e] hover:text-[#c9a96e]"}`}
+              className={`flex items-center justify-center w-8 h-8 border text-xs transition-colors rounded ${p === currentPage ? "border-[#059669] text-[#059669] bg-amber-50 font-bold" : "border-gray-300 text-gray-500 hover:border-[#059669] hover:text-[#059669]"}`}
             >
               {p}
             </Link>
           ))}
           {currentPage < totalPages - 2 && (
             <>
-              <span className="text-[#3a3a3a] text-xs px-1">…</span>
+              <span className="text-gray-300 text-xs px-1">…</span>
               <Link
                 href={makePageHref(totalPages)}
-                className="flex items-center justify-center w-8 h-8 border border-[#2a2a2a] text-[#9ca3af] text-xs hover:border-[#c9a96e] hover:text-[#c9a96e] transition-colors"
+                className="flex items-center justify-center w-8 h-8 border border-gray-300 text-gray-500 text-xs hover:border-[#059669] hover:text-[#059669] transition-colors rounded"
               >
                 {totalPages}
               </Link>
@@ -263,7 +263,7 @@ const UserTable = ({
             href={
               currentPage === totalPages ? "#" : makePageHref(currentPage + 1)
             }
-            className={`flex items-center px-2.5 py-2 border border-[#2a2a2a] transition-colors ${currentPage === totalPages ? "text-[#2a2a2a] pointer-events-none" : "text-[#9ca3af] hover:border-[#c9a96e] hover:text-[#c9a96e]"}`}
+            className={`flex items-center px-2.5 py-2 border border-gray-300 transition-colors rounded ${currentPage === totalPages ? "text-gray-200 pointer-events-none" : "text-gray-500 hover:border-[#059669] hover:text-[#059669]"}`}
           >
             <ChevronRight size={13} />
           </Link>

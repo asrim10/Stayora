@@ -11,9 +11,9 @@ import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 
 const inputCls =
-  "w-full bg-[#111] border border-[#2a2a2a] text-white text-sm px-5 py-3.5 outline-none focus:border-[#c9a96e] transition-colors placeholder:text-[#3a3a3a]";
+  "w-full bg-white border border-gray-300 text-gray-900 text-sm px-5 py-3.5 outline-none focus:border-[#059669] transition-colors placeholder:text-gray-400 rounded";
 const labelCls =
-  "block text-[#c9a96e] text-[9px] tracking-[0.2em] uppercase mb-2.5 pt-3.5";
+  "block text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-2.5 pt-3.5";
 const errCls = "text-[#f87171] text-[11px] mt-1.5";
 
 export default function CreateUserForm() {
@@ -74,19 +74,19 @@ export default function CreateUserForm() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
-      <div className="border-b border-[#1a1a1a] px-12 py-12 flex items-end justify-between">
+    <div className="min-h-screen bg-[#faf7f2]">
+      <div className="border-b border-gray-200 px-12 py-12 flex items-end justify-between">
         <div>
-          <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
+          <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase mb-3">
             Admin Panel
           </p>
-          <h1 className="text-white text-4xl font-bold uppercase leading-tight font-heading">
+          <h1 className="text-gray-900 text-4xl font-bold uppercase leading-tight font-heading">
             Create User
           </h1>
         </div>
         <Link
           href="/admin/users"
-          className="border border-[#2a2a2a] text-[#6b7280] text-[11px] tracking-[0.14em] uppercase px-6 py-3 hover:border-[#3a3a3a] hover:text-[#9ca3af] transition-colors"
+          className="border border-gray-300 text-gray-500 text-[11px] tracking-[0.14em] uppercase px-6 py-3 hover:border-gray-400 hover:text-gray-700 transition-colors rounded"
         >
           ← Back
         </Link>
@@ -94,11 +94,11 @@ export default function CreateUserForm() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="px-12 py-12">
         <div className="mb-12">
-          <p className="text-[#3a3a3a] text-[9px] tracking-[0.2em] uppercase mb-6">
+          <p className="text-gray-400 text-[9px] tracking-[0.2em] uppercase mb-6">
             Profile Image
           </p>
           <div className="flex items-center gap-8">
-            <div className="w-20 h-20 rounded-full overflow-hidden border border-[#1a1a1a] shrink-0 relative flex items-center justify-center bg-[#111]">
+            <div className="w-20 h-20 rounded-full overflow-hidden border border-gray-200 shrink-0 relative flex items-center justify-center bg-gray-100">
               {previewImage ? (
                 <>
                   <img
@@ -113,7 +113,7 @@ export default function CreateUserForm() {
                       <button
                         type="button"
                         onClick={() => handleDismissImage(onChange)}
-                        className="absolute top-0 right-0 bg-[#0a0a0a] text-white w-5 h-5 flex items-center justify-center cursor-pointer border-none"
+                        className="absolute top-0 right-0 bg-white text-gray-500 w-5 h-5 flex items-center justify-center cursor-pointer border-none rounded"
                       >
                         <X size={10} />
                       </button>
@@ -121,7 +121,7 @@ export default function CreateUserForm() {
                   />
                 </>
               ) : (
-                <p className="text-[#2a2a2a] text-[9px] tracking-widest uppercase text-center">
+                <p className="text-gray-400 text-[9px] tracking-widest uppercase text-center">
                   None
                 </p>
               )}
@@ -138,7 +138,7 @@ export default function CreateUserForm() {
                       handleImageChange(e.target.files?.[0], onChange)
                     }
                     accept=".jpg,.jpeg,.png,.webp"
-                    className="text-[#6b7280] text-xs"
+                    className="text-gray-500 text-xs"
                   />
                 )}
               />
@@ -147,8 +147,8 @@ export default function CreateUserForm() {
           </div>
         </div>
 
-        <div className="border-t border-[#1a1a1a]">
-          <div className="grid grid-cols-[1fr_2fr] gap-12 py-8 border-b border-[#1a1a1a] items-start">
+        <div className="border-t border-gray-200">
+          <div className="grid grid-cols-[1fr_2fr] gap-12 py-8 border-b border-gray-200 items-start">
             <label className={labelCls} htmlFor="fullName">
               Full Name
             </label>
@@ -167,7 +167,7 @@ export default function CreateUserForm() {
             </div>
           </div>
 
-          <div className="grid grid-cols-[1fr_2fr] gap-12 py-8 border-b border-[#1a1a1a] items-start">
+          <div className="grid grid-cols-[1fr_2fr] gap-12 py-8 border-b border-gray-200 items-start">
             <label className={labelCls} htmlFor="email">
               Email
             </label>
@@ -186,7 +186,7 @@ export default function CreateUserForm() {
             </div>
           </div>
 
-          <div className="grid grid-cols-[1fr_2fr] gap-12 py-8 border-b border-[#1a1a1a] items-start">
+          <div className="grid grid-cols-[1fr_2fr] gap-12 py-8 border-b border-gray-200 items-start">
             <label className={labelCls} htmlFor="username">
               Username
             </label>
@@ -205,7 +205,7 @@ export default function CreateUserForm() {
             </div>
           </div>
 
-          <div className="grid grid-cols-[1fr_2fr] gap-12 py-8 border-b border-[#1a1a1a] items-start">
+          <div className="grid grid-cols-[1fr_2fr] gap-12 py-8 border-b border-gray-200 items-start">
             <label className={labelCls}>Password</label>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -239,7 +239,7 @@ export default function CreateUserForm() {
         </div>
 
         {error && (
-          <div className="mt-8 px-5 py-4 border border-[#7f1d1d] bg-[#1a0a0a] text-[#f87171] text-sm">
+          <div className="mt-8 px-5 py-4 border border-red-300 bg-red-50 text-red-600 text-sm rounded">
             {error}
           </div>
         )}
@@ -247,14 +247,14 @@ export default function CreateUserForm() {
         <div className="mt-12 flex justify-end gap-4">
           <Link
             href="/admin/users"
-            className="border border-[#2a2a2a] text-[#6b7280] text-[11px] tracking-[0.14em] uppercase px-7 py-3.5 hover:border-[#3a3a3a] hover:text-[#9ca3af] transition-colors"
+            className="border border-gray-300 text-gray-500 text-[11px] tracking-[0.14em] uppercase px-7 py-3.5 hover:border-gray-400 hover:text-gray-700 transition-colors rounded"
           >
             Cancel
           </Link>
           <button
             type="submit"
             disabled={isSubmitting || pending}
-            className="bg-[#c9a96e] text-[#0a0a0a] text-[11px] font-bold tracking-[0.18em] uppercase px-10 py-3.5 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer border-none"
+            className="bg-[#059669] text-white text-[11px] font-bold tracking-[0.18em] uppercase px-10 py-3.5 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer border-none rounded"
           >
             {isSubmitting || pending ? "Creating..." : "Create User"}
           </button>

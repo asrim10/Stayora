@@ -14,7 +14,7 @@ export default async function Page({
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-[#faf7f2]">
       <UpdateUserForm user={response.data} />
     </div>
   );
