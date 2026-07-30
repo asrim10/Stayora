@@ -103,29 +103,29 @@ export default async function AdminDashboardPage() {
       `}</style>
 
       <OAuthToast />
-      <div className="w-full min-h-screen bg-[#0a0a0a] text-white px-8 py-10">
+      <div className="w-full min-h-screen bg-[#faf7f2] text-gray-900 px-8 py-10">
         <div className="max-w-370 mx-auto space-y-8">
           {/*  Header  */}
-          <div className="fade-up flex items-end justify-between pb-6 border-b border-white/6">
+          <div className="fade-up flex items-end justify-between pb-6 border-b border-gray-200">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.18em] text-[#6b6b8a] mb-2">
+              <p className="text-[11px] uppercase tracking-[0.18em] text-gray-500 mb-2">
                 Admin Panel
               </p>
-              <h1 className="text-[54px] font-bold leading-none uppercase text-white font-heading">
+              <h1 className="text-[54px] font-bold leading-none uppercase text-gray-900 font-heading">
                 Dashboard
               </h1>
-              <p className="mt-2 text-sm text-[#6b6b8a]">{today}</p>
+              <p className="mt-2 text-sm text-gray-500">{today}</p>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-emerald-500/20 bg-emerald-500/6">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[10px] uppercase tracking-[0.12em] text-emerald-400">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-lg border border-emerald-500/30 bg-emerald-50">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[10px] uppercase tracking-[0.12em] text-emerald-600">
                   Live
                 </span>
               </div>
               <a
                 href="/admin/hotels/create"
-                className="px-4 py-2 rounded-lg border border-[#C9A84C]/25 bg-[#C9A84C]/8 text-[11px] text-[#C9A84C] uppercase tracking-widest hover:bg-[#C9A84C]/15 transition-all"
+                className="px-4 py-2 rounded-lg border border-[#059669]/30 bg-amber-50 text-[11px] text-[#059669] uppercase tracking-widest hover:bg-amber-100 transition-all"
               >
                 + Add Hotel
               </a>
@@ -143,7 +143,7 @@ export default async function AdminDashboardPage() {
                   label: "Revenue",
                   value: fmtRevenue,
                   icon: "💰",
-                  accent: "#C9A84C",
+                  accent: "#059669",
                 },
                 {
                   label: "Bookings",
@@ -167,7 +167,7 @@ export default async function AdminDashboardPage() {
                   label: "Reviews",
                   value: totalReviews,
                   icon: "⭐",
-                  accent: "#C9A84C",
+                  accent: "#059669",
                 },
                 {
                   label: "Avg Rating",
@@ -188,7 +188,7 @@ export default async function AdminDashboardPage() {
               label="Total Revenue"
               value={fmtRevenue}
               icon="💰"
-              accent="#C9A84C"
+              accent="#059669"
               sub={`${totalBookings} bookings total`}
             />
             <StatCard

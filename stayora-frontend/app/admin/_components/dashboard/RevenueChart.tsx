@@ -78,14 +78,14 @@ export function RevenueChart({
         : `Rs.${totalRevenue}`;
 
   return (
-    <div className="rounded-2xl border border-white/[0.07] bg-[#0d0d0d] p-6 h-full">
+    <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-6 h-full">
       <div className="flex items-start justify-between mb-6">
         <div>
           <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-1">
             Total Revenue
           </p>
           <p
-            className="text-[28px] font-bold text-white"
+            className="text-[28px] font-bold text-gray-900"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
             {fmt}
@@ -95,7 +95,7 @@ export function RevenueChart({
           </p>
         </div>
         <div className="flex items-center gap-1.5 text-[11px] text-[#6b6b8a]">
-          <div className="w-2 h-2 rounded-full bg-[#C9A84C]" /> Revenue trend
+          <div className="w-2 h-2 rounded-full bg-[#059669]" /> Revenue trend
         </div>
       </div>
 
@@ -109,8 +109,8 @@ export function RevenueChart({
         >
           <defs>
             <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#C9A84C" stopOpacity="0" />
+              <stop offset="0%" stopColor="#059669" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="#059669" stopOpacity="0" />
             </linearGradient>
             <filter id="glow">
               <feGaussianBlur stdDeviation="2" result="blur" />
@@ -129,7 +129,7 @@ export function RevenueChart({
               y1={H - PAD - v * (H - PAD * 2)}
               x2={W - PAD}
               y2={H - PAD - v * (H - PAD * 2)}
-              stroke="rgba(255,255,255,0.04)"
+              stroke="rgba(0,0,0,0.06)"
               strokeWidth="1"
             />
           ))}
@@ -155,7 +155,7 @@ export function RevenueChart({
           <path
             d={d}
             fill="none"
-            stroke="#C9A84C"
+            stroke="#059669"
             strokeWidth="2"
             filter="url(#glow)"
           />
@@ -167,14 +167,14 @@ export function RevenueChart({
                 cx={pts[peakIdx].x}
                 cy={pts[peakIdx].y}
                 r="5"
-                fill="#C9A84C"
+                fill="#059669"
               />
               <circle
                 cx={pts[peakIdx].x}
                 cy={pts[peakIdx].y}
                 r="9"
                 fill="none"
-                stroke="#C9A84C"
+                stroke="#059669"
                 strokeOpacity="0.3"
                 strokeWidth="1"
               />
@@ -189,7 +189,7 @@ export function RevenueChart({
               y={H + 22}
               textAnchor="middle"
               fontSize="9"
-              fill={i === peakIdx && hasData ? "#C9A84C" : "#6b6b8a"}
+              fill={i === peakIdx && hasData ? "#059669" : "#6b6b8a"}
               fontFamily="DM Sans"
               letterSpacing="1"
             >

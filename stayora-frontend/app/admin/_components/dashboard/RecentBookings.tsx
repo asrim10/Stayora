@@ -44,14 +44,14 @@ export function RecentBookings({ bookings }: { bookings: Booking[] }) {
   const recent = bookings.slice(0, 7);
 
   return (
-    <div className="rounded-2xl border border-white/[0.07] bg-[#0d0d0d] overflow-hidden">
-      <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
+    <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-sm">
+      <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-0.5">
+          <p className="text-[10px] uppercase tracking-[0.15em] text-gray-500 mb-0.5">
             Latest Activity
           </p>
           <h3
-            className="text-lg font-bold text-white"
+            className="text-lg font-bold text-gray-900"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
             Recent Bookings
@@ -59,7 +59,7 @@ export function RecentBookings({ bookings }: { bookings: Booking[] }) {
         </div>
         <a
           href="/admin/bookings"
-          className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] hover:text-[#C9A84C] transition-colors"
+          className="text-[10px] uppercase tracking-[0.15em] text-gray-500 hover:text-[#059669] transition-colors"
         >
           View All →
         </a>
@@ -67,13 +67,13 @@ export function RecentBookings({ bookings }: { bookings: Booking[] }) {
 
       {/* Column headers */}
       <div
-        className="grid gap-4 px-6 py-3 border-b border-white/4 bg-white/1"
+        className="grid gap-4 px-6 py-3 border-b border-gray-100 bg-gray-50"
         style={{ gridTemplateColumns: "1.5fr 1.5fr 0.9fr 0.9fr 90px 110px" }}
       >
         {COLS.map((c) => (
           <span
             key={c}
-            className="text-[9px] uppercase tracking-[0.15em] text-[#6b6b8a]"
+            className="text-[9px] uppercase tracking-[0.15em] text-gray-500"
           >
             {c}
           </span>
@@ -81,24 +81,24 @@ export function RecentBookings({ bookings }: { bookings: Booking[] }) {
       </div>
 
       {recent.length === 0 ? (
-        <div className="py-16 text-center text-[#6b6b8a] text-sm">
+        <div className="py-16 text-center text-gray-500 text-sm">
           No bookings yet
         </div>
       ) : (
         recent.map((b) => (
           <div
             key={b._id}
-            className="grid gap-4 px-6 py-4 items-center border-b border-white/3 last:border-none hover:bg-white/2 transition-colors"
+            className="grid gap-4 px-6 py-4 items-center border-b border-gray-50 last:border-none hover:bg-gray-50 transition-colors"
             style={{
               gridTemplateColumns: "1.5fr 1.5fr 0.9fr 0.9fr 90px 110px",
             }}
           >
             <div className="min-w-0">
-              <p className="text-sm text-white/80 truncate">
+              <p className="text-sm text-gray-800 truncate">
                 {getGuestName(b.userId)}
               </p>
             </div>
-            <span className="text-xs text-[#6b6b8a] truncate">
+            <span className="text-xs text-gray-500 truncate">
               {getHotelName(b.hotelId)}
             </span>
             <span className="text-xs text-[#6b6b8a]">
@@ -107,13 +107,13 @@ export function RecentBookings({ bookings }: { bookings: Booking[] }) {
             <span className="text-xs text-[#6b6b8a]">
               {formatDate(b.checkOutDate)}
             </span>
-            <span className="text-sm font-medium text-white/90">
+            <span className="text-sm font-medium text-gray-900">
               {b.totalPrice != null
                 ? `Rs.${b.totalPrice.toLocaleString()}`
                 : "—"}
             </span>
             <span
-              className={`text-[10px] font-medium px-2.5 py-0.5 rounded border w-fit capitalize ${STATUS_STYLES[b.status || ""] || "text-[#6b6b8a] border-white/10 bg-white/5"}`}
+              className={`text-[10px] font-medium px-2.5 py-0.5 rounded border w-fit capitalize ${STATUS_STYLES[b.status || ""] || "text-gray-500 border-gray-200 bg-gray-50"}`}
             >
               {b.status || "—"}
             </span>

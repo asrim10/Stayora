@@ -14,11 +14,11 @@ export function StatCard({
   change,
   positive = true,
   icon,
-  accent = "#C9A84C",
+  accent = "#059669",
   sub,
 }: StatCardProps) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0d0d0d] p-6 group hover:border-white/12 transition-all duration-300">
+    <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 group hover:border-gray-300 transition-all duration-300 shadow-sm">
       <div
         className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-[0.06] blur-2xl group-hover:opacity-[0.1] transition-opacity duration-500"
         style={{ background: accent }}
@@ -33,16 +33,16 @@ export function StatCard({
           </span>
         )}
       </div>
-      <p className="text-[11px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-2">
+      <p className="text-[11px] uppercase tracking-[0.15em] text-gray-500 mb-2">
         {label}
       </p>
       <p
-        className="text-[42px] font-bold leading-none text-white mb-1"
+        className="text-[42px] font-bold leading-none text-gray-900 mb-1"
         style={{ fontFamily: "'Cormorant Garamond', serif" }}
       >
         {value}
       </p>
-      {sub && <p className="text-xs text-[#6b6b8a] mt-2">{sub}</p>}
+      {sub && <p className="text-xs text-gray-500 mt-2">{sub}</p>}
       <div className="mt-4 h-px w-10" style={{ background: accent }} />
     </div>
   );
@@ -57,32 +57,32 @@ interface OverviewItem {
 
 export function OverviewStrip({ items }: { items: OverviewItem[] }) {
   return (
-    <div className="rounded-2xl border border-white/[0.07] overflow-hidden bg-[#0d0d0d]">
+    <div className="rounded-2xl border border-gray-200 overflow-hidden bg-white shadow-sm">
       <div
-        className="grid divide-x divide-white/5"
+        className="grid divide-x divide-gray-100"
         style={{ gridTemplateColumns: `repeat(${items.length}, 1fr)` }}
       >
         {items.map((item) => (
           <div key={item.label} className="px-6 py-6">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a]">
+              <span className="text-[10px] uppercase tracking-[0.15em] text-gray-500">
                 {item.label}
               </span>
               {item.icon && (
-                <span className="text-[#6b6b8a] opacity-60 text-base">
+                <span className="text-gray-400 opacity-60 text-base">
                   {item.icon}
                 </span>
               )}
             </div>
             <p
-              className="text-[44px] font-bold leading-none text-white"
+              className="text-[44px] font-bold leading-none text-gray-900"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
               {item.value}
             </p>
             <div
               className="mt-3 h-0.5 w-8 rounded-full"
-              style={{ background: item.accent || "#C9A84C" }}
+              style={{ background: item.accent || "#059669" }}
             />
           </div>
         ))}

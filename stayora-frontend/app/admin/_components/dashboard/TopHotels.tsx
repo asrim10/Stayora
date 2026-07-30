@@ -1,5 +1,5 @@
 const COLORS = [
-  "#C9A84C",
+  "#059669",
   "#74c0fc",
   "#51cf66",
   "#ffa94d",
@@ -21,14 +21,14 @@ export function TopHotels({ hotels }: { hotels: Hotel[] }) {
   const maxPrice = Math.max(...top.map((h) => h.price || 0), 1);
 
   return (
-    <div className="rounded-2xl border border-white/[0.07] bg-[#0d0d0d] p-6 h-full">
+    <div className="rounded-2xl border border-gray-200 bg-white p-6 h-full shadow-sm">
       <div className="flex items-start justify-between mb-6">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-0.5">
+          <p className="text-[10px] uppercase tracking-[0.15em] text-gray-500 mb-0.5">
             Inventory
           </p>
           <h3
-            className="text-lg font-bold text-white"
+            className="text-lg font-bold text-gray-900"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
             Properties
@@ -36,14 +36,14 @@ export function TopHotels({ hotels }: { hotels: Hotel[] }) {
         </div>
         <a
           href="/admin/hotels"
-          className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] hover:text-[#C9A84C] transition-colors"
+          className="text-[10px] uppercase tracking-[0.15em] text-gray-500 hover:text-[#059669] transition-colors"
         >
           Manage →
         </a>
       </div>
 
       {top.length === 0 ? (
-        <p className="text-sm text-[#6b6b8a]">No hotels yet</p>
+        <p className="text-sm text-gray-500">No hotels yet</p>
       ) : (
         <div className="flex flex-col gap-5">
           {top.map((h, i) => (
@@ -61,22 +61,22 @@ export function TopHotels({ hotels }: { hotels: Hotel[] }) {
                     {i + 1}
                   </span>
                   <div>
-                    <p className="text-sm text-white/85 leading-none">
+                    <p className="text-sm text-gray-800 leading-none">
                       {h.hotelName || "Unnamed"}
                     </p>
-                    <p className="text-[10px] text-[#6b6b8a] mt-0.5">
+                    <p className="text-[10px] text-gray-500 mt-0.5">
                       {h.address || "—"}
                       {h.rating != null ? ` · ★ ${h.rating}` : ""}
                     </p>
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-sm font-medium text-white/85">
+                  <p className="text-sm font-medium text-gray-800">
                     {h.price != null ? `Rs.${h.price}/n` : "—"}
                   </p>
                 </div>
               </div>
-              <div className="h-1 rounded-full bg-white/5 overflow-hidden">
+              <div className="h-1 rounded-full bg-gray-100 overflow-hidden">
                 <div
                   className="h-full rounded-full"
                   style={{

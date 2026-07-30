@@ -12,7 +12,7 @@ interface BookingStats {
 
 const STATUS_CONFIG = [
   { key: "confirmed", label: "Confirmed", color: "#51cf66" },
-  { key: "pending", label: "Pending", color: "#C9A84C" },
+  { key: "pending", label: "Pending", color: "#059669" },
   { key: "checkedIn", label: "Checked In", color: "#74c0fc" },
   { key: "cancelled", label: "Cancelled", color: "#ff6b6b" },
   { key: "checkedOut", label: "Checked Out", color: "#e599f7" },
@@ -37,12 +37,12 @@ export function BookingStatusChart({ stats }: { stats: BookingStats }) {
   });
 
   return (
-    <div className="rounded-2xl border border-white/[0.07] bg-[#0d0d0d] p-6">
-      <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-0.5">
+    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+      <p className="text-[10px] uppercase tracking-[0.15em] text-gray-500 mb-0.5">
         Breakdown
       </p>
       <h3
-        className="text-lg font-bold text-white mb-5"
+        className="text-lg font-bold text-gray-900 mb-5"
         style={{ fontFamily: "'Cormorant Garamond', serif" }}
       >
         Booking Status
@@ -79,12 +79,12 @@ export function BookingStatusChart({ stats }: { stats: BookingStats }) {
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span
-              className="text-[22px] font-bold text-white"
+              className="text-[22px] font-bold text-gray-900"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
               {total}
             </span>
-            <span className="text-[9px] text-[#6b6b8a] uppercase tracking-wider">
+            <span className="text-[9px] text-gray-500 uppercase tracking-wider">
               Total
             </span>
           </div>
@@ -98,13 +98,13 @@ export function BookingStatusChart({ stats }: { stats: BookingStats }) {
                   className="w-2 h-2 rounded-full"
                   style={{ background: s.color }}
                 />
-                <span className="text-xs text-[#6b6b8a]">{s.label}</span>
+                <span className="text-xs text-gray-500">{s.label}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-white/80">
+                <span className="text-sm font-medium text-gray-700">
                   {s.value}
                 </span>
-                <span className="text-[10px] text-[#6b6b8a] w-7 text-right">
+                <span className="text-[10px] text-gray-400 w-7 text-right">
                   {s.pct}%
                 </span>
               </div>
@@ -140,7 +140,7 @@ function UserAvatar({ name }: { name: string }) {
   const bg = PALETTE[name.charCodeAt(0) % PALETTE.length];
   return (
     <div
-      className="w-8 h-8 rounded-full shrink-0 flex items-center justify-center text-[11px] font-semibold text-[#C9A84C]"
+      className="w-8 h-8 rounded-full shrink-0 flex items-center justify-center text-[11px] font-semibold text-[#059669]"
       style={{
         background: bg,
         border: "1.5px solid rgba(201,168,76,0.15)",
@@ -156,29 +156,28 @@ export function RecentUsers({ users }: { users: User[] }) {
   const recent = users.slice(0, 6);
 
   return (
-    <div className="rounded-2xl border border-white/[0.07] bg-[#0d0d0d] p-6 h-full">
+    <div className="rounded-2xl border border-gray-200 bg-white p-6 h-full shadow-sm">
       <div className="flex items-start justify-between mb-6">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-0.5">
+          <p className="text-[10px] uppercase tracking-[0.15em] text-gray-500 mb-0.5">
             Members
           </p>
           <h3
-            className="text-lg font-bold text-white"
+            className="text-lg font-bold text-gray-900"
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
             Recent Users
           </h3>
         </div>
         <a
-          href="/admin/users"
-          className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] hover:text-[#C9A84C] transition-colors"
+          href="/admin/users"              className="text-[10px] uppercase tracking-[0.15em] text-gray-500 hover:text-[#059669] transition-colors"
         >
           View All →
         </a>
       </div>
 
       {recent.length === 0 ? (
-        <p className="text-sm text-[#6b6b8a]">No users yet</p>
+        <p className="text-sm text-gray-500">No users yet</p>
       ) : (
         <div className="flex flex-col gap-0">
           {recent.map((u, i) => {
@@ -186,20 +185,20 @@ export function RecentUsers({ users }: { users: User[] }) {
             return (
               <div
                 key={u._id}
-                className="flex items-center gap-3 py-3 border-b border-white/4 last:border-none"
+                className="flex items-center gap-3 py-3 border-b border-gray-100 last:border-none"
               >
                 <UserAvatar name={name} />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-white/80 truncate">{name}</p>
-                  <p className="text-[10px] text-[#6b6b8a] truncate">
+                  <p className="text-sm text-gray-800 truncate">{name}</p>
+                  <p className="text-[10px] text-gray-500 truncate">
                     {u.email}
                   </p>
                 </div>
                 <span
                   className={`text-[9px] uppercase tracking-wider px-2 py-0.5 rounded border ${
                     u.role === "admin"
-                      ? "text-[#C9A84C] border-[#C9A84C]/20 bg-[#C9A84C]/8"
-                      : "text-[#6b6b8a] border-white/10 bg-white/3"
+                      ? "text-[#059669] border-[#059669]/20 bg-amber-50"
+                      : "text-gray-500 border-gray-200 bg-gray-50"
                   }`}
                 >
                   {u.role || "user"}
