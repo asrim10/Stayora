@@ -62,7 +62,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
             type="password"
             id="password"
             {...register("password")}
-            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
+            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#059669]/50 transition-colors placeholder:text-white/30"
             placeholder="Enter new password"
           />
           {errors.password && (
@@ -78,7 +78,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
             type="password"
             id="confirmPassword"
             {...register("confirmPassword")}
-            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
+            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#059669]/50 transition-colors placeholder:text-white/30"
             placeholder="Confirm new password"
           />
           {errors.confirmPassword && (
@@ -91,7 +91,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="h-10 w-full rounded-lg bg-[#c9a96e] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all cursor-pointer border-none"
+          className="h-10 w-full rounded-lg bg-[#059669] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all cursor-pointer border-none"
         >
           {isSubmitting ? "Resetting..." : "Reset Password"}
         </button>
@@ -99,7 +99,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
         <div className="text-center text-sm mt-4">
           <Link
             href="/request-password-reset"
-            className="text-[#c9a96e] hover:text-[#d4b87a] font-medium transition"
+            className="text-[#059669] hover:text-[#d4b87a] font-medium transition"
           >
             Request another reset email
           </Link>

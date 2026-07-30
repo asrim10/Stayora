@@ -77,7 +77,7 @@ export default function RequestPasswordResetForm() {
             id="email"
             autoComplete="email"
             {...register("email")}
-            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
+            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#059669]/50 transition-colors placeholder:text-white/30"
             placeholder="Enter your email"
           />
           {errors.email && (
@@ -103,7 +103,7 @@ export default function RequestPasswordResetForm() {
         <button
           type="submit"
           disabled={isSubmitting || (!!turnstileSiteKey && !captchaToken)}
-          className="h-10 w-full rounded-lg bg-[#c9a96e] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all cursor-pointer border-none"
+          className="h-10 w-full rounded-lg bg-[#059669] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all cursor-pointer border-none"
         >
           {isSubmitting ? "Sending..." : "Send Reset Link"}
         </button>

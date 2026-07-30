@@ -28,7 +28,7 @@ export default function Error({
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 1px 1px, #c9a96e 1px, transparent 0)",
+            "radial-gradient(circle at 1px 1px, #059669 1px, transparent 0)",
           backgroundSize: "40px 40px",
         }}
       />
@@ -45,7 +45,7 @@ export default function Error({
         </p>
         <button
           onClick={reset}
-          className="bg-[#c9a96e] text-[#0a0a0a] text-[11px] font-bold tracking-[0.18em] uppercase px-8 py-3.5 rounded-lg hover:opacity-90 transition-all cursor-pointer border-none"
+          className="bg-[#059669] text-[#0a0a0a] text-[11px] font-bold tracking-[0.18em] uppercase px-8 py-3.5 rounded-lg hover:opacity-90 transition-all cursor-pointer border-none"
         >
           Try Again
         </button>

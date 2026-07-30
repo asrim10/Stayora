@@ -92,7 +92,7 @@ export default function LoginForm() {
             id="email"
             type="email"
             autoComplete="email"
-            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
+            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#059669]/50 transition-colors placeholder:text-white/30"
             {...register("email")}
             placeholder="Enter your email"
           />
@@ -110,7 +110,7 @@ export default function LoginForm() {
               id="password"
               type={showPassword ? "text" : "password"}
               autoComplete="current-password"
-              className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 pr-10 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
+              className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 pr-10 text-sm text-white outline-none focus:border-[#059669]/50 transition-colors placeholder:text-white/30"
               {...register("password")}
               placeholder="Enter your password"
             />
@@ -129,7 +129,7 @@ export default function LoginForm() {
 
         <Link
           href="/request-password-reset"
-          className="text-sm text-[#c9a96e] hover:text-[#d4b87a] font-medium transition md:ml-auto block text-right"
+          className="text-sm text-[#059669] hover:text-[#d4b87a] font-medium transition md:ml-auto block text-right"
         >
           Forgot password?
         </Link>
@@ -158,7 +158,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={isSubmitting || pending || (!!turnstileSiteKey && !captchaToken)}
-          className="h-10 w-full rounded-lg bg-[#c9a96e] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
+          className="h-10 w-full rounded-lg bg-[#059669] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
         >
           {isSubmitting || pending ? "Signing in..." : "Login"}
         </button>

@@ -66,7 +66,7 @@ export default function MfaChallengePage() {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/60 to-black/85" />
-        <div className="relative z-10 w-12 h-12 border-2 border-[#c9a96e] border-t-transparent rounded-full animate-spin" />
+        <div className="relative z-10 w-12 h-12 border-2 border-[#059669] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -97,7 +97,7 @@ export default function MfaChallengePage() {
           className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 1px 1px, #c9a96e 1px, transparent 0)",
+              "radial-gradient(circle at 1px 1px, #059669 1px, transparent 0)",
             backgroundSize: "40px 40px",
           }}
         />
@@ -111,11 +111,11 @@ export default function MfaChallengePage() {
           className="w-full max-w-md"
         >
           <div className="relative rounded-2xl bg-white/10 dark:bg-black/50 backdrop-blur-2xl border border-white/10 dark:border-white/5 p-8 shadow-2xl">
-            <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#c9a96e]/50 to-transparent" />
+            <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#059669]/50 to-transparent" />
 
             <div className="text-center mb-6">
               <motion.div
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#c9a96e]/10 border border-[#c9a96e]/20 text-[#c9a96e] text-[10px] font-bold uppercase tracking-[0.18em] mb-4"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#059669]/10 border border-[#059669]/20 text-[#059669] text-[10px] font-bold uppercase tracking-[0.18em] mb-4"
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.3 }}
@@ -173,7 +173,7 @@ export default function MfaChallengePage() {
                     placeholder="000000"
                     value={token}
                     onChange={(e) => setToken(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                    className="h-12 w-full rounded-lg border border-white/10 bg-white/5 pl-10 pr-4 text-lg tracking-[0.3em] text-center font-mono text-white outline-none focus:border-[#c9a96e]/50 transition-colors"
+                    className="h-12 w-full rounded-lg border border-white/10 bg-white/5 pl-10 pr-4 text-lg tracking-[0.3em] text-center font-mono text-white outline-none focus:border-[#059669]/50 transition-colors"
                   />
                 </div>
               </div>
@@ -181,7 +181,7 @@ export default function MfaChallengePage() {
               <button
                 type="submit"
                 disabled={loading || token.length < 6}
-                className="h-11 w-full rounded-lg bg-[#c9a96e] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all cursor-pointer disabled:cursor-not-allowed border-none"
+                className="h-11 w-full rounded-lg bg-[#059669] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all cursor-pointer disabled:cursor-not-allowed border-none"
               >
                 {loading ? "Verifying..." : "Verify & Sign In"}
               </button>
@@ -190,7 +190,7 @@ export default function MfaChallengePage() {
                 <button
                   type="button"
                   onClick={() => router.push("/login")}
-                  className="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-[#c9a96e] transition-colors bg-transparent border-none cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-sm text-white/40 hover:text-[#059669] transition-colors bg-transparent border-none cursor-pointer"
                 >
                   <ArrowLeft size={14} />
                   Back to login

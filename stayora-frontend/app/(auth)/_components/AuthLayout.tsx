@@ -95,7 +95,7 @@ export default function AuthLayout({
           className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 1px 1px, #c9a96e 1px, transparent 0)",
+              "radial-gradient(circle at 1px 1px, #059669 1px, transparent 0)",
             backgroundSize: "40px 40px",
           }}
         />
@@ -105,7 +105,7 @@ export default function AuthLayout({
       {FLOATING_DOTS.map((dot, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-[#c9a96e]/20"
+          className="absolute rounded-full bg-[#059669]/20"
           style={{
             top: dot.top,
             left: dot.left,
@@ -152,7 +152,7 @@ export default function AuthLayout({
                   className="rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 p-8 shadow-2xl"
                 >
                   {leftPanel?.badge || tagline.badge ? (
-                    <span className="inline-block text-[10px] uppercase tracking-[0.2em] text-[#c9a96e] mb-4 font-semibold">
+                    <span className="inline-block text-[10px] uppercase tracking-[0.2em] text-[#059669] mb-4 font-semibold">
                       {leftPanel?.badge || tagline.badge}
                     </span>
                   ) : null}
@@ -172,7 +172,7 @@ export default function AuthLayout({
                           onClick={() => setTaglineIndex(i)}
                           className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer border-none ${
                             i === taglineIndex
-                              ? "w-12 bg-[#c9a96e]"
+                              ? "w-12 bg-[#059669]"
                               : "w-3 bg-white/20 hover:bg-white/40"
                           }`}
                         />
@@ -203,12 +203,12 @@ export default function AuthLayout({
                 {/* Glassmorphism Card */}
                 <div className="relative rounded-2xl bg-white/10 dark:bg-black/50 backdrop-blur-2xl border border-white/10 dark:border-white/5 p-8 shadow-2xl">
                   {/* Gold accent line */}
-                  <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#c9a96e]/50 to-transparent" />
+                  <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#059669]/50 to-transparent" />
 
                   {/* Title Section */}
                   <div className="text-center mb-6">
                     <motion.div
-                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#c9a96e]/10 border border-[#c9a96e]/20 text-[#c9a96e] text-[10px] font-bold uppercase tracking-[0.18em] mb-4"
+                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#059669]/10 border border-[#059669]/20 text-[#059669] text-[10px] font-bold uppercase tracking-[0.18em] mb-4"
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.5, duration: 0.3 }}
@@ -268,7 +268,7 @@ export default function AuthLayout({
                       <span className="text-white/40">{footerLink.text} </span>
                       <a
                         href={footerLink.href}
-                        className="font-semibold text-[#c9a96e] hover:text-[#d4b87a] transition-colors"
+                        className="font-semibold text-[#059669] hover:text-[#d4b87a] transition-colors"
                       >
                         {footerLink.label}
                       </a>

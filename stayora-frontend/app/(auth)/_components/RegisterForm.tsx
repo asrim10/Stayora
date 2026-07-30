@@ -74,7 +74,7 @@ export default function RegisterForm() {
             id="username"
             type="text"
             autoComplete="username"
-            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
+            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#059669]/50 transition-colors placeholder:text-white/30"
             {...register("username")}
             placeholder="Enter username"
           />
@@ -91,7 +91,7 @@ export default function RegisterForm() {
             id="name"
             type="text"
             autoComplete="name"
-            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
+            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#059669]/50 transition-colors placeholder:text-white/30"
             {...register("fullName")}
             placeholder="Enter full name"
           />
@@ -108,7 +108,7 @@ export default function RegisterForm() {
             id="email"
             type="email"
             autoComplete="email"
-            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
+            className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 text-sm text-white outline-none focus:border-[#059669]/50 transition-colors placeholder:text-white/30"
             {...register("email")}
             placeholder="Enter your email"
           />
@@ -126,7 +126,7 @@ export default function RegisterForm() {
               id="password"
               type={showPassword ? "text" : "password"}
               autoComplete="new-password"
-              className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 pr-10 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
+              className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 pr-10 text-sm text-white outline-none focus:border-[#059669]/50 transition-colors placeholder:text-white/30"
               {...register("password")}
               placeholder="Enter new password"
             />
@@ -152,7 +152,7 @@ export default function RegisterForm() {
               id="confirmPassword"
               type={showConfirmPassword ? "text" : "password"}
               autoComplete="new-password"
-              className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 pr-10 text-sm text-white outline-none focus:border-[#c9a96e]/50 transition-colors placeholder:text-white/30"
+              className="h-10 w-full rounded-lg border border-white/10 bg-white/5 px-3 pr-10 text-sm text-white outline-none focus:border-[#059669]/50 transition-colors placeholder:text-white/30"
               {...register("confirmPassword")}
               placeholder="Enter same password"
             />
@@ -195,7 +195,7 @@ export default function RegisterForm() {
         <button
           type="submit"
           disabled={isSubmitting || pending || (!!turnstileSiteKey && !captchaToken)}
-          className="h-10 w-full rounded-lg bg-[#c9a96e] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
+          className="h-10 w-full rounded-lg bg-[#059669] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
         >
           {isSubmitting || pending ? "Creating account..." : "Sign Up"}
         </button>
