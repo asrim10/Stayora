@@ -4,11 +4,11 @@ import { useState, useEffect, useCallback } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { useRouter } from "next/navigation";
 import {
-  handleMfaSetup,
-  handleMfaVerify,
-  handleMfaDisable,
-  handleMfaStatus,
-} from "@/lib/actions/mfa-action";
+  mfaSetup,
+  mfaVerify,
+  mfaDisable,
+  mfaStatus,
+} from "@/lib/api/mfa";
 import { Shield, ShieldOff, KeyRound, Copy, Check, ArrowLeft, AlertCircle } from "lucide-react";
 import Sidebar from "../_components/Sidebar";
 
@@ -29,9 +29,9 @@ export default function MfaPage() {
   // Load MFA status on mount
   const loadStatus = useCallback(async () => {
     try {
-      const result = await handleMfaStatus();
-      if (result.success) {
-        setMfaEnabled(result.data.mfaEnabled);
+      const response = await mfaStatus();
+      if (response.success) {
+        setMfaEnabled(response.data.mfaEnabled);
       }
     } catch {
       // Not logged in or error
@@ -52,13 +52,13 @@ export default function MfaPage() {
     setLoading(true);
     setError(null);
     try {
-      const result = await handleMfaSetup(password);
-      if (result.success) {
-        setOtpauthUrl(result.data.otpauthUrl);
-        setSecret(result.data.secret);
+      const response = await mfaSetup(password);
+      if (response.success) {
+        setOtpauthUrl(response.data.otpauthUrl);
+        setSecret(response.data.secret);
         setStep("verify");
       } else {
-        setError(result.message);
+        setError(response.message);
       }
     } catch (err: any) {
       setError(err.message || "Failed to start MFA setup");
@@ -75,8 +75,8 @@ export default function MfaPage() {
     setLoading(true);
     setError(null);
     try {
-      const result = await handleMfaVerify(verifyCode, password);
-      if (result.success) {
+      const response = await mfaVerify(verifyCode, password);
+      if (response.success) {
         setMfaEnabled(true);
         setStep("idle");
         setSuccess("MFA has been enabled successfully!");
@@ -84,7 +84,7 @@ export default function MfaPage() {
         setVerifyCode("");
         setTimeout(() => setSuccess(null), 5000);
       } else {
-        setError(result.message);
+        setError(response.message);
       }
     } catch (err: any) {
       setError(err.message || "Verification failed");
@@ -108,8 +108,8 @@ export default function MfaPage() {
     setLoading(true);
     setError(null);
     try {
-      const result = await handleMfaDisable(password, verifyCode);
-      if (result.success) {
+      const response = await mfaDisable(password, verifyCode);
+      if (response.success) {
         setMfaEnabled(false);
         setStep("idle");
         setSuccess("MFA has been disabled successfully!");
@@ -117,7 +117,7 @@ export default function MfaPage() {
         setVerifyCode("");
         setTimeout(() => setSuccess(null), 5000);
       } else {
-        setError(result.message);
+        setError(response.message);
       }
     } catch (err: any) {
       setError(err.message || "Failed to disable MFA");

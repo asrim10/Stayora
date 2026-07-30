@@ -1,69 +1,17 @@
 "use server";
 
-import {
-  mfaSetup,
-  mfaVerify,
-  mfaDisable,
-  mfaChallenge,
-  mfaStatus,
-} from "@/lib/api/mfa";
-import { setAuthToken, setUserData, setTempMfaToken } from "../cookie";
+import { mfaChallenge } from "@/lib/api/mfa";
+import { setAuthToken, setUserData } from "../cookie";
 
-export const handleMfaSetup = async (password: string) => {
-  try {
-    const response = await mfaSetup(password);
-    if (response.success) {
-      return {
-        success: true,
-        message: response.message,
-        data: response.data,
-      };
-    }
-    return { success: false, message: response.message || "MFA setup failed" };
-  } catch (error: Error | any) {
-    return {
-      success: false,
-      message: error.message || "MFA setup action failed",
-    };
-  }
-};
-
-export const handleMfaVerify = async (token: string, password: string) => {
-  try {
-    const response = await mfaVerify(token, password);
-    if (response.success) {
-      return { success: true, message: response.message };
-    }
-    return {
-      success: false,
-      message: response.message || "MFA verification failed",
-    };
-  } catch (error: Error | any) {
-    return {
-      success: false,
-      message: error.message || "MFA verify action failed",
-    };
-  }
-};
-
-export const handleMfaDisable = async (password: string, token: string) => {
-  try {
-    const response = await mfaDisable(password, token);
-    if (response.success) {
-      return { success: true, message: response.message };
-    }
-    return {
-      success: false,
-      message: response.message || "Failed to disable MFA",
-    };
-  } catch (error: Error | any) {
-    return {
-      success: false,
-      message: error.message || "MFA disable action failed",
-    };
-  }
-};
-
+/**
+ * handleMfaChallenge is kept as a server action because it needs to set
+ * httpOnly auth cookies on the Next.js server after a successful MFA challenge.
+ *
+ * Other MFA operations (setup, verify, disable, status) are called directly
+ * from the client component so that the axios interceptor can read the CSRF
+ * token from document.cookie (client-side) and include the csrf_token cookie
+ * in the request — both required by the backend's double-submit CSRF pattern.
+ */
 export const handleMfaChallenge = async (tempToken: string, token: string) => {
   try {
     const response = await mfaChallenge(tempToken, token);
@@ -85,21 +33,6 @@ export const handleMfaChallenge = async (tempToken: string, token: string) => {
     return {
       success: false,
       message: error.message || "MFA challenge action failed",
-    };
-  }
-};
-
-export const handleMfaStatus = async () => {
-  try {
-    const response = await mfaStatus();
-    if (response.success) {
-      return { success: true, data: response.data };
-    }
-    return { success: false, message: "Failed to get MFA status" };
-  } catch (error: Error | any) {
-    return {
-      success: false,
-      message: error.message || "Failed to get MFA status",
     };
   }
 };

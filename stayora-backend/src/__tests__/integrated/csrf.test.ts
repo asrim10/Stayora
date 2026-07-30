@@ -42,7 +42,30 @@ describe("CSRF Protection", () => {
     });
   });
 
-  describe("POST /api/auth/login (CSRF validation)", () => {
+  describe("POST /api/auth/login (CSRF exemption)", () => {
+    test("bypasses CSRF validation (exempt route) — request reaches login controller", async () => {
+      const res = await request(app)
+        .post("/api/auth/login")
+        .send({ email: "test@example.com", password: "password123" });
+
+      // If CSRF blocked it, status would be 403.
+      // Any other status means the request passed through the CSRF middleware
+      // and reached the login controller (which may return various codes
+      // depending on rate limiting, validation, or credentials).
+      expect(res.status).not.toBe(403);
+    });
+
+    test("bypasses CSRF for MFA challenge (exempt route)", async () => {
+      const res = await request(app)
+        .post("/api/auth/mfa/challenge")
+        .send({ tempToken: "some-temp-token", token: "123456" });
+
+      // Not 403 = reached the controller
+      expect(res.status).not.toBe(403);
+    });
+  });
+
+  describe("CSRF validation works for non-exempt routes", () => {
     let csrfToken: string;
 
     beforeEach(async () => {
@@ -53,40 +76,6 @@ describe("CSRF Protection", () => {
         c.startsWith("csrf_token="),
       )!;
       csrfToken = csrfCookie.split(";")[0].split("=")[1];
-    });
-
-    test("returns 403 when CSRF header is missing", async () => {
-      const res = await request(app)
-        .post("/api/auth/login")
-        .send({ email: "test@example.com", password: "password123" });
-
-      expect(res.status).toBe(403);
-      expect(res.body).toHaveProperty("success", false);
-      expect(res.body.message).toMatch(/CSRF token missing/i);
-    });
-
-    test("returns 403 when CSRF header has wrong value", async () => {
-      const res = await request(app)
-        .post("/api/auth/login")
-        .set("Cookie", `csrf_token=${csrfToken}`)
-        .set("X-CSRF-Token", "faketoken123")
-        .send({ email: "test@example.com", password: "Password123" });
-
-      expect(res.status).toBe(403);
-      expect(res.body).toHaveProperty("success", false);
-      expect(res.body.message).toMatch(/CSRF token mismatch/i);
-    });
-
-    test("returns 403 when CSRF cookie is not sent along", async () => {
-      // Don't include the cookie — just send a header
-      const res = await request(app)
-        .post("/api/auth/login")
-        .set("X-CSRF-Token", csrfToken)
-        .send({ email: "test@example.com", password: "password123" });
-
-      // Cookie wasn't included in the request, so validation fails
-      expect(res.status).toBe(403);
-      expect(res.body).toHaveProperty("success", false);
     });
 
     test("passes CSRF validation when both cookie and header match", async () => {
