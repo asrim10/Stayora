@@ -181,7 +181,7 @@ export default function MfaChallengePage() {
               <button
                 type="submit"
                 disabled={loading || token.length < 6}
-                className="h-11 w-full rounded-lg bg-[#059669] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all cursor-pointer disabled:cursor-not-allowed border-none"
+                className="h-11 w-full rounded-lg bg-[#059669] text-white text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all cursor-pointer disabled:cursor-not-allowed border-none"
               >
                 {loading ? "Verifying..." : "Verify & Sign In"}
               </button>

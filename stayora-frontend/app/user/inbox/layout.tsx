@@ -6,7 +6,7 @@ export default function InboxLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen bg-[#0a0a0a]">
+    <div className="flex min-h-screen bg-[#faf7f2]">
       <Sidebar />
       <main className="flex-1 overflow-auto">{children}</main>
     </div>

@@ -81,19 +81,19 @@ export default function UpdateUserForm({ user }: { user: any }) {
 
   return (
     <>
-      <div className="min-h-screen bg-[#0a0a0a] text-white">
+      <div className="min-h-screen bg-[#faf7f2] text-gray-900">
         {/*  Hero  */}
-        <div className="relative h-[38vh] min-h-65 border-b border-white/6 px-10 flex flex-col justify-end pb-10 overflow-hidden">
-          <div className="absolute inset-0 bg-linear-to-b from-white/1 to-transparent pointer-events-none" />
+        <div className="relative h-[38vh] min-h-65 border-b border-gray-200 px-10 flex flex-col justify-end pb-10 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />
 
           {/* Top row */}
           <div className="flex items-start justify-between mb-8">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-[#6b6b8a]">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-[#059669]">
               Your Account
             </p>
             <Link
               href="/user/profile"
-              className="text-[11px] uppercase tracking-[0.18em] text-[#6b6b8a] hover:text-white/60 transition-colors no-underline"
+              className="text-[11px] uppercase tracking-[0.18em] text-gray-400 hover:text-gray-600 transition-colors no-underline"
             >
               ← Back to Profile
             </Link>
@@ -103,7 +103,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
           <div className="flex items-end gap-6">
             {/* Avatar with dismiss button */}
             <div className="relative shrink-0">
-              <div className="w-18 h-18 rounded-full overflow-hidden border-2 border-[#2a2a2a]">
+              <div className="w-18 h-18 rounded-full overflow-hidden border-2 border-gray-200">
                 {currentImage ? (
                   <img
                     src={currentImage}
@@ -137,12 +137,12 @@ export default function UpdateUserForm({ user }: { user: any }) {
 
             {/* Title + file input */}
             <div className="flex-1 min-w-0">
-              <h1 className="text-[42px] font-bold leading-none text-white uppercase mb-4 font-heading">
+              <h1 className="text-[42px] font-bold leading-none text-gray-900 uppercase mb-4 font-heading">
                 Edit Profile
               </h1>
               {/* Profile picture upload in hero stats area */}
               <div>
-                <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-1.5">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-gray-500 mb-1.5">
                   Profile Picture
                 </p>
                 <Controller
@@ -157,7 +157,7 @@ export default function UpdateUserForm({ user }: { user: any }) {
                           handleImageChange(e.target.files?.[0], onChange)
                         }
                         accept=".jpg,.jpeg,.png,.webp"
-                        className="text-[13px] text-[#6b6b8a] file:mr-3 file:py-1.5 file:px-3 file:rounded file:border file:border-white/10 file:bg-white/4 file:text-xs file:text-[#6b6b8a] file:cursor-pointer file:uppercase file:tracking-wider hover:file:border-white/20 hover:file:text-white/60 file:transition-all font-heading"
+                        className="text-[13px] text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border file:border-gray-300 file:bg-gray-50 file:text-xs file:text-gray-600 file:cursor-pointer file:uppercase file:tracking-wider hover:file:border-gray-400 hover:file:text-gray-800 file:transition-all font-heading"
                       />
                       {errors.image && (
                         <p className="mt-1 text-xs text-red-400">
@@ -176,29 +176,29 @@ export default function UpdateUserForm({ user }: { user: any }) {
         <div className="max-w-215 mx-auto px-10 py-14">
           {/* Section header */}
           <div className="mb-8">
-            <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-1.5">
+            <p className="text-[10px] uppercase tracking-[0.15em] text-gray-500 mb-1.5">
               Update Details
-            </p>              <h2 className="text-[32px] font-bold text-white font-heading">
+            </p>              <h2 className="text-[32px] font-bold text-gray-900 font-heading">
               Personal Info
             </h2>
-            <div className="mt-4 h-px bg-white/6" />
+            <div className="mt-4 h-px bg-gray-200" />
           </div>
 
           {/* Error banner */}
           {error && (
-            <div className="mb-8 px-5 py-4 border border-red-900/60 bg-red-950/30 text-red-400 text-sm rounded-lg">
+            <div className="mb-8 px-5 py-4 border border-red-200 bg-red-50 text-red-600 text-sm rounded-lg">
               {error}
             </div>
           )}
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="border-t border-white/4">
+            <div className="border-t border-gray-200">
               {/* Full Name */}
-              <div className="flex items-baseline gap-8 py-5 border-b border-white/4">
+              <div className="flex items-baseline gap-8 py-5 border-b border-gray-200">
                 <label
                   htmlFor="fullName"
-                  className="w-44 shrink-0 text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] pt-0.5"
+                  className="w-44 shrink-0 text-[10px] uppercase tracking-[0.15em] text-gray-500 pt-0.5"
                 >
                   Full Name
                 </label>
@@ -207,10 +207,10 @@ export default function UpdateUserForm({ user }: { user: any }) {
                     id="fullName"
                     placeholder="Enter your full name"
                     {...register("fullName")}
-                    className="w-full bg-transparent border-b border-white/10 text-sm text-white/80 placeholder:text-[#6b6b8a] py-2 outline-none focus:border-[#059669]/40 transition-colors"
+                    className="w-full bg-gray-50 border-b border-gray-300 text-sm text-gray-900 placeholder:text-gray-400 py-2 outline-none focus:border-[#059669]/40 transition-colors"
                   />
                   {errors.fullName && (
-                    <p className="mt-1.5 text-xs text-red-400">
+                    <p className="mt-1.5 text-xs text-red-500">
                       {errors.fullName.message}
                     </p>
                   )}
@@ -218,10 +218,10 @@ export default function UpdateUserForm({ user }: { user: any }) {
               </div>
 
               {/* Username */}
-              <div className="flex items-baseline gap-8 py-5 border-b border-white/4">
+              <div className="flex items-baseline gap-8 py-5 border-b border-gray-200">
                 <label
                   htmlFor="username"
-                  className="w-44 shrink-0 text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] pt-0.5"
+                  className="w-44 shrink-0 text-[10px] uppercase tracking-[0.15em] text-gray-500 pt-0.5"
                 >
                   Username
                 </label>
@@ -230,10 +230,10 @@ export default function UpdateUserForm({ user }: { user: any }) {
                     id="username"
                     placeholder="Enter your username"
                     {...register("username")}
-                    className="w-full bg-transparent border-b border-white/10 text-sm text-white/80 placeholder:text-[#6b6b8a] py-2 outline-none focus:border-[#059669]/40 transition-colors"
+                    className="w-full bg-gray-50 border-b border-gray-300 text-sm text-gray-900 placeholder:text-gray-400 py-2 outline-none focus:border-[#059669]/40 transition-colors"
                   />
                   {errors.username && (
-                    <p className="mt-1.5 text-xs text-red-400">
+                    <p className="mt-1.5 text-xs text-red-500">
                       {errors.username.message}
                     </p>
                   )}
@@ -241,10 +241,10 @@ export default function UpdateUserForm({ user }: { user: any }) {
               </div>
 
               {/* Email */}
-              <div className="flex items-baseline gap-8 py-5 border-b border-white/4">
+              <div className="flex items-baseline gap-8 py-5 border-b border-gray-200">
                 <label
                   htmlFor="email"
-                  className="w-44 shrink-0 text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] pt-0.5"
+                  className="w-44 shrink-0 text-[10px] uppercase tracking-[0.15em] text-gray-500 pt-0.5"
                 >
                   Email Address
                 </label>
@@ -254,10 +254,10 @@ export default function UpdateUserForm({ user }: { user: any }) {
                     type="email"
                     placeholder="Enter your email"
                     {...register("email")}
-                    className="w-full bg-transparent border-b border-white/10 text-sm text-white/80 placeholder:text-[#6b6b8a] py-2 outline-none focus:border-[#059669]/40 transition-colors"
+                    className="w-full bg-gray-50 border-b border-gray-300 text-sm text-gray-900 placeholder:text-gray-400 py-2 outline-none focus:border-[#059669]/40 transition-colors"
                   />
                   {errors.email && (
-                    <p className="mt-1.5 text-xs text-red-400">
+                    <p className="mt-1.5 text-xs text-red-500">
                       {errors.email.message}
                     </p>
                   )}
@@ -269,14 +269,14 @@ export default function UpdateUserForm({ user }: { user: any }) {
             <div className="mt-12 flex justify-end gap-3">
               <Link
                 href="/user/profile"
-                className="px-5 py-2.5 rounded-lg border border-white/10 bg-transparent text-sm text-[#6b6b8a] uppercase tracking-widest hover:border-white/20 hover:text-white/60 transition-all no-underline"
+                className="px-5 py-2.5 rounded-lg border border-gray-300 bg-white text-sm text-gray-600 uppercase tracking-widest hover:border-gray-400 hover:text-gray-800 transition-all no-underline"
               >
                 Cancel
               </Link>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-5 py-2.5 rounded-lg border border-[#059669]/30 bg-[#059669]/10 text-sm text-[#059669] uppercase tracking-widest hover:bg-[#059669]/20 hover:border-[#059669]/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                className="px-5 py-2.5 rounded-lg bg-[#059669] text-white text-sm font-semibold uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer border-none"
               >
                 {isSubmitting ? "Saving..." : "Save Changes"}
               </button>

@@ -125,7 +125,7 @@ export default function SetPasswordForm() {
         <button
           onClick={handleSubmit}
           disabled={loading || !newPassword || !confirmPassword}
-          className="w-full h-10 rounded-lg bg-[#059669] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
+          className="w-full h-10 rounded-lg bg-[#059669] text-white text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
         >
           {loading ? "Setting Password..." : "Set Password"}
         </button>

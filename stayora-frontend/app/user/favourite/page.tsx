@@ -101,7 +101,7 @@ export default function FavoritesPage() {
             </button>
             <button
               onClick={() => setViewMode("list")}
-              className={`p-2.5 flex items-center justify-center transition-colors cursor-pointer border-none border-l border-[#1a1a1a] ${
+              className={`p-2.5 flex items-center justify-center transition-colors cursor-pointer border-none border-l border-gray-200 ${
                 viewMode === "list"
                   ? "bg-amber-50 text-[#059669]"
                   : "bg-transparent text-gray-400 hover:text-gray-600"

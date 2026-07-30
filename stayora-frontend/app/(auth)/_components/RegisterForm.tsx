@@ -195,7 +195,7 @@ export default function RegisterForm() {
         <button
           type="submit"
           disabled={isSubmitting || pending || (!!turnstileSiteKey && !captchaToken)}
-          className="h-10 w-full rounded-lg bg-[#059669] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
+          className="h-10 w-full rounded-lg bg-[#059669] text-white text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all"
         >
           {isSubmitting || pending ? "Creating account..." : "Sign Up"}
         </button>
@@ -206,7 +206,7 @@ export default function RegisterForm() {
             <div className="w-full border-t border-white/10" />
           </div>
           <div className="relative flex justify-center">
-            <span className="relative bg-[#0a0a0a]/40 px-4 py-1 text-xs uppercase text-white/40 backdrop-blur-sm">
+            <span className="relative bg-white/10 backdrop-blur-sm px-4 py-1 text-xs uppercase text-gray-400">
               Or sign up with
             </span>
           </div>

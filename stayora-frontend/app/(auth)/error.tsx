@@ -45,7 +45,7 @@ export default function Error({
         </p>
         <button
           onClick={reset}
-          className="bg-[#059669] text-[#0a0a0a] text-[11px] font-bold tracking-[0.18em] uppercase px-8 py-3.5 rounded-lg hover:opacity-90 transition-all cursor-pointer border-none"
+          className="bg-[#059669] text-white text-[11px] font-bold tracking-[0.18em] uppercase px-8 py-3.5 rounded-lg hover:opacity-90 transition-all cursor-pointer border-none"
         >
           Try Again
         </button>

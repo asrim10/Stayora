@@ -447,14 +447,14 @@ function HotelBookingContent() {
           </div>
 
           {/* RIGHT - BOOKING PANEL */}
-          <div className="sticky top-0 h-screen overflow-y-auto bg-[#0d0d0d] border-l border-[#1a1a1a] flex flex-col">
-            <div className="p-8 border-b border-[#1a1a1a]">
+          <div className="sticky top-0 h-screen overflow-y-auto bg-white border-l border-gray-200 flex flex-col shadow-sm">
+            <div className="p-8 border-b border-gray-200">
               <p className="text-[#059669] text-[9px] tracking-[0.2em] uppercase mb-2">
                 Starting from
               </p>
-              <p className="text-white text-3xl font-bold m-0">
+              <p className="text-gray-900 text-3xl font-bold m-0">
                 Rs. {(hotel.price || 0).toLocaleString()}
-                <span className="text-[#4b5563] text-sm font-normal">
+                <span className="text-gray-500 text-sm font-normal">
                   /night
                 </span>
               </p>
@@ -501,24 +501,24 @@ function HotelBookingContent() {
               </div>
 
               {nights > 0 && (
-                <div className="border-t border-b border-[#1a1a1a] py-5 flex flex-col gap-2">
+                <div className="border-t border-b border-gray-200 py-5 flex flex-col gap-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-[#4b5563]">
+                    <span className="text-gray-500">
                       Rs. {(hotel.price || 0).toLocaleString()} × {nights}{" "}
                       nights
                     </span>
-                    <span className="text-white">
+                    <span className="text-gray-900">
                       Rs. {((hotel.price || 0) * nights).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-[#4b5563]">Taxes & fees (12%)</span>
-                    <span className="text-white">
+                    <span className="text-gray-500">Taxes & fees (12%)</span>
+                    <span className="text-gray-900">
                       Rs. {taxes.toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between font-bold mt-2">
-                    <span className="text-white">Total</span>
+                    <span className="text-gray-900">Total</span>
                     <span className="text-[#059669] text-lg">
                       Rs. {totalPrice.toLocaleString()}
                     </span>
@@ -556,7 +556,7 @@ function HotelBookingContent() {
                 <button
                   disabled={submitting || nights <= 0}
                   onClick={() => handleBook("cash")}
-                  className="w-full bg-transparent border border-[#059669] text-[#059669] text-[11px] font-bold tracking-[0.18em] uppercase py-4 hover:bg-[#059669] hover:text-[#0a0a0a] transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                  className="w-full bg-transparent border border-[#059669] text-[#059669] text-[11px] font-bold tracking-[0.18em] uppercase py-4 hover:bg-[#059669] hover:text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer rounded"
                 >
                   {submitting ? "Booking..." : "Pay at Hotel (Cash)"}
                 </button>
@@ -572,7 +572,7 @@ function HotelBookingContent() {
 export default function HotelBookingPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+      <div className="min-h-screen bg-[#faf7f2] flex items-center justify-center">
         <div className="w-12 h-12 border-2 border-[#059669] border-t-transparent rounded-full animate-spin" />
       </div>
     }>

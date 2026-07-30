@@ -91,7 +91,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="h-10 w-full rounded-lg bg-[#059669] text-[#0a0a0a] text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all cursor-pointer border-none"
+          className="h-10 w-full rounded-lg bg-[#059669] text-white text-sm font-semibold hover:opacity-90 disabled:opacity-40 transition-all cursor-pointer border-none"
         >
           {isSubmitting ? "Resetting..." : "Reset Password"}
         </button>

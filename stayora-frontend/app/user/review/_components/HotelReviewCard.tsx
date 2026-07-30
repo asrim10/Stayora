@@ -26,17 +26,17 @@ export function HotelReviewCard({ review }: { review: ReviewData }) {
     : "";
 
   return (
-    <div className="border-t border-[#1f1f1f] py-10 grid grid-cols-[1fr_2fr] gap-12">
+    <div className="border-t border-gray-200 py-10 grid grid-cols-[1fr_2fr] gap-12">
       <div className="flex flex-col gap-3">
-        <div className="w-10 h-10 rounded-full bg-[#1f1f1f] border border-[#2a2a2a] flex items-center justify-center text-[#059669] text-sm font-bold">
+        <div className="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-[#059669] text-sm font-bold">
           {initials}
         </div>
-        <p className="text-white text-sm font-semibold m-0">{name}</p>
+        <p className="text-gray-900 text-sm font-semibold m-0">{name}</p>
         <Stars value={review.rating} size={14} />
-        <p className="text-[#4b5563] text-xs m-0">{date}</p>
+        <p className="text-gray-500 text-xs m-0">{date}</p>
       </div>
       <div>
-        <p className="text-[#9ca3af] text-sm leading-relaxed m-0">
+        <p className="text-gray-600 text-sm leading-relaxed m-0">
           {review.comment}
         </p>
       </div>
