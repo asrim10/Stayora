@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
@@ -23,6 +24,8 @@ import adminBookingRoutes from "./routes/admin/booking.routes";
 import adminReviewRoutes from "./routes/admin/review.routes";
 import adminNotificationRoutes from "./routes/admin/notification.routes";
 
+import { csrfMiddleware } from "./middlewares/csrf.middleware";
+
 dotenv.config();
 
 console.log(process.env.PORT);
@@ -41,6 +44,7 @@ const corsOptions = {
 
 app.use(helmet());
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 app.use("/uploads", (_, res, next) => {
   res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
@@ -49,6 +53,9 @@ app.use("/uploads", (_, res, next) => {
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 app.use(bodyParser.json());
+
+// Protect all API routes with CSRF
+app.use("/api", csrfMiddleware);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/auth/mfa", mfaRoutes);

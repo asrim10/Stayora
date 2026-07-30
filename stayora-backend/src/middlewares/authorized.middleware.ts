@@ -19,25 +19,16 @@ export const authorizedMiddleware = async (
   next: NextFunction,
 ) => {
   try {
-    // 1. Try Authorization header first (Bearer token)
-    // 2. Fall back to httpOnly auth_token cookie (set by backend on login)
+    // Try Bearer header first, then cookie
     let token: string | undefined;
 
     const authHeader = req.headers.authorization;
     if (authHeader && authHeader.startsWith("Bearer ")) {
-      token = authHeader.split(" ")[1]; // 0 -> Bearer, 1 -> token
+      token = authHeader.split(" ")[1];
     }
 
     if (!token) {
-      // Parse the auth_token cookie manually (no cookie-parser dependency)
-      const rawCookie = req.headers.cookie;
-      if (rawCookie) {
-        const match = rawCookie
-          .split("; ")
-          .find((c) => c.startsWith("auth_token="))
-          ?.split("=")[1];
-        if (match) token = decodeURIComponent(match);
-      }
+      token = req.cookies?.auth_token;
     }
 
     if (!token) throw new HttpError(401, "Unauthorized JWT missing");

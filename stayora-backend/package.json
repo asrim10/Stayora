@@ -8,13 +8,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/index.ts",
-    "test": "jest --runInBand --verbose --detectOpenHandles",
+    "test": "NODE_ENV=test jest --runInBand --verbose --detectOpenHandles",
     "test:coverage": "jest --runInBand --coverage"
   },
   "dependencies": {
     "@types/nodemailer": "^7.0.9",
     "axios": "^1.13.5",
     "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
@@ -32,6 +33,7 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
