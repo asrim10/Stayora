@@ -140,6 +140,15 @@ function HotelBookingContent() {
     return (process.env.NEXT_PUBLIC_API_BASE_URL || "") + url;
   };
 
+  const hotelImages = hotel?.images?.length
+    ? hotel.images
+    : hotel?.imageUrl
+      ? [hotel.imageUrl]
+      : [];
+
+  const [selectedImageIdx, setSelectedImageIdx] = useState(0);
+  const currentImage = hotelImages[selectedImageIdx];
+
   const handleBook = async (paymentMethod: "cash" | "online") => {
     if (!hotel) return toast.error("No hotel selected");
     if (!checkIn || !checkOut)
@@ -289,28 +298,55 @@ function HotelBookingContent() {
             </div>
 
             {/* IMAGE GALLERY */}
-            <div
-              className="grid gap-px bg-gray-200 mb-14"
-              style={{
-                gridTemplateColumns: "2fr 1fr 1fr",
-                gridTemplateRows: "280px",
-              }}
-            >
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="overflow-hidden bg-gray-100 relative">
+            {hotelImages.length > 0 ? (
+              <div className="mb-14">
+                {/* Main selected image */}
+                <div className="relative overflow-hidden bg-gray-100 mb-px rounded-t" style={{ height: 400 }}>
                   <img
-                    src={getImageUrl(hotel.imageUrl)}
+                    src={getImageUrl(currentImage)}
                     alt={hotel.hotelName}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover transition-opacity duration-300"
                   />
-                  {i === 2 && (
-                    <button className="absolute bottom-4 right-4 bg-white/90 border border-gray-200 text-gray-500 text-[10px] tracking-[0.14em] uppercase px-4 py-2 hover:border-[#059669] hover:text-[#059669] transition-colors cursor-pointer rounded">
-                      All Photos
-                    </button>
+                  <div className="absolute inset-0" style={{
+                    background: "linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%)",
+                  }} />
+                  {hotelImages.length > 1 && (
+                    <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm text-white text-[11px] px-3 py-1.5 rounded">
+                      {selectedImageIdx + 1} / {hotelImages.length}
+                    </div>
                   )}
                 </div>
-              ))}
-            </div>
+                {/* Thumbnail strip */}
+                {hotelImages.length > 1 && (
+                  <div className="flex gap-px bg-gray-200 flex-wrap">
+                    {hotelImages.map((img: string, i: number) => (
+                      <button
+                        key={i}
+                        onClick={() => setSelectedImageIdx(i)}
+                        className={`relative overflow-hidden bg-gray-100 flex-shrink-0 cursor-pointer border-none p-0 transition-all ${
+                          i === selectedImageIdx
+                            ? "ring-2 ring-[#059669] ring-inset opacity-100"
+                            : "opacity-60 hover:opacity-90"
+                        }`}
+                        style={{ width: 80, height: 64 }}
+                      >
+                        <img
+                          src={getImageUrl(img)}
+                          alt={`${hotel.hotelName} ${i + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="mb-14 bg-gray-100 border border-gray-200 flex items-center justify-center" style={{ height: 320 }}>
+                <p className="text-gray-400 text-[10px] tracking-[0.2em] uppercase">
+                  No images available
+                </p>
+              </div>
+            )}
 
             {/* ABOUT */}
             <div className="border-b border-gray-200 pb-12 mb-12">
