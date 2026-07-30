@@ -23,6 +23,7 @@ import adminHotelRoutes from "./routes/admin/hotel.routes";
 import adminBookingRoutes from "./routes/admin/booking.routes";
 import adminReviewRoutes from "./routes/admin/review.routes";
 import adminNotificationRoutes from "./routes/admin/notification.routes";
+import adminAuditLogRoutes from "./routes/admin/audit-log.routes";
 
 import { csrfMiddleware } from "./middlewares/csrf.middleware";
 
@@ -73,6 +74,7 @@ app.use("/api/admin/hotels", adminHotelRoutes);
 app.use("/api/admin/bookings", adminBookingRoutes);
 app.use("/api/admin/reviews", adminReviewRoutes);
 app.use("/api/admin/notify", adminNotificationRoutes);
+app.use("/api/admin/audit-logs", adminAuditLogRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to API World!");
