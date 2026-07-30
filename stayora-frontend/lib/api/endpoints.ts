@@ -122,5 +122,9 @@ export const API = {
       DELETE_ALL_BY_USER: (userId: string) =>
         `/api/admin/notify/user/${userId}`,
     },
+    AUDIT_LOG: {
+      GET_ALL: "/api/admin/audit-logs/",
+      GET_BY_USER: (userId: string) => `/api/admin/audit-logs/user/${userId}`,
+    },
   },
 };
