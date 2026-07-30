@@ -15,7 +15,7 @@ const HotelSchema: Schema = new Schema<HotelType>(
     description: { type: String, required: false },
     price: { type: Number, required: true, min: 0 },
     availableRooms: { type: Number, required: true, min: 0 },
-    imageUrl: { type: String, required: false },
+    images: { type: [String], default: [] },
   },
   {
     timestamps: true,

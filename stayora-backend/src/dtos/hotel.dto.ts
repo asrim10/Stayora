@@ -11,7 +11,7 @@ export const CreateHotelDTO = HotelSchema.pick({
   description: true,
   price: true,
   availableRooms: true,
-  imageUrl: true,
+  images: true,
 });
 
 export type CreateHotelDTO = z.infer<typeof CreateHotelDTO>;

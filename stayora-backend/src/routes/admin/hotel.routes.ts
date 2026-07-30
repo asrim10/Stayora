@@ -13,9 +13,9 @@ const router = Router();
 router.use(authorizedMiddleware); // apply all with middleware
 router.use(adminMiddleware); // apply all with middleware
 
-router.post("/", uploads.single("image"), adminHotelController.createHotel);
+router.post("/", uploads.array("images", 10), adminHotelController.createHotel);
 router.get("/", adminHotelController.getAllHotels);
-router.put("/:id", uploads.single("image"), adminHotelController.updateHotel);
+router.put("/:id", uploads.array("images", 10), adminHotelController.updateHotel);
 router.delete("/:id", adminHotelController.deleteHotel);
 router.get("/:id", adminHotelController.getHotelById);
 

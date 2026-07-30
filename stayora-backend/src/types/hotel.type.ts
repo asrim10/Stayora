@@ -22,7 +22,7 @@ export const HotelSchema = z.object({
     .number()
     .min(0, "Available rooms cannot be negative")
     .int(),
-  imageUrl: z.string().optional(),
+  images: z.array(z.string()).optional().default([]),
 });
 
 export type HotelType = z.infer<typeof HotelSchema>;
