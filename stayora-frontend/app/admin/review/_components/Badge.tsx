@@ -6,10 +6,10 @@ interface BadgeProps {
 }
 
 const variantClasses: Record<BadgeVariant, string> = {
-  default: "bg-white/5 text-[#8888aa] border-white/10",
-  gold: "bg-[#C9A84C]/10 text-[#C9A84C] border-[#C9A84C]/20",
-  success: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-  danger: "bg-red-500/10 text-red-400 border-red-500/20",
+  default: "bg-gray-100 text-gray-600 border-gray-200",
+  gold: "bg-amber-50 text-[#059669] border-[#059669]/30",
+  success: "bg-green-50 text-emerald-600 border-emerald-200",
+  danger: "bg-red-50 text-red-600 border-red-200",
 };
 
 const Badge = ({ children, variant = "default" }: BadgeProps) => (

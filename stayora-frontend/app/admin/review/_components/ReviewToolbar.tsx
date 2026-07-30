@@ -15,16 +15,16 @@ const ReviewsToolbar = ({
 }: ReviewsToolbarProps) => (
   <div className="mb-6">
     {/* Section label */}
-    <p className="mb-4 text-[11px] uppercase tracking-[0.15em] text-[#6b6b8a]">
+    <p className="mb-4 text-[11px] uppercase tracking-[0.15em] text-gray-500">
       All Reviews
     </p>
 
-    {/* Filter bar — matches bookings page */}
-    <div className="flex flex-wrap items-center gap-3 p-4 rounded-xl border border-white/8 bg-white/8">
+    {/* Filter bar */}
+    <div className="flex flex-wrap items-center gap-3 p-4 rounded-xl border border-gray-200 bg-white shadow-sm">
       {/* Search */}
       <div className="relative flex-1 min-w-65">
         <svg
-          className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6b6b8a]"
+          className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
           width={15}
           height={15}
           viewBox="0 0 24 24"
@@ -39,7 +39,7 @@ const ReviewsToolbar = ({
           value={searchInput}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search name, email, comment…"
-          className="w-full bg-transparent border border-white/8 rounded-lg text-sm text-white/80 placeholder:text-[#6b6b8a] pl-10 pr-4 py-2.5 outline-none focus:border-[#C9A84C]/40 transition-colors"
+          className="w-full bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 pl-10 pr-4 py-2.5 outline-none focus:border-[#059669]/40 transition-colors"
         />
       </div>
 
@@ -52,8 +52,8 @@ const ReviewsToolbar = ({
             className={`px-3.5 py-2 rounded-lg text-xs font-medium border transition-all duration-200 cursor-pointer
               ${
                 ratingFilter === r
-                  ? "border-[#C9A84C]/40 bg-[#C9A84C]/10 text-[#C9A84C]"
-                  : "border-white/8 bg-transparent text-[#6b6b8a] hover:border-white/20 hover:text-white/60"
+                  ? "border-[#059669]/40 bg-[#059669]/10 text-[#059669]"
+                  : "border-gray-200 bg-white text-gray-500 hover:border-gray-300 hover:text-gray-700"
               }`}
           >
             {r === 0 ? "All Stars" : `${r} ★`}
@@ -63,7 +63,7 @@ const ReviewsToolbar = ({
     </div>
 
     {/* Showing count */}
-    <p className="mt-3 text-[11px] uppercase tracking-[0.15em] text-[#6b6b8a]">
+    <p className="mt-3 text-[11px] uppercase tracking-[0.15em] text-gray-500">
       Showing {total} {total === 1 ? "review" : "reviews"}
     </p>
   </div>

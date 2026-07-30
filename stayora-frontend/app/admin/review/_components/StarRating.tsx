@@ -18,8 +18,8 @@ const StarRating = ({
         width={size}
         height={size}
         viewBox="0 0 24 24"
-        fill={s <= rating ? "#C9A84C" : "none"}
-        stroke={s <= rating ? "#C9A84C" : "#3a3a52"}
+        fill={s <= rating ? "#059669" : "none"}
+        stroke={s <= rating ? "#059669" : "#3a3a52"}
         strokeWidth="1.5"
         className={`shrink-0 transition-all duration-150 ${
           interactive ? "cursor-pointer hover:scale-110" : "cursor-default"

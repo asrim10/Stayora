@@ -12,7 +12,7 @@ interface ReviewModalProps {
 }
 
 const Label = ({ children }: { children: React.ReactNode }) => (
-  <span className="block mb-2 text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a]">
+  <span className="block mb-2 text-[10px] uppercase tracking-[0.15em] text-gray-500">
     {children}
   </span>
 );
@@ -44,18 +44,18 @@ const ReviewModal = ({ review, mode, onClose, onSave }: ReviewModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-1000 flex items-center justify-center p-5 bg-black/80 backdrop-blur-sm"
+      className="fixed inset-0 z-1000 flex items-center justify-center p-5 bg-black/50 backdrop-blur-sm"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="w-full max-w-130 max-h-[90vh] overflow-y-auto rounded-xl border border-white/8 bg-[#0d0d0d] shadow-2xl">
+      <div className="w-full max-w-130 max-h-[90vh] overflow-y-auto rounded-xl border border-gray-200 bg-white shadow-2xl">
         {/* Header */}
-        <div className="flex items-start justify-between px-6 pt-6 pb-5 border-b border-white/6">
+        <div className="flex items-start justify-between px-6 pt-6 pb-5 border-b border-gray-200">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a] mb-1">
+            <p className="text-[10px] uppercase tracking-[0.15em] text-gray-500 mb-1">
               Admin Panel
             </p>
             <h2
-              className="text-2xl font-bold text-white"
+              className="text-2xl font-bold text-gray-900"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
               {mode === "edit" ? "Edit Review" : "Review Details"}
@@ -63,7 +63,7 @@ const ReviewModal = ({ review, mode, onClose, onSave }: ReviewModalProps) => {
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-lg border border-white/8 text-[#6b6b8a] hover:text-white hover:border-white/20 transition-all text-lg leading-none cursor-pointer bg-transparent"
+            className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-400 hover:text-gray-900 hover:border-gray-300 transition-all text-lg leading-none cursor-pointer bg-transparent"
           >
             ×
           </button>
@@ -74,21 +74,21 @@ const ReviewModal = ({ review, mode, onClose, onSave }: ReviewModalProps) => {
             <Avatar name={review.fullName} size="lg" />
             <div>
               <p
-                className="text-base font-semibold text-white"
+                className="text-base font-semibold text-gray-900"
                 style={{ fontFamily: "'Cormorant Garamond', serif" }}
               >
                 {review.fullName}
               </p>
-              <p className="text-xs text-[#6b6b8a] mt-0.5">{review.email}</p>
+              <p className="text-xs text-gray-500 mt-0.5">{review.email}</p>
             </div>
           </div>
 
           {/* Hotel */}
-          <div className="rounded-lg border border-white/6 bg-white/2 px-4 py-3 flex items-center gap-3">
-            <span className="text-[#6b6b8a] text-lg">🏨</span>
+          <div className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 flex items-center gap-3">
+            <span className="text-gray-400 text-lg">🏨</span>
             <div>
               <Label>Hotel</Label>
-              <p className="text-sm text-white/70">{hotelName}</p>
+              <p className="text-sm text-gray-700">{hotelName}</p>
             </div>
           </div>
 
@@ -103,13 +103,13 @@ const ReviewModal = ({ review, mode, onClose, onSave }: ReviewModalProps) => {
                   interactive
                   onChange={setEditRating}
                 />
-                <span className="text-sm text-[#C9A84C]">{editRating}/5</span>
+                <span className="text-sm text-[#059669]">{editRating}/5</span>
               </div>
             ) : (
               <div className="flex items-center gap-3">
                 <StarRating rating={review.rating} size={18} />
                 <span
-                  className="text-lg font-bold text-[#C9A84C]"
+                  className="text-lg font-bold text-[#059669]"
                   style={{ fontFamily: "'Cormorant Garamond', serif" }}
                 >
                   {review.rating}/5
@@ -126,10 +126,10 @@ const ReviewModal = ({ review, mode, onClose, onSave }: ReviewModalProps) => {
                 value={editComment}
                 onChange={(e) => setEditComment(e.target.value)}
                 rows={5}
-                className="w-full bg-white/3 border border-white/8 rounded-lg text-sm text-white/80 px-4 py-3 outline-none resize-y leading-relaxed focus:border-[#C9A84C]/30 transition-colors placeholder:text-[#6b6b8a]"
+                className="w-full bg-white border border-gray-300 rounded-lg text-sm text-gray-900 px-4 py-3 outline-none resize-y leading-relaxed focus:border-[#059669]/30 transition-colors placeholder:text-gray-400"
               />
             ) : (
-              <p className="text-sm text-[#6b6b8a] leading-relaxed rounded-lg border border-white/8 px-4 py-3">
+              <p className="text-sm text-gray-500 leading-relaxed rounded-lg border border-gray-200 px-4 py-3">
                 {review.comment}
               </p>
             )}
@@ -145,7 +145,7 @@ const ReviewModal = ({ review, mode, onClose, onSave }: ReviewModalProps) => {
             ).map(([lbl, dt]) => (
               <div key={lbl}>
                 <Label>{lbl}</Label>
-                <p className="text-xs text-white/50">
+                <p className="text-xs text-gray-500">
                   {dt
                     ? new Date(dt).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -163,14 +163,14 @@ const ReviewModal = ({ review, mode, onClose, onSave }: ReviewModalProps) => {
           <div className="flex justify-end gap-2.5 px-6 pb-6">
             <button
               onClick={onClose}
-              className="px-5 py-2.5 rounded-lg border border-white/8 bg-transparent text-[#6b6b8a] text-sm hover:border-white/20 hover:text-white/70 transition-all cursor-pointer"
+              className="px-5 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-500 text-sm hover:border-gray-400 hover:text-gray-700 transition-all cursor-pointer"
             >
               Cancel
             </button>
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-5 py-2.5 rounded-lg border border-[#C9A84C]/30 bg-[#C9A84C]/10 text-[#C9A84C] text-sm font-medium hover:bg-[#C9A84C]/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="px-5 py-2.5 rounded-lg bg-[#059669] text-white text-sm font-medium hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {saving ? "Saving…" : "Save Changes"}
             </button>

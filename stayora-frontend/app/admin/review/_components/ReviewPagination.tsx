@@ -43,7 +43,7 @@ const ReviewsPagination = ({
   const pages = buildPageNumbers(page, totalPages);
 
   const baseBtn =
-    "rounded-[9px] border border-white/[0.08] bg-white/[0.04] text-[#555577] text-sm transition-all duration-200 hover:border-[#C9A84C]/40 hover:text-[#C9A84C] hover:bg-[#C9A84C]/10 cursor-pointer";
+    "rounded-[9px] border border-gray-200 bg-white text-gray-500 text-sm transition-all duration-200 hover:border-[#059669]/40 hover:text-[#059669] hover:bg-amber-50 cursor-pointer shadow-sm";
 
   return (
     <div className="mt-5 flex justify-center items-center gap-1.5">
@@ -59,7 +59,7 @@ const ReviewsPagination = ({
       {/* Page numbers */}
       {pages.map((p, idx) =>
         p === "…" ? (
-          <span key={`e${idx}`} className="px-1 text-[#333355]">
+          <span key={`e${idx}`} className="px-1 text-gray-300">
             …
           </span>
         ) : (
@@ -68,7 +68,7 @@ const ReviewsPagination = ({
             onClick={() => onPageChange(p as number)}
             className={`w-9 h-9 ${baseBtn} ${
               p === page
-                ? "border-[#C9A84C]/40! bg-[#C9A84C]/12! text-[#C9A84C]!"
+                ? "!border-[#059669]/40 !bg-amber-50 !text-[#059669]"
                 : ""
             }`}
           >

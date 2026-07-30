@@ -48,7 +48,7 @@ export default function AdminReviewsPage() {
 
   // Stat cards config — mirrors the bookings page row
   const statCards = [
-    { label: "Total", value: stats?.totalReviews ?? 0, accent: "#C9A84C" },
+    { label: "Total", value: stats?.totalReviews ?? 0, accent: "#059669" },
     {
       label: "5 Star",
       value: stats?.reviewsByRating?.[5] ?? 0,
@@ -62,7 +62,7 @@ export default function AdminReviewsPage() {
     {
       label: "3 Star",
       value: stats?.reviewsByRating?.[3] ?? 0,
-      accent: "#C9A84C",
+      accent: "#059669",
     },
     {
       label: "2 Star",
@@ -82,21 +82,21 @@ export default function AdminReviewsPage() {
         @keyframes slideInToast { from { transform:translateX(20px); opacity:0; } to { transform:translateX(0); opacity:1; } }
       `}</style>
 
-      <div className="min-h-screen bg-[#0a0a0a] text-white px-10 py-10">
+      <div className="min-h-screen bg-[#faf7f2] text-gray-900 px-10 py-10">
         <div className="max-w-350 mx-auto">
           <div className="mb-8">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-[#6b6b8a] mb-2">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-gray-500 mb-2">
               Admin Panel
             </p>
             <div className="flex items-center justify-between">
-              <h1 className="text-[56px] font-bold leading-none tracking-tight text-white uppercase font-heading">
+              <h1 className="text-[56px] font-bold leading-none tracking-tight text-gray-900 uppercase font-heading">
                 Reviews
               </h1>
               {/* Average rating badge — top right like the REFRESH button */}
               {!statsLoading && stats && (
                 <button
                   onClick={() => fetchReviews(pagination.page)}
-                  className="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-white/8 bg-white/2 text-sm text-[#6b6b8a] hover:border-white/20 hover:text-white/70 transition-all cursor-pointer"
+                  className="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm text-gray-500 hover:border-gray-300 hover:text-gray-700 transition-all cursor-pointer"
                 >
                   <svg
                     width={14}
@@ -117,14 +117,14 @@ export default function AdminReviewsPage() {
             </div>
 
             {/* Gold divider */}
-            <div className="mt-6 h-px bg-white/6" />
+            <div className="mt-6 h-px bg-gray-200" />
           </div>
 
           {/* Average badge */}
           {!statsLoading && stats && (
             <div className="flex items-center gap-3 mb-8 w-fit">
               <StarRating rating={Math.round(stats.averageRating)} size={14} />
-              <span className="text-sm text-[#C9A84C]">
+              <span className="text-sm text-[#059669]">
                 {stats.averageRating.toFixed(2)} average rating
               </span>
             </div>

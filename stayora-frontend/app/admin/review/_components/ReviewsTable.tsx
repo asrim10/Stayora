@@ -29,16 +29,16 @@ const ReviewsTable = ({
   onEdit,
   onDelete,
 }: ReviewsTableProps) => (
-  <div className="rounded-xl border border-white/8 overflow-hidden">
+  <div className="rounded-xl border border-gray-200 overflow-hidden shadow-sm">
     {/* Head */}
     <div
-      className="grid gap-4 px-6 py-3 border-b border-white/8 bg-white/2"
+      className="grid gap-4 px-6 py-3 border-b border-gray-200 bg-gray-50"
       style={{ gridTemplateColumns: COL }}
     >
       {HEADS.map((h) => (
         <span
           key={h}
-          className="text-[10px] uppercase tracking-[0.15em] text-[#6b6b8a]"
+          className="text-[10px] uppercase tracking-[0.15em] text-gray-500"
         >
           {h}
         </span>
@@ -51,7 +51,7 @@ const ReviewsTable = ({
     ) : reviews.length === 0 ? (
       <div className="py-20 text-center">
         <p className="text-4xl mb-3 opacity-30">✦</p>
-        <p className="text-sm text-[#6b6b8a] uppercase tracking-widest">
+        <p className="text-sm text-gray-500 uppercase tracking-widest">
           No reviews found
         </p>
       </div>
@@ -59,24 +59,24 @@ const ReviewsTable = ({
       reviews.map((review, i) => (
         <div
           key={review._id}
-          className="grid gap-4 px-6 py-4 items-center border-b border-white/4 last:border-none hover:bg-white/2.5 transition-colors duration-150 group"
+          className="grid gap-4 px-6 py-4 items-center border-b border-gray-100 last:border-none hover:bg-gray-50 transition-colors duration-150 group"
           style={{ gridTemplateColumns: COL }}
         >
           {/* Guest */}
           <div className="flex items-center gap-3 min-w-0">
             <Avatar name={review.fullName} />
             <div className="min-w-0">
-              <p className="text-sm text-white/80 font-medium truncate">
+              <p className="text-sm text-gray-800 font-medium truncate">
                 {review.fullName}
               </p>
-              <p className="text-xs text-[#6b6b8a] truncate mt-0.5">
+              <p className="text-xs text-gray-500 truncate mt-0.5">
                 {review.email}
               </p>
             </div>
           </div>
 
           {/* Hotel */}
-          <p className="text-sm text-white/60 truncate">
+          <p className="text-sm text-gray-500 truncate">
             {typeof review.hotelId === "object" && review.hotelId !== null
               ? ((review.hotelId as { hotelName?: string }).hotelName ?? "—")
               : "—"}
@@ -84,7 +84,7 @@ const ReviewsTable = ({
 
           {/* Comment */}
           <p
-            className="text-xs text-[#6b6b8a] leading-relaxed overflow-hidden"
+            className="text-xs text-gray-500 leading-relaxed overflow-hidden"
             style={{
               display: "-webkit-box",
               WebkitLineClamp: 2,
@@ -103,7 +103,7 @@ const ReviewsTable = ({
           </div>
 
           {/* Date */}
-          <p className="text-xs text-[#6b6b8a]">
+          <p className="text-xs text-gray-500">
             {new Date(review.createdAt).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
@@ -122,7 +122,7 @@ const ReviewsTable = ({
                 key={label}
                 title={label}
                 onClick={fn}
-                className="w-7 h-7 rounded-lg border border-white/8 bg-white/4 flex items-center justify-center text-xs hover:border-white/20 hover:bg-white/8 transition-all duration-150 cursor-pointer"
+                className="w-7 h-7 rounded-lg border border-gray-200 bg-white flex items-center justify-center text-xs hover:border-gray-300 hover:bg-gray-50 transition-all duration-150 cursor-pointer shadow-sm"
               >
                 {icon}
               </button>

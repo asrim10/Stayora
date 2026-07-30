@@ -33,7 +33,7 @@ const Avatar = ({ name, size = "md" }: AvatarProps) => {
       style={{
         background: `linear-gradient(135deg, ${bg}, ${bg}cc)`,
         border: "1.5px solid rgba(201,168,76,0.2)",
-        color: "#C9A84C",
+        color: "#059669",
         fontFamily: "'Cormorant Garamond', serif",
       }}
     >
