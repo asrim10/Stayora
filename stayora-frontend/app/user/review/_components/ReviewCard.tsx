@@ -36,35 +36,35 @@ function DeleteModal({
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/80" onClick={onCancel} />
-      <div className="relative bg-[#0d0d0d] border border-[#1a1a1a] w-[90%] max-w-md p-8">
+      <div className="absolute inset-0 bg-black/50" onClick={onCancel} />
+      <div className="relative bg-white border border-gray-200 w-[90%] max-w-md p-8 rounded-lg shadow-xl">
         <button
           onClick={onCancel}
-          className="absolute top-4 right-4 text-[#6b7280] hover:text-white bg-transparent border-none cursor-pointer text-lg leading-none"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-900 bg-transparent border-none cursor-pointer text-lg leading-none"
         >
           ✕
         </button>
-        <p className="text-[#c9a96e] text-[10px] tracking-[0.22em] uppercase mb-3">
+        <p className="text-[#059669] text-[10px] tracking-[0.22em] uppercase mb-3">
           Confirm Action
         </p>
-        <h2 className="text-white text-2xl font-bold uppercase mb-5 m-0 font-heading">
+        <h2 className="text-gray-900 text-2xl font-bold uppercase mb-5 m-0 font-heading">
           Delete Review
         </h2>
-        <p className="text-[#9ca3af] text-sm leading-relaxed mb-8">
+        <p className="text-gray-500 text-sm leading-relaxed mb-8">
           Are you sure you want to delete this review? This action cannot be
           undone.
         </p>
         <div className="flex gap-3">
           <button
             onClick={onCancel}
-            className="flex-1 border border-[#2a2a2a] bg-transparent text-[#9ca3af] text-[11px] tracking-[0.14em] uppercase py-3 cursor-pointer hover:border-[#3a3a3a] hover:text-white transition-colors"
+            className="flex-1 border border-gray-300 bg-white text-gray-500 text-[11px] tracking-[0.14em] uppercase py-3 cursor-pointer hover:border-gray-400 hover:text-gray-700 transition-colors rounded"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
             disabled={deleting}
-            className="flex-1 bg-[#7f1d1d] border border-[#7f1d1d] text-white text-[11px] tracking-[0.14em] uppercase font-bold py-3 cursor-pointer hover:bg-red-900 transition-colors disabled:opacity-50"
+            className="flex-1 bg-red-600 border border-red-600 text-white text-[11px] tracking-[0.14em] uppercase font-bold py-3 cursor-pointer hover:bg-red-700 transition-colors disabled:opacity-50 rounded"
           >
             {deleting ? "Deleting..." : "Delete"}
           </button>
@@ -143,12 +143,12 @@ export function ReviewCard({
         />
       )}
 
-      <div className="border-t border-[#1f1f1f] py-10">
+      <div className="border-t border-gray-200 py-10">
         <div
           className="grid gap-8 mb-6"
           style={{ gridTemplateColumns: "180px 1fr" }}
         >
-          <div className="h-27.5 overflow-hidden bg-[#111] shrink-0">
+          <div className="h-27.5 overflow-hidden bg-gray-100 shrink-0 rounded">
             {imageUrl && !imgError ? (
               <img
                 src={imageUrl}
@@ -158,21 +158,20 @@ export function ReviewCard({
               />
             ) : (
               <div
-                className="w-full h-full flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, #1a1a0f, #111)" }}
+                className="w-full h-full flex items-center justify-center bg-gray-200"
               >
-                <span className="text-[#2a2a2a] text-3xl">⌂</span>
+                <span className="text-gray-400 text-3xl">⌂</span>
               </div>
             )}
           </div>
 
           <div className="flex flex-col justify-center gap-1.5">
             {location && (
-              <p className="text-[#c9a96e] text-[11px] tracking-[0.15em] uppercase m-0">
+              <p className="text-[#059669] text-[11px] tracking-[0.15em] uppercase m-0">
                 {location}
               </p>
             )}
-            <h3 className="text-white text-lg font-bold uppercase m-0 font-heading"
+            <h3 className="text-gray-900 text-lg font-bold uppercase m-0 font-heading"
             >
               {hotel}
             </h3>
@@ -182,21 +181,21 @@ export function ReviewCard({
                 onChange={editing ? setEditRating : undefined}
                 size={15}
               />
-              <p className="text-[#4b5563] text-xs m-0">{date}</p>
+              <p className="text-gray-500 text-xs m-0">{date}</p>
             </div>
             <div className="flex gap-4 mt-1">
               {!editing ? (
                 <>
                   <button
                     onClick={() => setEditing(true)}
-                    className={`${actionBtnCls} text-[#6b7280] hover:text-white`}
+                    className={`${actionBtnCls} text-gray-500 hover:text-gray-900`}
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => setShowDeleteModal(true)}
                     disabled={deleting}
-                    className={`${actionBtnCls} text-[#6b7280] hover:text-[#f87171] disabled:opacity-50`}
+                    className={`${actionBtnCls} text-gray-500 hover:text-[#f87171] disabled:opacity-50`}
                   >
                     Delete
                   </button>
@@ -206,13 +205,13 @@ export function ReviewCard({
                   <button
                     onClick={save}
                     disabled={saving}
-                    className={`${actionBtnCls} text-[#c9a96e] hover:opacity-70 disabled:opacity-50`}
+                    className={`${actionBtnCls} text-[#059669] hover:opacity-70 disabled:opacity-50`}
                   >
                     {saving ? "Saving..." : "Save"}
                   </button>
                   <button
                     onClick={() => setEditing(false)}
-                    className={`${actionBtnCls} text-[#6b7280] hover:text-white`}
+                    className={`${actionBtnCls} text-gray-500 hover:text-gray-900`}
                   >
                     Cancel
                   </button>
@@ -228,10 +227,10 @@ export function ReviewCard({
               value={editComment}
               onChange={(e) => setEditComment(e.target.value)}
               rows={4}
-              className="w-full bg-transparent border border-[#222] text-[#9ca3af] text-sm leading-relaxed p-3 outline-none resize-none focus:border-[#c9a96e] transition-colors"
+              className="w-full bg-white border border-gray-300 text-gray-900 text-sm leading-relaxed p-3 outline-none resize-none focus:border-[#059669] transition-colors rounded"
             />
           ) : (
-            <p className="text-[#9ca3af] text-sm leading-relaxed m-0">
+            <p className="text-gray-500 text-sm leading-relaxed m-0">
               {review.comment}
             </p>
           )}
